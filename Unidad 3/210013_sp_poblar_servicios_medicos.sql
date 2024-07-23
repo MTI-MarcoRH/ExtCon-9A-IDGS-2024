@@ -1,4 +1,4 @@
--- Script de creacion de las tablas asignadas
+-- Script de POBLACION DE SERVICIOS MEDICOS Y DEPARTAMENTOS SERVICIOS
 -- ALEXIS GOMEZ
 -- Grado y Grupo: 9 A
 -- Ingenieria de Desarrollo  y Gestion de Software
