@@ -7,19 +7,19 @@ CREATE DEFINER=`carlos.crespo`@`%` PROCEDURE `sp_poblar_Aprobaciones`(IN v_passw
 BEGIN
     IF v_password = '1234' THEN
         -- Insertar
-		INSERT INTO tbb_aprobaciones (`id`, `pm_id`, `solicitud_id`, `comentario`, `estatus`, `tipo`, `fecha_registro`) 
+		INSERT INTO tbb_aprobaciones (`id`, `personal_medico_id`, `solicitud_id`, `comentario`, `estatus`, `tipo`, `fecha_registro`) 
 					VALUES ('1', '1', '1', 'Preuba de Solicitud', 'En Proceso', 'Servicio Interno', now());
 
-		INSERT INTO tbb_aprobaciones (`id`, `pm_id`, `solicitud_id`, `comentario`, `estatus`, `tipo`, `fecha_registro`) 
+		INSERT INTO tbb_aprobaciones (`id`, `personal_medico_id`, `solicitud_id`, `comentario`, `estatus`, `tipo`, `fecha_registro`) 
 					VALUES ('2', '2', '2', 'Traslado a la sala de Cuidados Intensivos', 'En Proceso', 'Servicio Interno', now());
 
-		INSERT INTO tbb_aprobaciones (`id`, `pm_id`, `solicitud_id`, `comentario`, `estatus`, `tipo`, `fecha_registro`) 
+		INSERT INTO tbb_aprobaciones (`id`, `personal_medico_id`, `solicitud_id`, `comentario`, `estatus`, `tipo`, `fecha_registro`) 
 					VALUES ('3', '3', '3', 'Traslado a la sala de Cuidados Intensivos', 'En Proceso', 'Servicio Interno', now());
                     
-		INSERT INTO tbb_aprobaciones (`id`, `pm_id`, `solicitud_id`, `comentario`, `estatus`, `tipo`, `fecha_registro`) 
+		INSERT INTO tbb_aprobaciones (`id`, `personal_medico_id`, `solicitud_id`, `comentario`, `estatus`, `tipo`, `fecha_registro`) 
 					VALUES ('4', '4', '4', 'Solicitud de Cunas en Area de Maternida', 'Aprobado', 'Servicio Interno', now());
                     
-		INSERT INTO tbb_aprobaciones (`id`, `pm_id`, `solicitud_id`, `comentario`, `estatus`, `tipo`, `fecha_registro`) 
+		INSERT INTO tbb_aprobaciones (`id`, `personal_medico_id`, `solicitud_id`, `comentario`, `estatus`, `tipo`, `fecha_registro`) 
 					VALUES ('5', '5', '5', 'Solicitud de Apertura de Area de Maternidad ', 'Aprobado', 'Servicio Interno', now());
         
         -- Actualizar
