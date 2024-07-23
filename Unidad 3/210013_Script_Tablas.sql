@@ -1,3 +1,11 @@
+-- Script de creacion de las tablas asignadas
+-- ALEXIS GOMEZ
+-- Grado y Grupo: 9 A
+-- Ingenieria de Desarrollo  y Gestion de Software
+ 
+
+
+
 CREATE TABLE tbc_servicios_medicos (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     Nombre VARCHAR(255),
