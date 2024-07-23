@@ -1,4 +1,4 @@
--- Script de Triggers de la tabla tbd_dispensaciones
+-- Script de Triggers de la tabla tbc_medicamentos y tbd_dispensaciones 
 
 
 -- Elaborado por : Cristian Eduardo Ojeda Gayosso
@@ -7,7 +7,114 @@
 -- Fecha elaboración: 21 de julio de 2024 
 
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Insert -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+--  -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Insert tbc_medicamentos -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbc_medicamentos_AFTER_INSERT` AFTER INSERT ON `tbc_medicamentos` FOR EACH ROW BEGIN
+    DECLARE v_estatus VARCHAR(20) DEFAULT 'Activo';
+
+    -- Validamos el estatus para asignarle su valor textual
+    IF NEW.Estatus = 0 THEN
+        SET v_estatus = 'Inactivo';
+    END IF;
+
+    INSERT INTO tbi_bitacora
+    VALUES (
+        DEFAULT, -- Asumiendo que el ID es autoincrementable y no se especifica
+        CURRENT_USER(),
+        'Create',
+        'tbc_medicamentos',
+        CONCAT_WS(' ', 
+            'Se ha insertado un nuevo medicamento con los siguientes datos:',
+            '\n Nombre Comercial:', NEW.Nombre_comercial,
+            '\n Nombre Genérico:', NEW.Nombre_generico,
+            '\n Vía de Administración:', NEW.Via_administracion,
+            '\n Presentación:', NEW.Presentacion,
+            '\n Tipo:', NEW.Tipo,
+            '\n Cantidad:', NEW.Cantidad,
+            '\n Volumen:', NEW.Volumen,
+            '\n Estatus:', v_estatus
+        ),
+        DEFAULT, -- Fecha_registro
+        DEFAULT  -- Fecha_actualizacion
+    );
+END
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Before Update tbc_medicamentos -- -- -- -- -- -- -- -- -- -- -- -- -- --
+CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbc_medicamentos_BEFORE_UPDATE` BEFORE UPDATE ON `tbc_medicamentos` FOR EACH ROW BEGIN
+	set new.Fecha_Actualizacion = current_time();
+
+END
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Update  tbc_medicamentos -- -- -- -- -- -- -- -- -- -- -- -- -- --
+CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbc_medicamentos_AFTER_UPDATE` AFTER UPDATE ON `tbc_medicamentos` FOR EACH ROW BEGIN
+    DECLARE v_estatus_old VARCHAR(20) DEFAULT 'Activo';
+    DECLARE v_estatus_new VARCHAR(20) DEFAULT 'Activo';
+
+    -- Validamos el estatus para asignarles sus valores textuales
+    IF OLD.Estatus = 0 THEN
+        SET v_estatus_old = 'Inactivo';
+    END IF;
+
+    IF NEW.Estatus = 0 THEN
+        SET v_estatus_new = 'Inactivo';
+    END IF;
+
+    INSERT INTO tbi_bitacora
+    VALUES (
+        DEFAULT, 
+        CURRENT_USER(),
+        'Update',
+        'tbc_medicamentos',
+        CONCAT_WS(' ', 
+            'Se ha actualizado el medicamento con los siguientes datos:',
+            '\n Nombre Comercial: ', OLD.Nombre_comercial, ' - ', NEW.Nombre_comercial,
+            '\n Nombre Genérico: ', OLD.Nombre_generico, ' - ', NEW.Nombre_generico,
+            '\n Vía de Administración: ', OLD.Via_administracion, ' - ', NEW.Via_administracion,
+            '\n Presentación: ', OLD.Presentacion, ' - ', NEW.Presentacion,
+            '\n Tipo: ', OLD.Tipo, ' - ', NEW.Tipo,
+            '\n Cantidad: ', OLD.Cantidad, ' - ', NEW.Cantidad,
+            '\n Volumen: ', OLD.Volumen, ' - ', NEW.Volumen,
+            '\n Estatus: ', v_estatus_old, ' - ', v_estatus_new
+        ),
+        DEFAULT, -- Fecha_registro
+        DEFAULT  -- Fecha_actualizacion
+    );
+END
+
+
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Delete  tbc_medicamentostbc_medicamentos-- -- -- -- -- -- -- -- -- -- -- -- -- --
+CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbc_medicamentos_AFTER_DELETE` AFTER DELETE ON `tbc_medicamentos` FOR EACH ROW BEGIN
+    DECLARE v_estatus_old VARCHAR(20);
+
+    -- Validamos el estatus para asignarle su valor textual
+    IF OLD.Estatus = 1 THEN
+        SET v_estatus_old = 'Activo';
+    ELSE
+        SET v_estatus_old = 'Inactivo';
+    END IF;
+
+    INSERT INTO tbi_bitacora
+    VALUES (
+        DEFAULT, -- Asumiendo que el ID es autoincrementable y no se especifica
+        CURRENT_USER(),
+        'Delete',
+        'tbc_medicamentos',
+        CONCAT_WS(' ', 
+            'Se ha eliminado el medicamento que tenía los siguientes datos:',
+            '\n Nombre Comercial:', OLD.Nombre_comercial,
+            '\n Nombre Genérico:', OLD.Nombre_generico,
+            '\n Estatus:', v_estatus_old
+        ),
+        DEFAULT, -- Fecha_registro
+        DEFAULT  -- Fecha_actualizacion
+    );
+END
+
+
+
+
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Insert  - tbd_dispensaciones -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbd_dispensaciones_AFTER_INSERT` AFTER INSERT ON `tbd_dispensaciones` FOR EACH ROW BEGIN
     DECLARE v_estatus_new VARCHAR(50) DEFAULT 'Activo';
     DECLARE v_tipo_new VARCHAR(50) DEFAULT 'Desconocido';
@@ -78,13 +185,13 @@ CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbd_dispensaciones_AFTER_INSERT` AF
     );
 END
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Before Update -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Before Update - tbd_dispensaciones -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 CREATE DEFINER=`root`@`localhost` TRIGGER `tbd_dispensaciones_BEFORE_UPDATE` BEFORE UPDATE ON `tbd_dispensaciones` FOR EACH ROW BEGIN
 	set new.Fecha_Actualizacion = current_time();
 END
 
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Update -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Update - tbd_dispensaciones -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbd_dispensaciones_AFTER_UPDATE` AFTER UPDATE ON `tbd_dispensaciones` FOR EACH ROW BEGIN
     DECLARE v_estatus_old VARCHAR(50) DEFAULT 'Activo';
@@ -196,7 +303,7 @@ CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbd_dispensaciones_AFTER_UPDATE` AF
     );
 END
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Delete -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Delete - tbd_dispensaciones -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbd_dispensaciones_AFTER_DELETE` AFTER DELETE ON `tbd_dispensaciones` FOR EACH ROW BEGIN
     DECLARE v_estatus_old VARCHAR(50) DEFAULT 'Activo';
     DECLARE v_solicitud_id_old VARCHAR(50);
