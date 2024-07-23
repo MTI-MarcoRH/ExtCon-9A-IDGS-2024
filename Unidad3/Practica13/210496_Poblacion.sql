@@ -17,11 +17,14 @@ SELECT * FROM tbd_solicitudes;
 SELECT * FROM tbi_bitacora WHERE tabla= "tbd_solicitudes" ORDER BY ID DESC;
 
 -- 4. Realizamos una consulta joing para visualizar los datos poblados. 
-SELECT p.id, CONCAT_WS(' ', NULLIF(p.titulo, ""), p.nombre, p.primer_apellido, p.segundo_apellido) as NombreCompleto,
-pm.Especialidad, pm.tipo, d.nombre
-FROM tbb_personas p
-JOIN tbb_personal_medico pm ON p.id = pm.persona_id
-JOIN tbc_departamentos d ON d.id=pm.departamento_id;
+SELECT s.ID AS Solicitud_ID,
+CONCAT_WS(" ", p.Nombre, p.Primer_Apellido, p.Segundo_Apellido) AS "Nombre Del Paciente",
+CONCAT_WS(" ", m.Nombre, m.Primer_Apellido, m.Segundo_Apellido) AS "Nombre Del Medico",
+sv.nombre AS "Nombre Del Servicio", s.Prioridad, s.Descripcion, s.Estatus AS "Estatus"
+FROM tbd_solicitudes s
+LEFT JOIN  tbb_personas p ON s.Paciente_ID = p.id
+LEFT JOIN  tbb_personas m ON s.Medico_ID = m.id
+LEFT JOIN  tbc_servicios_medicos sv ON s.Servicio_ID = sv.id;
 
 
 
