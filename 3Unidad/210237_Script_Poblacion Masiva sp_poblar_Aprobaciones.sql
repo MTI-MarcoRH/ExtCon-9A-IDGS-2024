@@ -1,3 +1,8 @@
+-- Scrip de la Creacion del Procedimeinto Masivo sp_poblar_aprobaciones();
+-- Elaborado por Carlos Iván Crespo Alvarado
+-- Programa Educativo: Ingenieria de Desarrollo y Gestion de Software
+-- Fecha de Elaboración: 22 de julio de 2024
+
 CREATE DEFINER=`carlos.crespo`@`%` PROCEDURE `sp_insertar_aprobaciones`(IN num_solicitudes INT)
 BEGIN
     DECLARE i INT DEFAULT 1;

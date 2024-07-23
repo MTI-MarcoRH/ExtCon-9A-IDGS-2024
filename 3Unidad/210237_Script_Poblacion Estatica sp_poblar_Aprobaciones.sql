@@ -1,3 +1,8 @@
+-- Scrip de la Creacion del Procedimeinto Estatico sp_poblar_Aprobaciones('1234')
+-- Elaborado por Carlos Iván Crespo Alvarado
+-- Programa Educativo: Ingenieria de Desarrollo y Gestion de Software
+-- Fecha de Elaboración: 22 de julio de 2024
+
 CREATE DEFINER=`carlos.crespo`@`%` PROCEDURE `sp_poblar_Aprobaciones`(IN v_password VARCHAR(255))
 BEGIN
     IF v_password = '1234' THEN

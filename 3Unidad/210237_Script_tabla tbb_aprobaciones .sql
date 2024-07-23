@@ -1,3 +1,8 @@
+-- Scrip de la Creacion de la Tabla Asignada
+--Elaborado por Carlos Iván Crespo Alvarado
+-- Programa Educativo: Ingenieria de Desarrollo y Gestion de Software
+-- Fecha de Elaboración: 22 de julio de 2024
+
 CREATE TABLE `tbb_aprobaciones` (
   `ID` int NOT NULL,
   `Personal_Medico_ID` int NOT NULL,
