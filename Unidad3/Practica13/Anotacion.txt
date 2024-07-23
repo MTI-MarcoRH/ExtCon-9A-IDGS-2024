@@ -1,0 +1,16 @@
+Para poder realizar la limpieza de la base completa de datos se realizo una modificacion:
+
+Se coloco :
+    DELETE FROM tbd_solicitudes;
+	ALTER TABLE tbd_solicitudes AUTO_INCREMENT=1;
+
+En la parte de hasat arriba, mas especifico debajo de: DELETE FROM tbd_usuarios_roles;
+Ya que para poder eliminar pacientes, medicos y servicios, es necesario eliminar las solicitudes,
+pero por un error de FK`S es necesario borrar las solicitudes primero, mas o menos quedaria asi:
+
+    -- Eliminamos los datos de las tablas débiles
+    DELETE FROM tbd_usuarios_roles;
+    DELETE FROM tbb_citas_medicas;
+    ALTER TABLE tbb_citas_medicas AUTO_INCREMENT=1;
+    DELETE FROM tbd_solicitudes;
+	ALTER TABLE tbd_solicitudes AUTO_INCREMENT=1;
