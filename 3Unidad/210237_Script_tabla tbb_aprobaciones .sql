@@ -5,12 +5,16 @@
 
 CREATE TABLE `tbb_aprobaciones` (
   `ID` int NOT NULL,
-  `Personal_Medico_ID` int NOT NULL,
-  `Solicitud_ID` int NOT NULL,
+  `Personal_Medico_ID` int unsigned NOT NULL,
+  `Solicitud_ID` int unsigned NOT NULL,
   `Comentario` text,
   `Estatus` enum('En Proceso','Pausado','Aprobado','Reprogramado','Cancelado') NOT NULL,
   `Tipo` enum('Servicio Interno','Traslados','Subrogado','Administrativo') NOT NULL,
   `Fecha_Registro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Fecha_Actualizacion` datetime DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ;
+  PRIMARY KEY (`ID`),
+  KEY `fk_aprobaciones_idx` (`Personal_Medico_ID`),
+  KEY `fk_aprobaciones_solicitud_idx` (`Solicitud_ID`),
+  CONSTRAINT `fk_aprobaciones_personal_medico` FOREIGN KEY (`Personal_Medico_ID`) REFERENCES `tbb_personal_medico` (`Persona_ID`),
+  CONSTRAINT `fk_aprobaciones_solicitud` FOREIGN KEY (`Solicitud_ID`) REFERENCES `tbd_solicitudes` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
