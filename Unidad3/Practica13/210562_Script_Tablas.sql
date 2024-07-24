@@ -1,4 +1,4 @@
--- SCRIP DE CREQACIÓN DE LA TABLA ASIGNADA
+-- SCRIP DE CREACIÓN DE LA TABLA ASIGNADA
 
 -- Elaborado por: Jose Angel Gomez Ortiz
 -- Grado y Grupo: 9° A
