@@ -48,8 +48,20 @@ SELECT * FROM tbd_hoarios;
 SELECT * FROM tbi_bitacora WHERE tabla= "tbd_horarios" ORDER BY ID DESC;
 
 -- 4. Realizamos una consulta joing para visualizar los datos poblados. 
-SELECT p.id, CONCAT_WS(' ', NULLIF(p.titulo, ""), p.nombre, p.primer_apellido, p.segundo_apellido) as NombreCompleto,
-pm.Especialidad, pm.tipo, d.nombre
-FROM tbb_personas p
-JOIN tbb_personal_medico pm ON p.id = pm.persona_id
-JOIN tbc_departamentos d ON d.id=pm.departamento_id;
+SELECT 
+    h.empleado_id, 
+    CONCAT_WS(' ', NULLIF(p.titulo, ''), p.nombre, p.primer_apellido, p.segundo_apellido) AS NombreCompleto,
+    pm.Especialidad, 
+    h.dia_semana, 
+    h.hora_inicio, 
+    h.hora_fin, 
+    h.turno, 
+    d.nombre AS NombreDepartamento
+FROM 
+    tbd_horarios h
+JOIN 
+    tbb_personas p ON h.empleado_id = p.id
+JOIN 
+    tbb_personal_medico pm ON p.id = pm.persona_id
+JOIN 
+    tbc_departamentos d ON pm.departamento_id = d.id;
