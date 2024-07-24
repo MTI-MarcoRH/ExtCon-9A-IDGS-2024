@@ -16,10 +16,7 @@ SELECT * FROM tbc_estudios;
 -- 3. Verificamos el registro de los eventos en bitacora
 SELECT * FROM tbi_bitacora WHERE tabla= "tbc_estudios" ORDER BY ID DESC;
 
--- 4. Realizamos una consulta joing para visualizar los datos poblados.
-
-
-
+-- 4. Procedimiento de poblar Estudios
 
 CREATE DEFINER=`Juan.cruz`@`%` PROCEDURE `sp_poblar_estudios`(v_password VARCHAR(60))
 BEGIN
