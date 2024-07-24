@@ -1,86 +1,155 @@
 -- SCRIPT DE CRECACIÓN DE TABLAS ASIGNADAS
 
--- Elaborado por: M.T.I. Marco A. Ramírez Hernández
+-- Elaborado por:Diego Oliver Basilio
 -- Grado y Grupo:  9° A 
 -- Programa Educativo: Ingeniería de Desarrollo y Gestión de Software 
--- Fecha elaboración:  18 de Julio de 2024
+-- Fecha elaboración:  24 de Julio de 2024
 
 
--- Triggers para la tabla de Usuarios
--- 1) AFTER INSERT USUARIOS
-DELIMITER &&
-CREATE DEFINER=`root`@`localhost` TRIGGER `tbb_usuarios_AFTER_INSERT` AFTER INSERT ON `tbb_usuarios` FOR EACH ROW BEGIN
+-- Triggers para la tabla de horarios
 
-	INSERT INTO tbi_bitacora VALUES
-    (DEFAULT,
-    current_user(), 
-    'Create', 
-    'tbb_usuarios', 
-    CONCAT_WS(' ','Se ha creado un nuevo usuario con los siguientes datos:',
-    'ID: ', new.id, '\n',
-    'PERSONA ID: ', new.persona_id, '\n',
-    'NOMBRE USUARIO: ', new.nombre_usuario, '\n',
-    'CORREO ELECTRÓNICO: ', new.correo_electronico, '\n',
-    'CONTRASEÑA: ', new.contrasena, '\n',
-    'NÚMERO TELEFÓNICO MÓVIL: ', new.numero_telefonico_movil, '\n',
-    'ESTATUS: ', new.estatus, '\n'),
-    DEFAULT, DEFAULT);
-
-END
-&&
-DELIMITER ;
-
--- 2) BEFORE UPDATE
-DELIMITER &&
-CREATE DEFINER=`root`@`localhost` TRIGGER `tbb_usuarios_BEFORE_UPDATE` BEFORE UPDATE ON `tbb_usuarios` FOR EACH ROW BEGIN
-	SET new.fecha_actualizacion = current_timestamp();
-END
-&&
-DELIMITER ;
-
-
--- 3) AFTER UPDATE
-DELIMITER &&
-&&
-CREATE DEFINER=`root`@`localhost` TRIGGER `tbb_usuarios_AFTER_UPDATE` AFTER UPDATE ON `tbb_usuarios` FOR EACH ROW BEGIN
-INSERT INTO tbi_bitacora VALUES
-    (DEFAULT,
-    current_user(), 
-    'Update', 
-    'tbb_usuarios', 
-    CONCAT_WS(' ','Se ha creado un modificado ul usuario con ID :', old.id,"con los 
-    siguientes datos: \n",
-    'PERSONA ID: ', old.persona_id, ' - ', new.persona_id, '\n',
-    'NOMBRE USUARIO: ', old.nombre_usuario, ' - ', new.nombre_usuario, '\n',
-    'CORREO ELECTRÓNICO: ', old.correo_electronico, ' - ',new.correo_electronico, '\n',
-    'CONTRASEÑA: ', old.contrasena, ' - ',new.contrasena, '\n',
-    'NÚMERO TELEFÓNICO MÓVIL: ', old.numero_telefonico_movil, ' - ',new.numero_telefonico_movil, '\n',
-    'ESTATUS: ', old.estatus, ' - ',new.estatus, '\n'),
-    DEFAULT, DEFAULT);
-END
-DELIMITER ;
-
--- 4) AFTER DELETE
-DELIMITER &&
-&&
-CREATE DEFINER=`root`@`localhost` TRIGGER `tbb_usuarios_AFTER_DELETE` AFTER DELETE ON `tbb_usuarios` FOR EACH ROW BEGIN
-INSERT INTO tbi_bitacora VALUES
-    (DEFAULT,
-    current_user(), 
-    'Delete', 
-    'tbb_usuarios', 
-    CONCAT_WS(' ','Se ha eliminado un usuario existente con los siguientes datos:',
-    'ID: ', old.id, '\n',
-    'PERSONA ID: ', old.persona_id, '\n',
-    'NOMBRE USUARIO: ', old.nombre_usuario, '\n',
-    'CORREO ELECTRÓNICO: ', old.correo_electronico, '\n',
-    'CONTRASEÑA: ', old.contrasena, '\n',
-    'NÚMERO TELEFÓNICO MÓVIL: ', old.numero_telefonico_movil, '\n',
-    'ESTATUS: ', old.estatus, '\n'),
-    DEFAULT, DEFAULT);
-END
-DELIMITER ;
+-- 1) AFTER INSERT horarios
+CREATE DEFINER=`DiegoOliver`@`%` TRIGGER `tbd_horarios_AFTER_INSERT` 
+AFTER INSERT ON `tbd_horarios` 
+FOR EACH ROW 
+BEGIN
+    INSERT INTO tbi_bitacora (
+        Usuario,
+        Operacion,
+        Tabla,
+        Descripcion,
+        Estatus,
+        Fecha_Registro
+    ) VALUES (
+        CURRENT_USER(),
+        'Create',
+        'tbd_horarios',
+        CONCAT_WS(' ', 'Se ha agregado un nuevo horario con los siguientes datos:',
+            '\n ID Empleado:', NEW.empleado_id,
+            '\n Nombre:', NEW.nombre,
+            '\n Especialidad:', NEW.especialidad,
+            '\n Día de la Semana:', NEW.dia_semana,
+            '\n Hora de Inicio:', NEW.hora_inicio,
+            '\n Hora de Fin:', NEW.hora_fin,
+            '\n Turno:', NEW.turno,
+            '\n Departamento:', NEW.nombre_departamento,
+            '\n Sala:', NEW.nombre_sala),
+        b'1',
+        CURRENT_TIMESTAMP()
+    );
+END ;;
 
 
+-- 2) BEFORE UPDAE horarios
+CREATE DEFINER=`DiegoOliver`@`%` TRIGGER `tbd_horarios_BEFORE_UPDATE` 
+BEFORE UPDATE ON `tbd_horarios` 
+FOR EACH ROW 
+BEGIN
+    INSERT INTO tbi_bitacora (
+        Usuario,
+        Operacion,
+        Tabla,
+        Descripcion,
+        Estatus,
+        Fecha_Registro
+    ) VALUES (
+        CURRENT_USER(),
+        'Update',
+        'tbd_horarios',
+        CONCAT_WS(' ', 'Se ha actualizado un horario con los siguientes cambios:',
+            '\n ID Empleado:', OLD.empleado_id, '->', NEW.empleado_id,
+            '\n Nombre:', OLD.nombre, '->', NEW.nombre,
+            '\n Especialidad:', OLD.especialidad, '->', NEW.especialidad,
+            '\n Día de la Semana:', OLD.dia_semana, '->', NEW.dia_semana,
+            '\n Hora de Inicio:', OLD.hora_inicio, '->', NEW.hora_inicio,
+            '\n Hora de Fin:', OLD.hora_fin, '->', NEW.hora_fin,
+            '\n Turno:', OLD.turno, '->', NEW.turno,
+            '\n Departamento:', OLD.nombre_departamento, '->', NEW.nombre_departamento,
+            '\n Sala:', OLD.nombre_sala, '->', NEW.nombre_sala),
+        b'1',
+        CURRENT_TIMESTAMP()
+    );
+END ;;
 
+--3) AFTER UPDATE horarios
+CREATE DEFINER=`DiegoOliver`@`%` TRIGGER `tbd_horarios_AFTER_UPDATE` 
+AFTER UPDATE ON `tbd_horarios` 
+FOR EACH ROW 
+BEGIN
+    DECLARE v_turno_old VARCHAR(20) DEFAULT 'Activo';
+    DECLARE v_turno_new VARCHAR(20) DEFAULT 'Activo';
 
+    IF NEW.turno = 'Inactivo' THEN
+        SET v_turno_new = 'Inactivo';
+    ELSEIF NEW.turno = 'Bloqueado' THEN
+        SET v_turno_new = 'Bloqueado';
+    ELSEIF NEW.turno = 'Suspendido' THEN
+        SET v_turno_new = 'Suspendido';
+    END IF;
+
+    IF OLD.turno = 'Inactivo' THEN
+        SET v_turno_old = 'Inactivo';
+    ELSEIF OLD.turno = 'Bloqueado' THEN
+        SET v_turno_old = 'Bloqueado';
+    ELSEIF OLD.turno = 'Suspendido' THEN
+        SET v_turno_old = 'Suspendido';
+    END IF;
+
+    INSERT INTO tbi_bitacora (
+        Usuario,
+        Operacion,
+        Tabla,
+        Descripcion,
+        Estatus,
+        Fecha_Registro
+    ) VALUES (
+        CURRENT_USER(),
+        'Update',
+        'tbd_horarios',
+        CONCAT_WS(' ', 'Se ha modificado el horario existente con los siguientes datos:',
+            '\n ID Empleado:', OLD.empleado_id, '-', NEW.empleado_id,
+            '\n Nombre:', OLD.nombre, '-', NEW.nombre,
+            '\n Especialidad:', OLD.especialidad, '-', NEW.especialidad,
+            '\n Día de la Semana:', OLD.dia_semana, '-', NEW.dia_semana,
+            '\n Hora de Inicio:', OLD.hora_inicio, '-', NEW.hora_inicio,
+            '\n Hora de Fin:', OLD.hora_fin, '-', NEW.hora_fin,
+            '\n Turno:', v_turno_old, '-', v_turno_new,
+            '\n Departamento:', OLD.nombre_departamento, '-', NEW.nombre_departamento,
+            '\n Sala:', OLD.nombre_sala, '-', NEW.nombre_sala),
+        b'1',
+        CURRENT_TIMESTAMP()
+    );
+END ;;
+
+-- 3) BEFORE DELETE horarios
+CREATE DEFINER=`DiegoOliver`@`%` TRIGGER `tbd_horarios_AFTER_DELETE` 
+AFTER DELETE ON `tbd_horarios` 
+FOR EACH ROW 
+BEGIN
+    DECLARE v_turno VARCHAR(20) DEFAULT 'Activo';
+
+    INSERT INTO tbi_bitacora (
+        Usuario,
+        Operacion,
+        Tabla,
+        Descripcion,
+        Estatus,
+        Fecha_Registro
+    ) VALUES (
+        CURRENT_USER(),
+        'Delete',
+        'tbd_horarios',
+        CONCAT_WS(' ', 'Se ha eliminado un horario con los siguientes datos:',
+            '\n ID Empleado:', OLD.empleado_id,
+            '\n Nombre:', OLD.nombre,
+            '\n Especialidad:', OLD.especialidad,
+            '\n Día de la Semana:', OLD.dia_semana,
+            '\n Hora de Inicio:', OLD.hora_inicio,
+            '\n Hora de Fin:', OLD.hora_fin,
+            '\n Turno:', v_turno,
+            '\n Departamento:', OLD.nombre_departamento,
+            '\n Sala:', OLD.nombre_sala),
+        b'1',
+        CURRENT_TIMESTAMP()
+    );
+END ;;
