@@ -3,50 +3,59 @@
 -- Programa Educativo: Ingenieria de Desarrollo y Gestion de Software
 -- Fecha de Elaboración: 22 de julio de 2024
 
-CREATE DEFINER=`carlos.crespo`@`%` PROCEDURE `sp_insertar_aprobaciones`(IN num_solicitudes INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insertar_aprobaciones`()
 BEGIN
-    DECLARE i INT DEFAULT 1;
-    DECLARE status ENUM('En Proceso', 'Pausado', 'Aprobado', 'Reprogramado', 'Cancelado');
-    DECLARE tipo ENUM('Servicio Interno', 'Traslados', 'Subrogado', 'Administrativo');
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE p_medico_id INT;
+    DECLARE solicitud_id INT;
     DECLARE comentario TEXT;
+    DECLARE random_status ENUM('En Proceso', 'Pausado', 'Aprobado', 'Reprogramado', 'Cancelado');
+    DECLARE random_type ENUM('Servicio Interno', 'Traslados', 'Subrogado', 'Administrativo');
+    DECLARE num_solicitudes INT;
+    DECLARE num_medicos INT;
     DECLARE idx INT;
+    DECLARE random_index INT;
+    DECLARE last_insert_id INT;
+    DECLARE inserted_rows INT DEFAULT 0;
     DECLARE fecha_registro DATETIME;
     DECLARE fecha_actualizacion DATETIME;
 
-    WHILE i <= num_solicitudes DO
-        -- Generar fecha de registro aleatoria entre el año 2000 y la fecha actual
-        SET fecha_registro = DATE_ADD('2000-01-01', INTERVAL FLOOR(RAND() * DATEDIFF(NOW(), '2000-01-01')) DAY);
-        SET fecha_registro = DATE_ADD(fecha_registro, INTERVAL FLOOR(RAND() * 24) HOUR); -- Agregar horas aleatorias
-        SET fecha_registro = DATE_ADD(fecha_registro, INTERVAL FLOOR(RAND() * 60) MINUTE); -- Agregar minutos aleatorios
-        SET fecha_registro = DATE_ADD(fecha_registro, INTERVAL FLOOR(RAND() * 60) SECOND); -- Agregar segundos aleatorios
+    -- Cursors
+    DECLARE solicitud_cursor CURSOR FOR 
+        SELECT ID FROM tbd_solicitudes;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
-        -- Generar valores aleatorios para cada iteración
-        SET tipo = ELT(FLOOR(1 + (RAND() * 4)), 'Servicio Interno', 'Traslados', 'Subrogado', 'Administrativo');
-        SET status = ELT(FLOOR(1 + (RAND() * 5)), 'En Proceso', 'Pausado', 'Aprobado', 'Reprogramado', 'Cancelado');
+    -- Get the total number of Solicitud_IDs
+    SELECT COUNT(*) INTO num_solicitudes FROM tbd_solicitudes;
 
-        -- Verificar si hay una actualización previa para esta solicitud y si el nuevo status es "En Proceso"
-        SELECT MAX(fecha_actualizacion) INTO fecha_actualizacion
-        FROM tbb_aprobaciones
-        WHERE solicitud_id = i;
+    -- Get the total number of Personal_Medico_IDs
+    SELECT COUNT(*) INTO num_medicos FROM tbb_personal_medico;
 
-        IF fecha_actualizacion IS NOT NULL AND status = 'En Proceso' THEN
-            -- Si hay una fecha de actualización previa y el nuevo estatus es "En Proceso", seleccionar otro estatus aleatorio que no sea "En Proceso"
-            SET status = ELT(FLOOR(2 + (RAND() * 4)), 'Pausado', 'Aprobado', 'Reprogramado', 'Cancelado'); -- Evitar 'En Proceso'
-        ELSE
-            -- Generar fecha de actualización dentro de un rango de 2 a 3 días si el estatus no está en "En Proceso"
-            IF status != 'En Proceso' THEN
-                SET fecha_actualizacion = DATE_ADD(fecha_registro, INTERVAL 2 + FLOOR(RAND() * 2) DAY); -- Fecha aleatoria entre 2 y 3 días después de la fecha de registro
-                SET fecha_actualizacion = DATE_ADD(fecha_actualizacion, INTERVAL FLOOR(RAND() * 24) HOUR); -- Agregar horas aleatorias
-                SET fecha_actualizacion = DATE_ADD(fecha_actualizacion, INTERVAL FLOOR(RAND() * 60) MINUTE); -- Agregar minutos aleatorios
-                SET fecha_actualizacion = DATE_ADD(fecha_actualizacion, INTERVAL FLOOR(RAND() * 60) SECOND); -- Agregar segundos aleatorios
-            ELSE
-                SET fecha_actualizacion = NULL; -- Dejar fecha_actualizacion como NULL si el estatus es "En Proceso"
-            END IF;
+    -- Open cursor for Solicitud_IDs
+    OPEN solicitud_cursor;
+
+    -- Loop through Solicitud_IDs
+    solicitud_loop: LOOP
+        FETCH solicitud_cursor INTO solicitud_id;
+        IF done THEN
+            LEAVE solicitud_loop;  -- Exit loop when no more Solicitud_IDs
         END IF;
 
-        SET idx = FLOOR(1 + (RAND() * 100)); -- Generar un número aleatorio entre 1 y 100
+        -- Select a random Personal_Medico_ID for this Solicitud_ID
+        SET random_index = FLOOR(1 + (RAND() * num_medicos));
 
-        -- Selección de comentario aleatorio
+        -- Retrieve a random Personal_Medico_ID
+        SET @sql = CONCAT('SELECT Persona_ID INTO @p_medico_id FROM tbb_personal_medico ORDER BY RAND() LIMIT 1');
+        PREPARE stmt FROM @sql;
+        EXECUTE stmt;
+        DEALLOCATE PREPARE stmt;
+
+        -- Generate random values
+        SET idx = FLOOR(1 + (RAND() * 100));
+        SET random_status = ELT(FLOOR(1 + (RAND() * 5)), 'En Proceso', 'Pausado', 'Aprobado', 'Reprogramado', 'Cancelado');
+        SET random_type = ELT(FLOOR(1 + (RAND() * 4)), 'Servicio Interno', 'Traslados', 'Subrogado', 'Administrativo');
+
+        -- Select a random comment
         CASE idx
             WHEN 1 THEN SET comentario = 'Paciente muestra signos de mejoría.';
             WHEN 2 THEN SET comentario = 'Requiere monitoreo constante.';
@@ -132,10 +141,10 @@ BEGIN
             WHEN 82 THEN SET comentario = 'Evaluar por posibles trastornos del sueño.';
             WHEN 83 THEN SET comentario = 'Paciente con historial de cáncer.';
             WHEN 84 THEN SET comentario = 'Programar seguimiento oncológico.';
-            WHEN 85 THEN SET comentario = 'Paciente presenta hipertensión arterial.';
-            WHEN 86 THEN SET comentario = 'Ajustar medicación antihipertensiva.';
-            WHEN 87 THEN SET comentario = 'Realizar evaluación oftalmológica.';
-            WHEN 88 THEN SET comentario = 'Paciente con dolor abdominal persistente.';
+            WHEN 85 THEN SET comentario = 'Paciente requiere cuidados paliativos.';
+            WHEN 86 THEN SET comentario = 'Administrar analgésicos según necesidad.';
+            WHEN 87 THEN SET comentario = 'Paciente con signos de infección urinaria.';
+            WHEN 88 THEN SET comentario = 'Iniciar tratamiento con antibióticos.';
             WHEN 89 THEN SET comentario = 'Realizar endoscopia digestiva alta.';
             WHEN 90 THEN SET comentario = 'Paciente con antecedentes de asma.';
             WHEN 91 THEN SET comentario = 'Administrar corticosteroides inhalados.';
@@ -151,26 +160,56 @@ BEGIN
             ELSE SET comentario = 'No hay comentarios adicionales.';
         END CASE;
 
-        -- Insertar la solicitud en la tabla
-        INSERT INTO tbb_aprobaciones (id, personal_medico_id, solicitud_id, comentario, estatus, tipo, fecha_registro, fecha_actualizacion)
-        VALUES (i, i, i, comentario, status, tipo, fecha_registro, fecha_actualizacion);
+        -- Generar fecha de registro aleatoria entre el año 2000 y la fecha actual
+        SET fecha_registro = DATE_ADD('2000-01-01', INTERVAL FLOOR(RAND() * DATEDIFF(NOW(), '2000-01-01')) DAY);
+        SET fecha_registro = DATE_ADD(fecha_registro, INTERVAL FLOOR(RAND() * 24) HOUR); -- Agregar horas aleatorias
+        SET fecha_registro = DATE_ADD(fecha_registro, INTERVAL FLOOR(RAND() * 60) MINUTE); -- Agregar minutos aleatorios
+        SET fecha_registro = DATE_ADD(fecha_registro, INTERVAL FLOOR(RAND() * 60) SECOND); -- Agregar segundos aleatorios
+
+        -- Verificar si hay una actualización previa para esta solicitud y si el nuevo status es "En Proceso"
+        SELECT MAX(fecha_actualizacion) INTO fecha_actualizacion
+        FROM tbb_aprobaciones
+        WHERE solicitud_id = solicitud_id;
+
+        IF fecha_actualizacion IS NOT NULL AND random_status = 'En Proceso' THEN
+            -- Si hay una fecha de actualización previa y el nuevo estatus es "En Proceso", seleccionar otro estatus aleatorio que no sea "En Proceso"
+            SET random_status = ELT(FLOOR(2 + (RAND() * 4)), 'Pausado', 'Aprobado', 'Reprogramado', 'Cancelado'); -- Evitar 'En Proceso'
+        END IF;
+
+        -- Generar fecha de actualización dentro de un rango de 2 a 3 días si el estatus no está en "En Proceso"
+        IF random_status != 'En Proceso' THEN
+            SET fecha_actualizacion = DATE_ADD(fecha_registro, INTERVAL 2 + FLOOR(RAND() * 2) DAY); -- Fecha aleatoria entre 2 y 3 días después de la fecha de registro
+            SET fecha_actualizacion = DATE_ADD(fecha_actualizacion, INTERVAL FLOOR(RAND() * 24) HOUR); -- Agregar horas aleatorias
+            SET fecha_actualizacion = DATE_ADD(fecha_actualizacion, INTERVAL FLOOR(RAND() * 60) MINUTE); -- Agregar minutos aleatorios
+            SET fecha_actualizacion = DATE_ADD(fecha_actualizacion, INTERVAL FLOOR(RAND() * 60) SECOND); -- Agregar segundos aleatorios
+        ELSE
+            SET fecha_actualizacion = NULL; -- Dejar fecha_actualizacion como NULL si el estatus es "En Proceso"
+        END IF;
+
+        -- Insert into tbb_aprobaciones
+        INSERT INTO tbb_aprobaciones (Personal_Medico_ID, Solicitud_ID, Comentario, Estatus, Tipo, Fecha_Registro, Fecha_Actualizacion)
+        VALUES (@p_medico_id, solicitud_id, comentario, random_status, random_type, fecha_registro, fecha_actualizacion);
+
+        -- Obtener el ID del registro insertado
+        SET last_insert_id = LAST_INSERT_ID();
+        SET inserted_rows = inserted_rows + 1;
 
         -- Actualizar aleatoriamente algunos registros después de la inserción
-        IF RAND() < 0.5 THEN -- Aproximadamente el 50% de las veces
+        IF RAND() < 0.5 AND inserted_rows < num_solicitudes - 1 THEN -- Aproximadamente el 50% de las veces
             -- Generar un nuevo tipo y estatus aleatorio para un registro aleatorio
             UPDATE tbb_aprobaciones
-            SET tipo = ELT(FLOOR(1 + (RAND() * 4)), 'Servicio Interno', 'Traslados', 'Subrogado', 'Administrativo'),
-                estatus = ELT(FLOOR(1 + (RAND() * 5)), 'En Proceso', 'Pausado', 'Aprobado', 'Reprogramado', 'Cancelado')
-            WHERE id = i AND estatus != 'En Proceso'; -- Evitar actualizar a 'En Proceso'
-        END IF;
-        
-        -- Eliminar Registros de manera aleatoria
-        IF RAND() < 0.2 then  -- Aproximadamente el 20% de las veces
-			DELETE FROM tbb_aprobaciones 
-			WHERE id = i; -- Elimina el Registro actual
+            SET Tipo = ELT(FLOOR(1 + (RAND() * 4)), 'Servicio Interno', 'Traslados', 'Subrogado', 'Administrativo'),
+                Estatus = ELT(FLOOR(1 + (RAND() * 5)), 'En Proceso', 'Pausado', 'Aprobado', 'Reprogramado', 'Cancelado')
+            WHERE id = last_insert_id AND Estatus != 'En Proceso'; -- Evitar actualizar a 'En Proceso'
         END IF;
 
-        -- Incrementar el contador
-        SET i = i + 1;
-    END WHILE;
+        -- Eliminar Registros de manera aleatoria
+        IF RAND() < 0.2 AND inserted_rows < num_solicitudes - 1 THEN  -- Aproximadamente el 20% de las veces
+            DELETE FROM tbb_aprobaciones 
+            WHERE id = last_insert_id; -- Elimina el Registro actual
+        END IF;
+
+    END LOOP;
+
+    CLOSE solicitud_cursor;
 END
