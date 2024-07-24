@@ -1,12 +1,15 @@
 -- Scrip de la Creacion de Triggers (BEFORE_INSERT, BEFORE_UPDATE, AFTER_UPDATE, AFTER_DELETE )
 -- Elaborado por Carlos Iván Crespo Alvarado
+-- Grado y Grupo:  9° A 
 -- Programa Educativo: Ingenieria de Desarrollo y Gestion de Software
 -- Fecha de Elaboración: 22 de julio de 2024
 -----------------------------------------------------------------------------------------------------
 
-
--- tbb_aprobaciones_BEFORE_INSERT
+-- Triggers para la tabla Aprobaciones
+-- 1) BEFORE_INSERT
 ------------------------------------------------------------------------------------------------------
+DELIMITER &&
+
 CREATE DEFINER=`carlos.crespo`@`%` TRIGGER `tbb_aprobaciones_BEFORE_INSERT` BEFORE INSERT ON `tbb_aprobaciones` FOR EACH ROW BEGIN
     -- Declaración de variables
     DECLARE v_estatus_descripcion VARCHAR(20) DEFAULT 'En Proceso';
@@ -102,20 +105,30 @@ CREATE DEFINER=`carlos.crespo`@`%` TRIGGER `tbb_aprobaciones_BEFORE_INSERT` BEFO
     );
 END
 
+&&
+DELIMITER ;
 ------------------------------------------------------------------------------------------------------
 
-
+-- 2) BEFORE UPDATE
 -- tbb_aprobaciones_BEFORE_UPDATE
 ------------------------------------------------------------------------------------------------------
+DELIMITER &&
+
 CREATE DEFINER=`carlos.crespo`@`%` TRIGGER `tbb_aprobaciones_BEFORE_UPDATE` BEFORE UPDATE ON `tbb_aprobaciones` FOR EACH ROW BEGIN
 	set new.fecha_actualizacion = current_timestamp();
 END
 
+&&
+DELIMITER ;
 ------------------------------------------------------------------------------------------------------
 
 
+-- 3) AFTER UPDATE
 -- tbb_aprobaciones_AFTER_UPDATE
 ------------------------------------------------------------------------------------------------------
+
+DELIMITER &&
+
 CREATE DEFINER=`carlos.crespo`@`%` TRIGGER `tbb_aprobaciones_AFTER_UPDATE` AFTER UPDATE ON `tbb_aprobaciones` FOR EACH ROW BEGIN
 
 	  -- Declaración de variables
@@ -230,11 +243,15 @@ CREATE DEFINER=`carlos.crespo`@`%` TRIGGER `tbb_aprobaciones_AFTER_UPDATE` AFTER
 
 END
 
+&&
+DELIMITER ;
 ------------------------------------------------------------------------------------------------------
 
-
+-- 4) AFTER DELETE
 -- tbb_aprobaciones_AFTER_DELETE
 ------------------------------------------------------------------------------------------------------
+DELIMITER &&
+
 CREATE DEFINER=`carlos.crespo`@`%` TRIGGER `tbb_aprobaciones_AFTER_DELETE` AFTER DELETE ON `tbb_aprobaciones` FOR EACH ROW BEGIN
     -- Declaración de variables
     DECLARE v_estatus_descripcion VARCHAR(20) DEFAULT 'En Proceso';
@@ -329,3 +346,6 @@ CREATE DEFINER=`carlos.crespo`@`%` TRIGGER `tbb_aprobaciones_AFTER_DELETE` AFTER
         NOW()
     );
 END
+
+&&
+DELIMITER ;

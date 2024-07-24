@@ -1,7 +1,10 @@
 -- Scrip de la Creacion de la Tabla Asignada
 --Elaborado por Carlos Iván Crespo Alvarado
+-- Grado y Grupo:  9° A 
 -- Programa Educativo: Ingenieria de Desarrollo y Gestion de Software
 -- Fecha de Elaboración: 22 de julio de 2024
+
+-- Tabla 1:  Aprobaciones
 
 CREATE TABLE `tbb_aprobaciones` (
   `ID` int unsigned NOT NULL AUTO_INCREMENT,
