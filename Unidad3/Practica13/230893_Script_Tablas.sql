@@ -22,12 +22,11 @@ CREATE TABLE `tbb_cirugias` (
   `Fecha_Registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Fecha_Actualizacion` datetime NOT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `Fecha_Registro_UNIQUE` (`Fecha_Registro`),
   KEY `fk_paciente_idx` (`Paciente_ID`),
   KEY `fk_espacio_idx` (`Espacio_Medico_ID`),
   CONSTRAINT `fk_espacios_2` FOREIGN KEY (`Espacio_Medico_ID`) REFERENCES `tbc_espacios` (`ID`),
   CONSTRAINT `fk_paciente` FOREIGN KEY (`Paciente_ID`) REFERENCES `tbb_pacientes` (`Persona_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
 -- Tabla: Cirugías Personal Médico
 CREATE TABLE `tbd_cirugias_personal_medico` (
@@ -42,4 +41,4 @@ CREATE TABLE `tbd_cirugias_personal_medico` (
   KEY `fk_cirugia_1_idx` (`Cirugia_ID`),
   CONSTRAINT `fk_cirugia_1` FOREIGN KEY (`Cirugia_ID`) REFERENCES `tbb_cirugias` (`ID`),
   CONSTRAINT `fk_personal_medico_cirugia` FOREIGN KEY (`Personal_Medico_ID`) REFERENCES `tbb_personal_medico` (`Persona_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
