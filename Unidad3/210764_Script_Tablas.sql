@@ -5,6 +5,8 @@
 -- Programa educativo: Ingenieria de Desarrollo  y Gestion de Software
 -- Fecha elaboración: 22 de julio de 2024 
 
+DROP TABLE IF EXISTS `tbc_organos`;
+
 CREATE TABLE `tbc_organos` (
   `ID` int unsigned NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(45) NOT NULL,
