@@ -1,0 +1,21 @@
+Entrar al repositorio 
+cd ExtCon-9A-IDGS-2024/
+
+Cambia de rama (master) y Entrar a la rama 
+git checkout Carlos_Ivan
+
+Verifica la rama en el repositorio
+git branch -r
+
+-------------------------------------
+Para Realizar los cambios 
+-------------------------------------
+Agrega los cambios
+git add .
+
+Realiza el commit
+git commit -m "Mensaje del commit"
+
+Sube los cambios al repositorio
+git push origin Carlos_Ivan
+
