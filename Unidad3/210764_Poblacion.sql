@@ -1,6 +1,5 @@
 -- Script de poblar de la tabla tbc_organos
 
-
 -- Elaborado por : Karen Alyn Fosado Rodriguez
 -- Grado y Grupo: 9° A
 -- Programa educativo: Ingenieria de Desarrollo  y Gestion de Software
