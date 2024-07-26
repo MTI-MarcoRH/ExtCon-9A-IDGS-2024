@@ -10,9 +10,9 @@
 -- 1. Verificar la construcción de la tabla
 DESC tbb_cirugias;
 DESC tbd_cirugias_personal_medico;
+
 -- 1. LIMPIAR BD
 call sp_limpiar_bd("xYz$123"); 
-
 -- cambio la estructura de limpiar bd
  -- Eliminamos los datos de las tablas fuertes
     -- mis tablas ----------------------------------------
@@ -31,7 +31,6 @@ call sp_limpiar_bd("xYz$123");
 
 -- 2. Poblar de manera estática la tabla.
 CALL sp_poblar_cirugias("xyz#$%");
-
 -- Tuve que modificar la estructura de poblar_cirugias para poder insertar datos en dicha tabla 
 -- ---------------------------------------------------------------------------------------------
 DELIMITER $$
@@ -296,15 +295,9 @@ $$
 DELIMITER ;
 
 -- ------------------------------------------------------------------------------------------------
--- Mostrar los datos insertados
-SELECT * FROM tbb_cirugias;
-SELECT * FROM tbd_cirugias_personal_medico; 
 -- 3. Verificamos el registro de los eventos en bitacora
 SELECT * FROM tbi_bitacora WHERE tabla= "tbb_cirugias" ORDER BY ID DESC;
 SELECT * FROM tbi_bitacora WHERE tabla = "tbd_cirugias_personal_medico" ORDER BY ID DESC;
--- 4. Realizamos una consulta joing para visualizar los datos poblados. 
-SELECT p.id, CONCAT_WS(' ', NULLIF(p.titulo, ""), p.nombre, p.primer_apellido, p.segundo_apellido) as NombreCompleto,
-pm.Especialidad, pm.tipo, d.nombre
-FROM tbb_personas p
-JOIN tbb_personal_medico pm ON p.id = pm.persona_id
-JOIN tbc_departamentos d ON d.id=pm.departamento_id;
+-- 4. Realizamos una consulta para visualizar los datos poblados. 
+SELECT * FROM tbb_cirugias;
+SELECT * FROM tbd_cirugias_personal_medico; 

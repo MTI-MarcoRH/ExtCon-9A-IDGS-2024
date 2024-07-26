@@ -9,31 +9,50 @@
 -- 1) AFTER INSERT CIRUGÍAS
 DELIMITER &&
 CREATE DEFINER=`brayan.gutierrez`@`%` TRIGGER `tbb_cirugias_AFTER_INSERT` AFTER INSERT ON `tbb_cirugias` FOR EACH ROW BEGIN
-insert into tbi_bitacora VALUES
-(
-DEFAULT,
-current_user(),
-'Create',
-'tbb_cirugias',
-concat_ws('', 'se ha creado una nueva cirugia con los siguientes datos:',
-'ID ', NEW.id,'\n',
-'TIPO:', NEW.tipo, '\n',
-'NOMBRE:', NEW.nombre, '\n',
-'DESCRIPCION:', NEW.descripcion, '\n',
-'PERSONAL_MEDICO:', NEW.personal_medico_id, '\n',
-'PACIENTE: ', NEW.paciente,'\n',
-'NIVEL_URGENCIA: ', NEW.nivel_urgencia,'\n',
-'HORARIO: ', NEW.horario,'\n',
-'OBSERVACIONES: ', NEW.observaciones,'\n',
-'FECHA_REGISTRO: ', NEW.fecha_registro,'\n',
-'VALORACION_MEDICA: ', NEW.valoracion_medica, '\n',
-'ESTATUS: ', NEW.estatus, '\n',
-'CONSUMIBLE: ', NEW.consumible,'\n',
-'ESPACIO_MEDICO', NEW.espacio_medico_id,'\n'),
-default,
-default
-);
+DECLARE v_paciente_nombre VARCHAR(155);
+DECLARE v_espacio_nombre VARCHAR(100);
+ 
+SELECT CONCAT(
+    IFNULL(Titulo, ''), ' ', 
+    Nombre, ' ', 
+    Primer_Apellido, ' ', 
+    COALESCE(Segundo_Apellido, '')
+) INTO v_paciente_nombre
+FROM tbb_personas 
+WHERE ID = NEW.Paciente_ID;
+    
+	SELECT CONCAT(Tipo,' ', Nombre) 
+    INTO v_espacio_nombre 
+    FROM tbc_espacios 
+    WHERE ID = NEW.Espacio_Medico_ID;
+    
+  -- Inserta la información del nuevo registro en la tabla de bitacora
+    INSERT INTO tbi_bitacora 
+   VALUES (
+    DEFAULT,
+      CURRENT_USER(),
+	  'Create',
+	  'tbb_cirugias',
+	  concat_ws('', 'se ha creado una nueva cirugia con los siguientes datos: ',
+      
+      'PACIENTE: ',v_paciente_nombre ,'\n',
+      'ESPACIO MEDICO: ',v_espacio_nombre ,'\n',
+      'TIPO: ',NEW.Tipo,'\n',
+      'NOMBRE: ',NEW.Nombre,'\n',
+      'DESCRIPCION: ',NEW.Descripcion,'\n',
+      'NIVEL URGENCIA: ',NEW.Nivel_Urgencia,'\n',
+      'HORARIO: ',NEW.Horario,'\n',
+      'OBSERVACIONES: ',NEW.Observaciones,'\n',
+      'VALORACION MEDICA :',NEW.Valoracion_Medica,'\n',
+      'CON ESTATUS: ',NEW.Estatus,'\n',
+      'CONSUMIBLE: ',NEW.Consumible,'\n',
+      'CON FECHA DE REGISTRO: ',NEW.Fecha_Registro,'\n'),
+      DEFAULT,
+      DEFAULT);
 END
+
+
+
 &&
 DELIMITER ;
 
@@ -51,27 +70,61 @@ DELIMITER ;
 -- 3) AFTER UPDATE
 DELIMITER &&
 CREATE DEFINER=`brayan.gutierrez`@`%` TRIGGER `tbb_cirugias_AFTER_UPDATE` AFTER UPDATE ON `tbb_cirugias` FOR EACH ROW BEGIN
+DECLARE v_paciente_nombre_old VARCHAR(155);
+DECLARE v_paciente_nombre_new VARCHAR(155);
+DECLARE v_espacio_nombre_old VARCHAR(100);
+DECLARE v_espacio_nombre_new VARCHAR(100);
+ 
+SELECT CONCAT(
+    IFNULL(Titulo, ''), ' ', 
+    Nombre, ' ', 
+    Primer_Apellido, ' ', 
+    COALESCE(Segundo_Apellido, '')
+) INTO v_paciente_nombre_old
+FROM tbb_personas 
+WHERE ID = OLD.Paciente_ID;
+    
+SELECT CONCAT(
+    IFNULL(Titulo, ''), ' ', 
+    Nombre, ' ', 
+    Primer_Apellido, ' ', 
+    COALESCE(Segundo_Apellido, '')
+) INTO v_paciente_nombre_new
+FROM tbb_personas 
+WHERE ID = NEW.Paciente_ID;
+    
+	SELECT CONCAT(Tipo,' ', Nombre) 
+    INTO v_espacio_nombre_old 
+    FROM tbc_espacios 
+    WHERE ID = OLD.Espacio_Medico_ID;
+    
+	SELECT CONCAT(Tipo,' ', Nombre) 
+    INTO v_espacio_nombre_new
+    FROM tbc_espacios 
+    WHERE ID = NEW.Espacio_Medico_ID;
+
+
+
 insert into tbi_bitacora VALUES
 (
 DEFAULT,
 current_user(),
 'Update',
 'tbb_cirugias',
-concat_ws('', 'se ha modificado una cirugia con los siguientes datos:',
-'ID ',old.id,'-', NEW.id,'\n',
-'TIPO: ',old.tipo, '-', NEW.tipo, '\n',
-'NOMBRE: ',old.nombre, '-', NEW.nombre, '\n',
-'DESCRIPCION: ', old.descripcion, '-', NEW.descripcion, '\n',
-'PERSONAL_MEDICO: ', old.personal_medico_id, '-', NEW.personal_medico_id, '\n',
-'PACIENTE: ',old.paciente, '-', NEW.paciente,'\n',
-'NIVEL_URGENCIA: ', old.nivel_urgencia, '-', NEW.nivel_urgencia,'\n',
-'HORARIO: ', old.horario, '-', NEW.horario,'\n',
-'OBSERVACIONES: ', old.observaciones, '-', NEW.observaciones,'\n',
-'FECHA_REGISTRO ', old.fecha_registro, '-', NEW.fecha_registro,'\n',
-'VALORACION_MEDICA: ', old.fecha_registro, '-', NEW.valoracion_medica, '\n',
-'ESTATUS:', old.estatus, '-', NEW.estatus, '\n',
-'CONSUMIBLE: ', old.consumible, '-' , NEW.consumible,'\n',
-'ESPACIO_MEDICO: ', old.espacio_medico_id, '-', NEW.espacio_medico_id,'\n'
+concat_ws('', 'se ha modificado una cirugia con los siguientes datos: ',
+
+ 'PACIENTE : ',v_paciente_nombre_old ,'-', v_paciente_nombre_new,'\n',
+ 'ESPACIO MEDICO: ', v_espacio_nombre_old ,'-', v_espacio_nombre_new,'\n',
+'TIPO: ',old.Tipo, '-', NEW.Tipo, '\n',
+'NOMBRE: ',old.Nombre, '-', NEW.Nombre, '\n',
+'DESCRIPCION: ', old.Descripcion, '-', NEW.Descripcion, '\n',
+'NIVEL_URGENCIA: ', old.Nivel_Urgencia, '-', NEW.Nivel_Urgencia,'\n',
+'HORARIO: ', old.Horario, '-', NEW.Horario,'\n',
+'OBSERVACIONES: ', old.Observaciones, '-', NEW.Observaciones,'\n',
+'VALORACIÓN MEDICA: ', old.Valoracion_Medica, '-', new.Valoracion_Medica,'\n',
+'ESTATUS: ', old.Estatus, '-', NEW.Estatus, '\n',
+'CONSUMIBLE: ', old.Consumible, '-' , NEW.Consumible,'\n',
+'CON FECHA DE REGISTRO: ', old.Fecha_Registro, '-', new.Fecha_Registro,'\n'
 ),
 default,
 default
@@ -83,27 +136,42 @@ DELIMITER ;
 
 -- 4) AFTER DELETE
 DELIMITER &&
+
 CREATE DEFINER=`brayan.gutierrez`@`%` TRIGGER `tbb_cirugias_AFTER_DELETE` AFTER DELETE ON `tbb_cirugias` FOR EACH ROW BEGIN
+
+DECLARE v_paciente_nombre_old VARCHAR(155);
+DECLARE v_espacio_nombre_old VARCHAR(100);
+ 
+	SELECT CONCAT(Titulo, Nombre, ' ', Primer_Apellido, ' ', COALESCE(Segundo_Apellido, ''))
+	INTO v_paciente_nombre_old 
+    FROM tbb_personas 
+    WHERE ID = old.Paciente_ID;
+    
+	SELECT CONCAT(Tipo,' ', Nombre) 
+    INTO v_espacio_nombre_old 
+    FROM tbc_espacios 
+    WHERE ID = old.Espacio_Medico_ID;
+
+
 insert into tbi_bitacora values(
     default,
     current_user(),
     'Delete',
     'tbb_cirugias',
     concat_ws(' ','Se ha eliminado una cirugia con los siguientes datos: ',
-    'TIPO: ', old.tipo,'\n',
-    'NOMBRE: ', old.nombre,'\n',
-    'DESCRIPCION: ', old.descripcion,'\n',
-    'PERSONAL MÉDICO: ', old.personal_medico_id,'\n',
-    'PACIENTE: ', old.paciente,'\n',
-    'NIVEL URGENCIA: ', old.nivel_urgencia,'\n',
-    'HORARIO: ', old.horario,'\n',
-    'OBSERVACIONES: ', old.observaciones,'\n',
-    'FECHA REGISTRO: ', old.fecha_registro,'\n',
-    'VALORACIÓN MÉDICA: ', old.valoracion_medica,'\n',
-    'ESTATUS: ', old.estatus,'\n',
-    'CONSUMIBLE: ', old.consumible,'\n',
-    'ESPACIO MÉDICO: ', old.espacio_medico_id,'\n',
-    'FECHA ACTUALIZACIÓN: ', old.fecha_actualizacion
+    'PACIENTE: ', v_paciente_nombre_old,'\n',
+    'ESPACIO MEDICO: ', v_espacio_nombre_old  , '\n',
+    'TIPO: ', old.Tipo,'\n',
+    'NOMBRE: ', old.Nombre,'\n',
+    'DESCRIPCION: ', old.Descripcion,'\n',
+    'NIVEL URGENCIA: ', old.Nivel_Urgencia,'\n',
+    'HORARIO: ', old.Horario,'\n',
+    'OBSERVACIONES: ', old.Observaciones,'\n',
+    'VALORACIÓN MÉDICA: ', old.Valoracion_Medica,'\n',
+    'ESTATUS: ', old.Estatus,'\n',
+    'CONSUMIBLE: ', old.Consumible,'\n',
+	'FECHA REGISTRO: ', old.Fecha_Registro,'\n',
+    'FECHA ACTUALIZACIÓN: ', old.Fecha_Actualizacion
     ),
     default,
     default
