@@ -213,11 +213,15 @@ BEGIN
             'Programada', 
             'Instrumental neuroquirúrgico, Sistema de navegación', 
             DEFAULT,
-            NOW())
-            ;
-        
+            NOW());
+            -- Actualizar datos
+             UPDATE tbb_cirugias SET Estatus= 'Completada' WHERE ID = '1';
+             UPDATE tbb_cirugias SET Estatus= 'Completada' WHERE ID = '2';
+			-- Eliminación
+            DELETE FROM tbb_cirugias WHERE ID = '4';
+        ELSE
+        SELECT "La contraseña es incorrecta, no puedo proceder con la inserción de registros" AS ErrorMessage;
     END IF;
-
 END
 $$
 DELIMITER ;
@@ -236,8 +240,7 @@ BEGIN
     DECLARE id_cirugia1 INT;
     DECLARE id_personal_medico2 INT;
     DECLARE id_cirugia2 INT;
-	DECLARE id_personal_medico3 INT;
-    DECLARE id_cirugia3 INT;
+
     
 
     IF v_password = "xyz#$%" THEN
@@ -257,10 +260,6 @@ BEGIN
         FROM tbb_personal_medico
         WHERE Cedula_Profesional = '3256884';
         
-         SELECT Persona_ID INTO id_personal_medico3
-        FROM tbb_personal_medico
-        WHERE Cedula_Profesional = '3256884';
-		
         
         -- Obtener ID de la cirugía usando el nombre
         SELECT ID INTO id_cirugia
@@ -275,9 +274,6 @@ BEGIN
         FROM tbb_cirugias
         WHERE ID = '3';
         
-         SELECT ID INTO id_cirugia3
-        FROM tbb_cirugias
-        WHERE ID = '4';
 
         -- Insertar datos en tbd_cirugias_personal_medico
         INSERT INTO tbd_cirugias_personal_medico (
@@ -285,9 +281,15 @@ BEGIN
         ) VALUES 
             (id_personal_medico, id_cirugia, b'1', DEFAULT, NOW()),
             (id_personal_medico1, id_cirugia1, b'1', DEFAULT, NOW()),
-            (id_personal_medico2, id_cirugia2, b'1', DEFAULT, NOW()),
-             (id_personal_medico3, id_cirugia3, b'1', DEFAULT, NOW());
-
+            (id_personal_medico2, id_cirugia2, b'1', DEFAULT, NOW());
+            
+            -- Actualizar datos
+             UPDATE tbd_cirugias_personal_medico SET Estatus = 0  WHERE ID = '1';
+             
+			-- Eliminación
+            DELETE FROM tbd_cirugias_personal_medico WHERE ID = '3';
+        ELSE
+        SELECT "La contraseña es incorrecta, no puedo proceder con la inserción de registros" AS ErrorMessage;
     END IF;
 END
 $$
