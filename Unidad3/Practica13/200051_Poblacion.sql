@@ -4,7 +4,8 @@
 -- Grado y Grupo:  9° A 
 -- Programa Educativo: Ingeniería de Desarrollo y Gestión de Software 
 -- Fecha elaboración:  24 de Julio de 2024
-
+-- Tabla de Consumibles TBC 
+-- DATOS ESTATICOS 
 
 CREATE DEFINER=`daniela.aguilar`@`%` PROCEDURE `sp_poblar_consumibles`(IN v_password VARCHAR(20))
 BEGIN
@@ -35,3 +36,74 @@ BEGIN
         SELECT 'La contraseña es incorrecta' AS ErrorMessage;
     END IF;
 END
+
+
+-- TABLA DERIVADA TBD CIRUGIAS CONSUMIBLES ----------------------------------------------------------------------------------
+
+CREATE DEFINER=`daniela.aguilar`@`%` PROCEDURE `sp_poblar_cirugia_consumibles`(
+    IN p_accion ENUM('INSERTAR', 'ACTUALIZAR', 'ELIMINAR'),
+    IN p_id INT,
+    IN p_cirugia_id INT,
+    IN p_consumible_id INT,
+    IN p_cantidad_utilizada INT
+)
+BEGIN
+    IF p_accion = 'INSERTAR' THEN
+        INSERT INTO tbd_cirugia_consumibles (Cirugia_ID, Consumible_ID, Cantidad_Utilizada, Fecha_Registro)
+        VALUES (p_cirugia_id, p_consumible_id, p_cantidad_utilizada, NOW());
+    ELSEIF p_accion = 'ACTUALIZAR' THEN
+        UPDATE tbd_cirugia_consumibles
+        SET Cirugia_ID = p_cirugia_id,
+            Consumible_ID = p_consumible_id,
+            Cantidad_Utilizada = p_cantidad_utilizada,
+            Fecha_Registro = NOW()
+        WHERE ID = p_id;
+    ELSEIF p_accion = 'ELIMINAR' THEN
+        DELETE FROM tbd_cirugia_consumibles
+        WHERE ID = p_id;
+    END IF;
+END
+--------------------------------------------------------------------------------------------------------
+
+-- Verificar Población para una Cirugía Específica
+SELECT
+    cc.ID,
+    c.Nombre AS Nombre_Cirugia,
+    co.Nombre AS Nombre_Consumible,
+    cc.Cantidad_Utilizada,
+    cc.Fecha_Registro
+FROM
+    tbd_cirugia_consumibles cc
+JOIN
+    tbb_cirugias c ON cc.Cirugia_ID = c.ID
+JOIN
+    tbc_consumibles co ON cc.Consumible_ID = co.ID
+WHERE
+    cc.Cirugia_ID = 1;
+
+-- Verificar Todos los Consumibles Utilizados en Todas las Cirugías
+SELECT
+    co.Nombre AS Nombre_Consumible,
+    SUM(cc.Cantidad_Utilizada) AS Cantidad_Total_Utilizada
+FROM
+    tbd_cirugia_consumibles cc
+JOIN
+    tbc_consumibles co ON cc.Consumible_ID = co.ID
+GROUP BY
+    co.Nombre;
+
+---- REGISTROS RECIENTES 
+SELECT
+    cc.ID,
+    c.Nombre AS Nombre_Cirugia,
+    co.Nombre AS Nombre_Consumible,
+    cc.Cantidad_Utilizada,
+    cc.Fecha_Registro
+FROM
+    tbd_cirugia_consumibles cc
+JOIN
+    tbb_cirugias c ON cc.Cirugia_ID = c.ID
+JOIN
+    tbc_consumibles co ON cc.Consumible_ID = co.ID
+ORDER BY
+    cc.Fecha_Registro DESC;
