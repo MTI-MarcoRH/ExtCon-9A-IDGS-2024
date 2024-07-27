@@ -5,7 +5,7 @@
 -- Programa Educativo: Ingeniería de Desarrollo y Gestión de Software 
 -- Fecha elaboración:  24 de Julio de 2024
 
--- TABLA CONSUMIBLES
+-- TABLA CONSUMIBLES TBC
 
 -- AFTER_INSERT ---------------------------------------------------------------------------------------------------------------
 
@@ -117,3 +117,83 @@ CREATE DEFINER=`daniela.aguilar`@`%` TRIGGER `tbc_consumibles_BEFORE_DELETE` BEF
 END
 
 
+-- Fecha elaboración:  26 de Julio de 2024
+
+-- TABLA  TBD CIRUGIA CONSUMIBLES -----------------------------------------------------------------------------------------------------------
+
+CREATE DEFINER=`daniela.aguilar`@`%` TRIGGER `after_delete_cirugia_consumibles`
+AFTER DELETE ON `tbd_cirugia_consumibles`
+FOR EACH ROW
+BEGIN
+    -- Revertir la cantidad del consumible después de eliminar el registro
+    UPDATE `tbc_consumibles`
+    SET `Cantidad` = `Cantidad` + OLD.Cantidad_Utilizada
+    WHERE `ID` = OLD.Consumible_ID;
+END;
+
+
+--BEFORE INSERT ----------------------------------------------------------------------------------------------------------- 
+
+CREATE DEFINER=`daniela.aguilar`@`%` TRIGGER `before_insert_cirugia_consumibles` BEFORE INSERT ON `tbd_cirugia_consumibles` FOR EACH ROW BEGIN
+    DECLARE v_Cantidad_Disponible INT;
+
+    -- Obtener la cantidad disponible del consumible
+    SELECT `Cantidad` INTO v_Cantidad_Disponible
+    FROM `tbc_consumibles`
+    WHERE `ID` = NEW.Consumible_ID;
+
+    -- Verificar si hay suficiente stock
+    IF v_Cantidad_Disponible < NEW.Cantidad_Utilizada THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'No hay suficiente stock del consumible.';
+    END IF;
+END
+
+
+-- AFTER INSERT ----------------------------------------------------------------------------------------------------------- 
+
+CREATE DEFINER=`daniela.aguilar`@`%` TRIGGER `after_insert_cirugia_consumibles` AFTER INSERT ON `tbd_cirugia_consumibles` FOR EACH ROW BEGIN
+    -- Actualizar el stock del consumible
+    UPDATE `tbc_consumibles`
+    SET `Cantidad` = `Cantidad` - NEW.Cantidad_Utilizada,
+        `Fecha_Actualizacion` = NOW()
+    WHERE `ID` = NEW.Consumible_ID;
+END
+
+
+
+--BEFORE UPDATE ----------------------------------------------------------------------------------------------------------- 
+
+CREATE DEFINER=`daniela.aguilar`@`%` TRIGGER `before_update_cirugia_consumibles` BEFORE UPDATE ON `tbd_cirugia_consumibles` FOR EACH ROW BEGIN
+    DECLARE v_Cantidad_Disponible INT;
+
+    -- Obtener la cantidad disponible del consumible
+    SELECT `Cantidad` INTO v_Cantidad_Disponible
+    FROM `tbc_consumibles`
+    WHERE `ID` = NEW.Consumible_ID;
+
+    -- Verificar si hay suficiente stock
+    IF v_Cantidad_Disponible + OLD.Cantidad_Utilizada < NEW.Cantidad_Utilizada THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'No hay suficiente stock del consumible.';
+    END IF;
+END
+
+
+-- AFTER UPDATE ----------------------------------------------------------------------------------------------------------- 
+
+CREATE DEFINER=`daniela.aguilar`@`%` TRIGGER `after_update_cirugia_consumibles` AFTER UPDATE ON `tbd_cirugia_consumibles` FOR EACH ROW BEGIN
+    -- Actualizar la cantidad del consumible con la nueva cantidad utilizada
+    UPDATE `tbc_consumibles`
+    SET `Cantidad` = `Cantidad` - NEW.Cantidad_Utilizada + OLD.Cantidad_Utilizada
+    WHERE `ID` = NEW.Consumible_ID;
+END
+
+-- AFTER DELETE ----------------------------------------------------------------------------------------------------------- 
+
+CREATE DEFINER=`daniela.aguilar`@`%` TRIGGER `after_delete_cirugia_consumibles` AFTER DELETE ON `tbd_cirugia_consumibles` FOR EACH ROW BEGIN
+    -- Revertir la cantidad del consumible después de eliminar el registro
+    UPDATE `tbc_consumibles`
+    SET `Cantidad` = `Cantidad` + OLD.Cantidad_Utilizada
+    WHERE `ID` = OLD.Consumible_ID;
+END
