@@ -136,15 +136,132 @@
     END ;;
     DELIMITER ;
 
--- 4.- Función
-/**/
-DELIMITER ;;
-DELIMITER ;
+-- 4.- Función: "fn_genera_fecha_nacimiento":
+/*La función `fn_genera_fecha_nacimiento` genera una fecha aleatoria entre dos fechas específicas (`fecha_inicio` y `fecha_fin`). Aquí está su funcionamiento:
+    1. Calcula los días desde una fecha base (`'1900-01-01'`) hasta las fechas de inicio y fin:
+    - `min_dias` es el número de días entre `'1900-01-01'` y `fecha_inicio`.
+    - `max_dias` es el número de días entre `'1900-01-01'` y `fecha_fin`.
+    2. Genera un número aleatorio de días dentro del rango:
+    - `dias_aleatorios` se establece usando la función `fn_numero_aleatorio_rangos(min_dias, max_dias)`, que genera un número aleatorio entre `min_dias` y `max_dias`.
+    3. Calcula la fecha aleatoria:
+    - `fecha_aleatoria` se obtiene añadiendo `dias_aleatorios` días a la fecha base (`'1900-01-01'`).
+    4. Devuelve la fecha aleatoria:
+    - La fecha generada se retorna como resultado de la función.*/
+
+    DELIMITER ;;
+    CREATE DEFINER=`jose.gomez`@`%` FUNCTION `fn_genera_fecha_nacimiento`(fecha_inicio DATE, fecha_fin DATE) RETURNS date
+        DETERMINISTIC
+    BEGIN
+        DECLARE min_dias INT;
+        DECLARE max_dias INT;
+        DECLARE dias_aleatorios INT;
+        DECLARE fecha_aleatoria DATE;
+
+        SET min_dias = DATEDIFF(fecha_inicio, '1900-01-01');
+        SET max_dias = DATEDIFF(fecha_fin, '1900-01-01');
+        SET dias_aleatorios = fn_numero_aleatorio_rangos(min_dias, max_dias);
+        SET fecha_aleatoria = DATE_ADD('1900-01-01', INTERVAL dias_aleatorios DAY);
+
+        RETURN fecha_aleatoria;
+    END ;;
+    DELIMITER ;
 
 -- 5.- Función
 /**/
-DELIMITER ;;
-DELIMITER ;
+
+    DELIMITER ;;
+    CREATE DEFINER=`jose.gomez`@`%` FUNCTION `fn_genera_curp`(v_nombre VARCHAR(60), v_primer_apellido VARCHAR(45) ,v_segundo_apellido VARCHAR(45), 
+                                                                v_fecha_nacimiento DATE, v_genero CHAR(1), v_entidad_federativa VARCHAR(45)) RETURNS char(18) CHARSET utf8mb4
+        DETERMINISTIC
+    BEGIN
+        DECLARE v_curp CHAR(18) DEFAULT NULL;
+        DECLARE v_sexo CHAR(1) DEFAULT NULL;
+        DECLARE v_efn  CHAR(2) DEFAULT NULL;  /*Entidad Federativa de Nacimiento*/
+        DECLARE v_dv   CHAR(2) DEFAULT NULL;  /* Dígito Verificador */
+        IF v_genero = "M" THEN 
+            SET v_sexo = "H";
+        ELSEIF v_genero = "F" THEN 
+            SET v_sexo = "M";
+        END IF;
+        SET v_nombre = fn_elimina_acentos(v_nombre);
+        SET v_primer_apellido = fn_elimina_acentos(v_primer_apellido);
+        SET v_segundo_apellido = fn_elimina_acentos(v_segundo_apellido);
+        IF v_entidad_federativa = "Aguascalientes" THEN
+            SET v_efn = "AS";
+        ELSEIF v_entidad_federativa = "Baja California" THEN
+            SET v_efn = "BC";
+        ELSEIF v_entidad_federativa = "Baja California Sur" THEN
+            SET v_efn = "BS";
+        ELSEIF v_entidad_federativa = "Campeche" THEN
+            SET v_efn = "CC";
+        ELSEIF v_entidad_federativa = "Coahuila" THEN
+            SET v_efn = "CL";
+        ELSEIF v_entidad_federativa = "Colima" THEN
+            SET v_efn = "CM";
+        ELSEIF v_entidad_federativa = "Chiapas" THEN
+            SET v_efn = "CS";
+        ELSEIF v_entidad_federativa = "Chihuahua" THEN
+            SET v_efn = "CH";
+        ELSEIF v_entidad_federativa = "Distrito Federal" THEN
+            SET v_efn = "DF";
+        ELSEIF v_entidad_federativa = "Durango" THEN
+            SET v_efn = "DG";
+        ELSEIF v_entidad_federativa = "Guanajuato" THEN
+            SET v_efn = "GT";
+        ELSEIF v_entidad_federativa = "Guerrero" THEN
+            SET v_efn = "GR";
+        ELSEIF v_entidad_federativa = "Hidalgo" THEN
+            SET v_efn = "HG";
+        ELSEIF v_entidad_federativa = "Jalisco" THEN
+            SET v_efn = "JC";
+        ELSEIF v_entidad_federativa = "México" THEN
+            SET v_efn = "MC";
+        ELSEIF v_entidad_federativa = "Michoacán" THEN
+            SET v_efn = "MN";
+        ELSEIF v_entidad_federativa = "Morelos" THEN
+            SET v_efn = "MS";
+        ELSEIF v_entidad_federativa = "Nayarit" THEN
+            SET v_efn = "NT";
+        ELSEIF v_entidad_federativa = "Nuevo León" THEN
+            SET v_efn = "NL";
+        ELSEIF v_entidad_federativa = "Oaxaca" THEN
+            SET v_efn = "OC";
+        ELSEIF v_entidad_federativa = "Puebla" THEN
+            SET v_efn = "PL";
+        ELSEIF v_entidad_federativa = "Querétaro" THEN
+            SET v_efn = "QT";
+        ELSEIF v_entidad_federativa = "Quintana Roo" THEN
+            SET v_efn = "QR";
+        ELSEIF v_entidad_federativa = "San Luis Potosí" THEN
+            SET v_efn = "SP";
+        ELSEIF v_entidad_federativa = "Sinaloa" THEN
+            SET v_efn = "SL";
+        ELSEIF v_entidad_federativa = "Sonora" THEN
+            SET v_efn = "SR";
+        ELSEIF v_entidad_federativa = "Tabasco" THEN
+            SET v_efn = "TC";
+        ELSEIF v_entidad_federativa = "Tamaulipas" THEN
+            SET v_efn = "TS";
+        ELSEIF v_entidad_federativa = "Tlaxcala" THEN
+            SET v_efn = "TL";
+        ELSEIF v_entidad_federativa = "Veracruz" THEN
+            SET v_efn = "VZ";
+        ELSEIF v_entidad_federativa = "Yucatán" THEN
+            SET v_efn = "YN";   
+        ELSEIF v_entidad_federativa = "Zacatecas" THEN
+            SET v_efn = "ZS";
+        ELSEIF v_entidad_federativa = "Nacido en el Extranjero" THEN
+            SET v_efn = "NE"; 
+        END IF;
+        SET v_curp = CONCAT(UPPER(SUBSTR(v_primer_apellido,1,1)), fn_primer_vocalinterna(v_primer_apellido),
+                            UPPER(SUBSTR(v_segundo_apellido,1,1)), UPPER(SUBSTR(v_nombre,1,1)), SUBSTR(year(v_fecha_nacimiento),3,2), 
+                            LPAD(MONTH(v_fecha_nacimiento),2,'0'), LPAD(DAY(v_fecha_nacimiento),2,'0'), v_sexo, v_efn, 
+                            fn_primer_consonanteinterna(v_primer_apellido), fn_primer_consonanteinterna(v_segundo_apellido), fn_primer_consonanteinterna(v_nombre));
+        SET v_dv =  LPAD((SELECT COUNT(*) FROM tbb_personas WHERE curp like CONCAT(v_curp, "%")),2,'0');
+        SET v_curp = CONCAT(v_curp, v_dv);
+    RETURN v_curp;
+    END ;;
+    DELIMITER ;
 
 -- 6.- Función
 /**/
