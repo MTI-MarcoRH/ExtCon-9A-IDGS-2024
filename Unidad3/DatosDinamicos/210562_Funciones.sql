@@ -408,11 +408,40 @@
     END ;;
     DELIMITER ;
 
--- 12.- Función: :
-/**/
+-- 12.- Función: "fn_primera_consonante":
+/*El objetivo de la función fn_primera_consonante es encontrar y devolver la primera consonante en una
+    cadena de texto. Si no se encuentra ninguna consonante en el texto, la función devuelve NULL.*/
 
-DELIMITER ;;
-DELIMITER ;
+    DELIMITER ;;
+    CREATE DEFINER=`jose.gomez`@`%` FUNCTION `fn_primera_consonante`(input_text VARCHAR(255)) RETURNS char(1) CHARSET utf8mb4
+        DETERMINISTIC
+    BEGIN
+        -- Declaración de variables
+        DECLARE i INT;
+        DECLARE longitud INT;
+        DECLARE caracter_actual CHAR;
+
+        -- Cálculo de la longitud del texto de entrada
+        SET longitud = LENGTH(input_text);
+        SET i = 1;
+
+        -- Bucle para iterar sobre cada carácter del texto de entrada
+        WHILE i <= longitud DO
+            -- Obtiene el carácter actual en la posición i
+            SET caracter_actual = SUBSTRING(input_text, i, 1);
+            -- Verifica si el carácter actual no es una vocal ni un espacio en blanco
+            IF caracter_actual NOT IN ('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', ' ') THEN
+                -- Devuelve la primera consonante encontrada
+                RETURN caracter_actual;
+            END IF;
+            -- Incrementa el índice para pasar al siguiente carácter
+            SET i = i + 1;
+        END WHILE;
+
+        -- Si no se encuentra ninguna consonante, devuelve NULL
+        RETURN NULL;
+    END ;;
+    DELIMITER ;
 
 -- 13.- Función: :
 /**/
