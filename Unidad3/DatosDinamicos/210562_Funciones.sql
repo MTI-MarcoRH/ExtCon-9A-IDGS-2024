@@ -357,7 +357,49 @@
     END ;;
     DELIMITER ;
 
--- 10.- Función: :
+-- 10.- Función: "fn_genera_especialidad" :
+/*El objetivo de la función fn_genera_especialidad es seleccionar aleatoriamente una especialidad médica
+    de una lista predefinida y devolverla como resultado.*/
+
+    DELIMITER ;;
+    CREATE DEFINER=`root`@`localhost` FUNCTION `fn_genera_especialidad`() RETURNS varchar(60) CHARSET utf8mb4
+        DETERMINISTIC
+    BEGIN
+    DECLARE especialidad_generada VARCHAR(60) DEFAULT NULL;
+    SET especialidad_generada  = ELT(FLOOR(1 + RAND() * 50), 
+                "Alergología", "Anestesiología", "Cardiología", "Gastroenterología", "Endocrinología ", "Geriatría", "Hematología y Hemoterapia",
+                "Hidrología Médica", "Infectología", "Medicina Aeroespacial", "Medicina del Deporte", "Medicina del Trabajo", "Medicina de Urgencias",
+                "Medicina Familiar y Comunitaria", "Medicina Física y Rehabilitación", "Medicina Intensiva", "Medicina Interna", "Medicina Legal y Forense",
+                "Medicina Preventiva y Salud Pública", "Nefrología", "Neumología", "Neurología", "Nutriología", "Odontología", "Oftalmología", "Oncología Médica",
+                "Oncología Radioterápica","Otorrinolaringología", "Pediatría", "Proctología", "Psiquiatría", "Rehabilitación", "Reumatología", "Traumatología",
+                "Toxicología", "Urología", "Cirugía Cardiovascular", "Cirugía General", "Cirugía Oral y Maxilofacial", "Cirugía Ortopédica","Traumatología",
+                "Cirugía Pediátrica", "Cirugía Plástica, Estética y Reparadora", "Cirugía Torácica", "Neurocirugía", "Angiología y Cirugía Vascular", "Dermatología Médico-Quirúrgica y Venereología",
+                "Estomatología", "Ginecología y Obstetricia", "Oftalmología", "Urología", "Análisis Clínicos", "Anatomía Patológica",
+                "Bioquímica Clínica", "Farmacología Clínica", "Genética Médica", "Inmunología" , "Medicina Nuclear", "Microbiología y Parasitología", "Neurofisiología Clínica",
+                "Radiología");
+    RETURN especialidad_generada ;
+    END
+    DELIMITER ;
+
+-- 11.- Función: :
+/**/
+
+DELIMITER ;;
+DELIMITER ;
+
+-- 12.- Función: :
+/**/
+
+DELIMITER ;;
+DELIMITER ;
+
+-- 13.- Función: :
+/**/
+
+DELIMITER ;;
+DELIMITER ;
+
+-- 14.- Función: :
 /**/
 
 DELIMITER ;;
