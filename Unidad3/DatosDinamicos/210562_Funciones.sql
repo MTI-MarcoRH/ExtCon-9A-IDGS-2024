@@ -443,14 +443,30 @@
     END ;;
     DELIMITER ;
 
--- 13.- Función: :
-/**/
+-- 13.- Función:"fn_primer_vocalinterna" :
+/*El objetivo de la función fn_primer_vocalinterna es encontrar y devolver la primera vocal interna
+    (es decir, no la primera letra) de una palabra dada, ignorando los acentos. Si no se encuentra ninguna
+    vocal interna, la función devuelve NULL.*/
 
-DELIMITER ;;
-DELIMITER ;
-
--- 14.- Función: :
-/**/
-
-DELIMITER ;;
-DELIMITER ;
+    DELIMITER ;;
+    CREATE DEFINER=`jose.gomez`@`%` FUNCTION `fn_primer_vocalinterna`(v_palabra VARCHAR(100)) RETURNS char(1) CHARSET utf8mb4
+        DETERMINISTIC
+    BEGIN
+        DECLARE v_vocal CHAR(1) DEFAULT NULL; 
+        DECLARE v_bandera BOOLEAN DEFAULT FALSE;
+        DECLARE v_pos INT DEFAULT 1; 
+        SET v_palabra = fn_elimina_acentos(v_palabra);
+        WHILE v_bandera = FALSE DO
+                SET v_vocal = UPPER(substr(v_palabra, v_pos,1));
+                IF v_vocal IN ('A','E','I','O','U') AND v_pos > 1 THEN
+                SET v_bandera = TRUE;
+                ELSEIF v_pos = CHAR_LENGTH(v_palabra) THEN
+                SET v_vocal = NULL;
+                SET v_bandera = TRUE;
+                ELSE
+                SET v_pos = v_pos + 1;
+                END IF;
+        END WHILE;
+    RETURN v_vocal;
+    END ;;
+    DELIMITER ;
