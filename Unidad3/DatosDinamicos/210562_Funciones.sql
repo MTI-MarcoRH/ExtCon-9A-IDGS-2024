@@ -26,6 +26,7 @@
     RETURN v_bandera;
     END ;;
     DELIMITER ;
+
 -- 2.- Función: "fn_genera_nombre_simple":
 /*Genera un nombre aleatorio basado en el género proporcionado. Aquí están los pasos:
     Dependiendo del género (v_genero):
@@ -97,12 +98,60 @@
     RETURN v_nombre_generado;
     END ;;
     DELIMITER ;
--- 3.- Función
-DELIMITER ;;
-DELIMITER ;
+
+-- 3.- Función: "fn_genera_nombre":
+/*La función `fn_genera_nombre` genera un nombre completo aleatorio que puede ser simple o compuesto. Aquí está cómo funciona:
+    1. Genera un nombre básico:
+    - Llama a `fn_genera_nombre_simple` para obtener un nombre según el género (`v_genero`).
+    2. Decide si el nombre debe ser compuesto:
+    - Usa `fn_bandera_porcentaje(35)` para determinar si debe generar un nombre compuesto (35% de probabilidad). La función `fn_bandera_porcentaje` devuelve un valor booleano basado en el porcentaje proporcionado.
+    3. Genera un segundo nombre si es necesario:
+    - Si se decide que el nombre debe ser compuesto, genera un segundo nombre distinto (para evitar duplicados) llamando nuevamente a `fn_genera_nombre_simple`.
+    4. Concatena los nombres:
+    - Si se genera un segundo nombre, lo concatena al primer nombre con un espacio en medio.
+    5. Devuelve el nombre generado:
+    - Retorna el nombre completo (ya sea simple o compuesto).
+    */
+ 
+    DELIMITER ;;
+    CREATE DEFINER=`jose.gomez`@`%` FUNCTION `fn_genera_nombre`(v_genero CHAR(1)) RETURNS varchar(100) CHARSET utf8mb4
+        DETERMINISTIC
+    BEGIN
+        DECLARE v_nombre_generado VARCHAR(50) DEFAULT NULL;
+        DECLARE v_nombre2_generado VARCHAR(50) DEFAULT NULL;    
+
+        DECLARE v_bandera_nombrecompuesto BOOLEAN DEFAULT (fn_bandera_porcentaje(35));
+        
+        SET v_nombre_generado = fn_genera_nombre_simple(v_genero);
+        
+        IF v_bandera_nombrecompuesto THEN 
+            WHILE v_nombre2_generado IS NULL OR v_nombre2_generado = v_nombre_generado DO
+                SET v_nombre2_generado = fn_genera_nombre_simple(v_genero);
+            END WHILE;
+            SET v_nombre_generado = CONCAT(v_nombre_generado," ", v_nombre2_generado);
+        END IF;
+        
+        RETURN v_nombre_generado;
+    RETURN v_nombre_generado;
+    END ;;
+    DELIMITER ;
+
 -- 4.- Función
+/**/
 DELIMITER ;;
 DELIMITER ;
+
 -- 5.- Función
+/**/
+DELIMITER ;;
+DELIMITER ;
+
+-- 6.- Función
+/**/
+DELIMITER ;;
+DELIMITER ;
+
+-- 7.- Función
+/**/
 DELIMITER ;;
 DELIMITER ;
