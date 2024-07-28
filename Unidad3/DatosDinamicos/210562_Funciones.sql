@@ -313,3 +313,47 @@
         RETURN fechaHoraGenerada;
     END
     DELIMITER ;
+
+-- 8.- Función: "fn_elimina_acentos":
+/*tiene como objetivo eliminar acentos y caracteres especiales de un texto. Aquí cómo funciona:
+    -Elimina acentos: Reemplaza los caracteres acentuados (como Á, é, ñ)
+    con sus versiones sin acento (A, e, n), utilizando dos cadenas (@withaccents y @withoutaccents)
+    que mapean caracteres acentuados a no acentuados.
+    -Elimina caracteres especiales: Elimina caracteres especiales definidos en la cadena @special,
+    como !, @, #, etc., reemplazándolos con una cadena vacía.
+    -Utiliza bucles: Usa bucles WHILE para recorrer los caracteres en @withaccents y @special y realizar
+    los reemplazos en el texto proporcionado (textvalue).*/
+
+    DELIMITER ;;
+    CREATE DEFINER=`jose.gomez`@`%` FUNCTION `fn_elimina_acentos`(textvalue varchar(100)) RETURNS varchar(100) CHARSET utf8mb4
+        DETERMINISTIC
+    BEGIN
+        SET @textvalue = textvalue;
+        SET @withaccents = 'ŠšŽžÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØÙÚÛÜÝŸÞàáâãäåæçèéêëìíîïñòóôõöøùúûüýÿþƒ';
+        SET @withoutaccents = 'SsZzAAAAAAACEEEEIIIINOOOOOOUUUUYYBaaaaaaaceeeeiiiinoooooouuuuyybf';
+        SET @count = length(@withaccents);
+        WHILE @count > 0 DO
+            SET @textvalue = replace(@textvalue, substring(@withaccents, @count, 1), substring(@withoutaccents, @count, 1));
+            SET @count = @count - 1;
+        END WHILE;
+        SET @special = '!@#$%¨&*()_+=§¹²³£¢¬"´{[^~}]<,>.:;?/°ºª+*|\\''';
+        SET @count = length(@special);
+        WHILE @count > 0 DO
+            SET @textvalue = replace(@textvalue, substring(@special, @count, 1), '');
+            SET @count = @count - 1;
+        END WHILE;
+        RETURN @textvalue;
+    END
+    DELIMITER ;
+
+-- 9.- Función: :
+/**/
+
+DELIMITER ;;
+DELIMITER ;
+
+-- 10.- Función: :
+/**/
+
+DELIMITER ;;
+DELIMITER ;
