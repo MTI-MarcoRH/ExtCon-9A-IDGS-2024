@@ -266,10 +266,30 @@
     END ;;
     DELIMITER ;
 
--- 6.- Función
-/**/
-DELIMITER ;;
-DELIMITER ;
+-- 6.- Función: "fn_genera_apellido":
+/*Genera aleatoriamente un apellido a partir de una lista predefinida
+    de apellidos. Utiliza una función auxiliar para seleccionar un apellido de la lista con base en
+    un número aleatorio.*/
+
+    DELIMITER ;;
+    CREATE DEFINER=`jose.gomez`@`%` FUNCTION `fn_genera_apellido`() RETURNS varchar(100) CHARSET utf8mb4
+        DETERMINISTIC
+    BEGIN
+        DECLARE v_apellido_generado VARCHAR(50) DEFAULT NULL;
+        SET v_apellido_generado = ELT(fn_numero_aleatorio_rangos(1,100), 
+            "Álvarez","Briones","Cruz","Díaz","Estrada", "Fuentes","Gayosso","Hernández","Ibarra","Jiménez",
+            "Kuno","López","Martínez","Ortíz","Paredes", "Quiróz","Ramírez","Sampayo","Téllez","Urbina",
+            "Vargas","Wurtz","Ximénez","Yañez","Zapata", "García","González","Pérez","Rodríguez","Sánchez",
+            "Romero","Gómez","Flores","Morales","Vázquez", "Reyes","Torres","Gutiérrez","Ruíz","Mendoza",
+            "Aguilar","Moreno","Castillo","Méndez","Chávez", "Rivera","Juárez","Ramos","Domínguez","Herrera",
+            "Medina","Castro","Vargas","Guzmán","Velazquez", "Muñoz","Rojas","de la Cruz","Contreras","Salazar",
+            "Luna","Ortega","Santiago","Guerrero","Bautista", "Cortés","Soto","Alvarado","Espinoza","Lara",
+            "Ávila","Ríos","Cervantes","Silva","Delgado", "Vega","Márquez","Sandoval","Carrillo","León",
+            "Mejía","Solís","Rosas","Valdéz","Nuñez", "Campos","Santos","Camacho","Navarro","Peña",
+            "Maldonado","Rosales","Acosta","Miranda","Trejo", "Valencia","Nava","Pacheco","Huerta","Padilla");
+        RETURN v_apellido_generado;
+    END ;;
+    DELIMITER ;
 
 -- 7.- Función
 /**/
