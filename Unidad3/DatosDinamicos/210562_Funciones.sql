@@ -291,7 +291,25 @@
     END ;;
     DELIMITER ;
 
--- 7.- Función
-/**/
-DELIMITER ;;
-DELIMITER ;
+-- 7.- Función: "fn_fechahora_aleatoria_rangos":
+/*La función `fn_fechahora_aleatoria_rangos` genera una fecha y hora aleatoria dentro de un rango especificado. 
+    Lo que hace cada parte de la función:
+    1. Genera una fecha aleatoria entre `fechaInicio` y `fechaFin`.
+    2. Genera una hora aleatoria entre `horaInicio` y `horaFin`.
+    3. Combina la fecha y la hora para crear un `DATETIME` que es retornado.*/
+
+    DELIMITER ;;
+    CREATE DEFINER=`jose.gomez`@`%` FUNCTION `fn_fechahora_aleatoria_rangos`(fechaInicio DATE, fechaFin DATE, horaInicio TIME, horaFin TIME) RETURNS datetime
+        DETERMINISTIC
+    BEGIN
+        DECLARE fechaAleatoria DATE;
+        DECLARE horaRegistro TIME;
+        DECLARE fechaHoraGenerada DATETIME;
+        
+        SET fechaAleatoria = DATE_ADD(fechaInicio, INTERVAL FLOOR(RAND() * (DATEDIFF(fechaFin, fechaInicio) + 1)) DAY);
+        SET horaRegistro = ADDTIME(horaInicio, SEC_TO_TIME(FLOOR(RAND() * TIME_TO_SEC(TIMEDIFF(horaFin, horaInicio)))));
+        SET fechaHoraGenerada = CONCAT(fechaAleatoria," ",horaRegistro);
+    
+        RETURN fechaHoraGenerada;
+    END
+    DELIMITER ;
