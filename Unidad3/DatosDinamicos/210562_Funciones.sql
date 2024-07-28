@@ -346,11 +346,16 @@
     END
     DELIMITER ;
 
--- 9.- Función: :
-/**/
+-- 9.- Función: "fn_calcula_edad_fecha_especifica":
+/*Esta función calcula la edad en años completos entre v_fecha_nacimiento y v_fechareferencia.*/
 
-DELIMITER ;;
-DELIMITER ;
+    DELIMITER ;;
+    CREATE DEFINER=`jose.gomez`@`%` FUNCTION `fn_calcula_edad_fecha_especifica`(v_fecha_nacimiento DATE, v_fechareferencia DATE) RETURNS int
+        DETERMINISTIC
+    BEGIN
+    RETURN TIMESTAMPDIFF(YEAR, v_fecha_nacimiento,v_fechareferencia);
+    END ;;
+    DELIMITER ;
 
 -- 10.- Función: :
 /**/
