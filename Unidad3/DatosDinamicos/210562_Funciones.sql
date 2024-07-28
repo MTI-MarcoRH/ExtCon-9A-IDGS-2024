@@ -381,11 +381,32 @@
     END
     DELIMITER ;
 
--- 11.- Función: :
-/**/
+-- 11.- Función: "fn_primer_consonanteinterna":
+/*Esta función es útil en la generación de CURP o en cualquier sistema que requiera extraer consonantes
+    internas de nombres o apellidos. En el caso de CURP, la primera consonante interna de los apellidos
+    y nombres se utiliza para formar el código CURP.*/
 
-DELIMITER ;;
-DELIMITER ;
+    DELIMITER ;;
+    CREATE DEFINER=`jose.gomez`@`%` FUNCTION `fn_primer_consonanteinterna`(v_palabra VARCHAR(100)) RETURNS char(1) CHARSET utf8mb4
+        DETERMINISTIC
+    BEGIN
+        DECLARE v_consonante CHAR(1) DEFAULT NULL; 
+        DECLARE v_bandera BOOLEAN DEFAULT FALSE;
+        DECLARE v_pos INT DEFAULT 1; 
+        WHILE v_bandera = FALSE DO
+                SET v_consonante = UPPER(substr(v_palabra, v_pos,1));
+                IF v_consonante IN ('B','C','D','F','G','H','J','K','L','M','N','P','Q','R','S','T','V','W','X','Y','Z') AND v_pos > 1 THEN
+                SET v_bandera = TRUE;
+                ELSEIF v_pos = CHAR_LENGTH(v_palabra) THEN
+                SET v_consonante = NULL;
+                SET v_bandera = TRUE;
+                ELSE
+                SET v_pos = v_pos + 1;
+                END IF;
+        END WHILE;
+    RETURN v_consonante;
+    END ;;
+    DELIMITER ;
 
 -- 12.- Función: :
 /**/
