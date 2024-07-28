@@ -6,7 +6,7 @@
 -- Fecha de elaboración: 28 de Julio del 2024
 
 -- Procedimiento almacenado de la Tabla: tbb_personas
-
+DELIMITER ;;
 CREATE DEFINER=`jose.gomez`@`%` PROCEDURE `sp_poblar_personas_dinamico`(v_cantidad int, v_tipo VARCHAR(50))
 BEGIN
 
@@ -168,4 +168,5 @@ BEGIN
     SET v_bandera_fecha_contratacion_valida=FALSE;
     SET i =i +1;
 	END WHILE;
-END
+END ;;
+DELIMITER ;
