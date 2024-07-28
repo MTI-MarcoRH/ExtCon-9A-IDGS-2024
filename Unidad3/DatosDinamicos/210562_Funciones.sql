@@ -166,8 +166,11 @@
     END ;;
     DELIMITER ;
 
--- 5.- Función
-/**/
+-- 5.- Función: "fn_genera_curp":
+/*Genera un CURP (Clave Única de Registro de Población) 
+    para una persona con base en su nombre, apellidos, fecha de nacimiento, género y entidad federativa.
+    Utiliza funciones auxiliares para obtener componentes como vocales internas y consonantes,
+    y genera un dígito verificador para asegurar la unicidad del CURP.*/
 
     DELIMITER ;;
     CREATE DEFINER=`jose.gomez`@`%` FUNCTION `fn_genera_curp`(v_nombre VARCHAR(60), v_primer_apellido VARCHAR(45) ,v_segundo_apellido VARCHAR(45), 
