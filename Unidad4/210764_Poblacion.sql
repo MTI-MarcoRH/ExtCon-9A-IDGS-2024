@@ -3,7 +3,7 @@
 -- Elaborado por : Karen Alyn Fosado Rodriguez
 -- Grado y Grupo: 9° A
 -- Programa educativo: Ingenieria de Desarrollo  y Gestion de Software
--- Fecha elaboración: 22 de julio de 2024 
+-- Fecha elaboración: 04 de julio de 2024 
 
 CREATE DEFINER=`Alyn.Fosado`@`%` PROCEDURE `sp_poblar_organos`(
     IN p_password VARCHAR(255)
