@@ -3,7 +3,7 @@
 -- Elaborado por: AMÉRICA YAELY ESTUDILLO LICONA
 -- Grado y Grupo:  9° A 
 -- Programa Educativo: Ingeniería de Desarrollo y Gestión de Software 
--- Fecha elaboración:  24 de Julio de 2024
+-- Fecha elaboración:  05 de Agosto de 2024
 
 
 -- Tabla 1:  áreas médicas 
