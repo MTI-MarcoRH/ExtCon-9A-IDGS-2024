@@ -9,7 +9,7 @@
 -
 ------------------------ Funcion para la seleccion de un rango de numeros ------------------------
 
-CREATE DEFINER=`Carlos.Hernandez`@`%` FUNCTION `fn_numero_aleatorio_rangos`(v_limite_inferior int, v_limite_superior INT) RETURNS int
+CREATE DEFINER=`armando.carrasco`@`%` FUNCTION `fn_numero_aleatorio_rangos`(v_limite_inferior int, v_limite_superior INT) RETURNS int
     DETERMINISTIC
 BEGIN
      DECLARE v_numero_generado INT;
