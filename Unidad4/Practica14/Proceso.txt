@@ -1,1 +1,2 @@
-Primero se debe de realizar las funciones para insertar personas
+1. Se insertara personas lo cual el compañero ya realizo (funciones)
+2. Se insertara pacientes lo cual, aun no se realiza dichas funciones para poder llenar la tabla de cirugias
