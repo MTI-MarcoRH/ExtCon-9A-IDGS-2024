@@ -1,0 +1,7 @@
+TABLA CATALOGO CONSUMIBLES UTILIZA DATOS ESTATICOS
+
+
+La tabla `tbc_consumibles` utiliza datos estáticos para asegurar la estabilidad y consistencia de la información 
+sobre los consumibles en nuestro sistema hospitalario. Esto nos ayuda a gestionar el inventario de manera más eficiente, 
+manteniendo una base de datos uniforme y fácil de auditar. Además, al evitar cambios frecuentes, mejoramos el rendimiento
+del sistema y garantizamos que siempre tengamos los recursos necesarios disponibles.
