@@ -25,7 +25,8 @@ JOIN tbd_solicitudes s ON p.id = s.id
 JOIN tbb_aprobaciones a ON a.id=s.id;
 
 
-
+-- Para llamar el procedimeinto 
+-- Call sp_poblar_Aprobaciones('1234');
 -------------------------------------------------------------------------------------------------------------------
 
 CREATE DEFINER=`carlos.crespo`@`%` PROCEDURE `sp_poblar_Aprobaciones`(IN v_password VARCHAR(255))

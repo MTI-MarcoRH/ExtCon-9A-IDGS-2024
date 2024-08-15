@@ -4,6 +4,9 @@
 -- Programa Educativo: Ingenieria de Desarrollo y Gestion de Software
 -- Fecha de Elaboración: 22 de julio de 2024
 
+-- Para llamar el procedimientos 
+-- Call sp_insertar_aprobaciones();
+-- --------------------------------------------------------------------------------------------------------------
 CREATE DEFINER=`carlos.crespo`@`%` PROCEDURE `sp_insertar_aprobaciones`()
 BEGIN
     DECLARE done INT DEFAULT FALSE;
