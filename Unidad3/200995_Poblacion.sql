@@ -44,7 +44,11 @@ BEGIN
     ELSE
         SELECT "La contraseña es incorrecta, no puedo mostrar el estatus de la Base de Datos" AS ErrorMessage;
     END IF;
-END
+END;
+
+-- Llamar al procedimiento sp_poblar_puestos
+CALL sp_poblar_puestos('1234');
+
 
 CREATE DEFINER=`jesus.rios`@`%` PROCEDURE `sp_poblar_puestos_departamentos`(IN v_password VARCHAR(20))
 BEGIN
@@ -69,4 +73,7 @@ BEGIN
     ELSE
         SELECT 'La contraseña es incorrecta' AS Mensaje;
     END IF;
-END
+END;
+
+-- Llamar al procedimiento sp_poblar_puestos_departamentos
+CALL sp_poblar_puestos_departamentos('1234');
