@@ -1,0 +1,2 @@
+La tabla tbc_organos no puede tener una poblacion ya que es una tabla catalogo,
+ya que una tabla catologo se utiliza para almacenar datos de manera estructurada.
