@@ -1,0 +1,1 @@
+la tabla tbc_areas_medicas es una tabla cátalago por lo tanto no cuenta con una inserccion dinamica ni funciones 
