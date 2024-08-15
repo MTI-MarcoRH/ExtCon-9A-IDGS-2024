@@ -82,7 +82,7 @@ END
 
 
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Delete  tbc_medicamentostbc_medicamentos-- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Delete  tbc_medicamentos -- -- -- -- -- -- -- -- -- -- -- -- -- --
 CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbc_medicamentos_AFTER_DELETE` AFTER DELETE ON `tbc_medicamentos` FOR EACH ROW BEGIN
     DECLARE v_estatus_old VARCHAR(20);
 
