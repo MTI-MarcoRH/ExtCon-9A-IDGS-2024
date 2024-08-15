@@ -3,8 +3,9 @@
 -- Grado y Grupo: 9 A
 -- Ingenieria de Desarrollo  y Gestion de Software
 
+-- Esta tabla es catalogo por lo cual no es necesario una poblacion dinamica
 CREATE TABLE tbc_servicios_medicos (
-    ID INT NOT NULL UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     Nombre VARCHAR(255) NOT NULL,
     Descripcion TEXT,
     Observaciones TEXT,
