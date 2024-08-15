@@ -1,1 +1,0 @@
-print("Marvin Yair Tolentino Perez, M-210540")
