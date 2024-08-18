@@ -21,13 +21,6 @@ call sp_limpiar_bd("xYz$123");
     DELETE FROM tbb_cirugias;
     ALTER TABLE tbb_cirugias auto_increment=1;
     -- ---------------------------------------------------
-	DELETE FROM tbb_pacientes;
-	ALTER TABLE tbb_pacientes AUTO_INCREMENT=1;
-    DELETE FROM tbb_usuarios;
-    ALTER TABLE tbb_usuarios AUTO_INCREMENT=1;
-	DELETE FROM tbd_expedientes_clinicos;
-	ALTER TABLE tbd_expedientes_clinicos AUTO_INCREMENT=1;
-    -- ..........
 
 -- 2. Poblar de manera estática la tabla.
 CALL sp_poblar_cirugias("xyz#$%");
@@ -157,9 +150,9 @@ BEGIN
         ('Quirófano', 'A-109',16 ,id_espacio_superior_2,DEFAULT, DEFAULT);
          SET id_espacio_medico3 = last_insert_id(); -- Captura el ID del espacio médico
         
-        -- Inserta la cirugía en tbb_cirugias usando el ID correcto del paciente y del espacio médico
+               -- Inserta la cirugía en tbb_cirugias usando el ID correcto del paciente y del espacio médico
         INSERT INTO tbb_cirugias 
-        (Paciente_ID, Espacio_Medico_ID, Tipo, Nombre, Descripcion, Nivel_Urgencia, Horario, Observaciones, Valoracion_Medica, Estatus, Consumible, Fecha_Registro, Fecha_Actualizacion) 
+        (Paciente_ID, Espacio_Medico_ID, Tipo, Nombre, Descripcion, Nivel_Urgencia, Horario, Observaciones, Valoracion_Medica, Estatus, Consumible, Fecha_Programacion, Fecha_Realizacion, Fecha_Registro, Fecha_Actualizacion) 
         VALUES
         (id_paciente, 
         id_espacio_medico,
@@ -171,7 +164,9 @@ BEGIN
         'Paciente con antecedentes de artritis severa.', 
         'Valoración preoperatoria completa, paciente en condiciones adecuadas.', 
         'Programada', 
-        'Prótesis de rodilla, Instrumental quirúrgico', 
+        'Prótesis de rodilla, Instrumental quirúrgico',
+        DEFAULT,
+        DEFAULT,
         DEFAULT, 
         NOW()),
          (id_paciente2, 
@@ -185,7 +180,9 @@ BEGIN
             'Valoración preoperatoria completa, paciente en condiciones adecuadas.', 
             'Programada', 
             'Instrumental quirúrgico, Equipo de monitoreo fetal',
-            default,
+			DEFAULT,
+			DEFAULT,
+            DEFAULT,
             NOW()),
             (id_paciente3, 
         id_espacio_medico2,
@@ -197,7 +194,9 @@ BEGIN
             'Paciente con antecedentes de enfermedad coronaria.', 
             'Valoración preoperatoria completa, riesgo elevado pero aceptable.', 
             'Programada', 
-            'Bypass, Instrumental quirúrgico', 
+            'Bypass, Instrumental quirúrgico',
+			DEFAULT,
+			DEFAULT,
             DEFAULT, 
             NOW()),
             (id_paciente4,
@@ -211,8 +210,11 @@ BEGIN
             'Valoración preoperatoria completa, paciente estable.', 
             'Programada', 
             'Instrumental neuroquirúrgico, Sistema de navegación', 
+			DEFAULT,
+			DEFAULT,
             DEFAULT,
             NOW());
+            
             -- Actualizar datos
              UPDATE tbb_cirugias SET Estatus= 'Completada' WHERE ID = '1';
              UPDATE tbb_cirugias SET Estatus= 'Completada' WHERE ID = '2';
@@ -226,7 +228,7 @@ $$
 DELIMITER ;
 
 -- --------------------------------------------------------------------------
-
+-- 3 Poblar de manera estatica Cirugias personal medico
 call sp_poblar_cirugias_personal_medico('xyz#$%');
 
 -- ----------------------------------------------------------------------------------
@@ -274,13 +276,13 @@ BEGIN
         WHERE ID = '3';
         
 
-        -- Insertar datos en tbd_cirugias_personal_medico
+         -- Insertar datos en tbd_cirugias_personal_medico
         INSERT INTO tbd_cirugias_personal_medico (
-            Personal_Medico_ID, Cirugia_ID, Estatus, Fecha_Registro, Fecha_Actualizacion
+            Personal_Medico_ID, Cirugia_ID, Rol, Estatus, Fecha_Registro, Fecha_Actualizacion
         ) VALUES 
-            (id_personal_medico, id_cirugia, b'1', DEFAULT, NOW()),
-            (id_personal_medico1, id_cirugia1, b'1', DEFAULT, NOW()),
-            (id_personal_medico2, id_cirugia2, b'1', DEFAULT, NOW());
+            (id_personal_medico, id_cirugia,"Cirujano Principal", b'1', DEFAULT, NOW()),
+            (id_personal_medico1, id_cirugia1, "Anestesiólogo", b'1', DEFAULT, NOW()),
+            (id_personal_medico2, id_cirugia2, "Técnico Quirúrgico", b'1', DEFAULT, NOW());
             
             -- Actualizar datos
              UPDATE tbd_cirugias_personal_medico SET Estatus = 0  WHERE ID = '1';
