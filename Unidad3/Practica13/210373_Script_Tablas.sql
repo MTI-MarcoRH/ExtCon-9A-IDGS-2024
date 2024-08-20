@@ -24,3 +24,12 @@ CREATE TABLE `tbc_estudios` (
   CONSTRAINT `fk_solicitud_1` FOREIGN KEY (`Solicitud_ID`) REFERENCES `tbd_solicitudes` (`ID`),
   CONSTRAINT `fk_consumible_1` FOREIGN KEY (`Consumibles_ID`) REFERENCES `tbc_consumibles` (`id`),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Script para la creacion de una tabla derivada
+SELECT tipo, departamento, SUM(cantidad_existencia) AS total_existencia, COUNT(id) AS numero_consumibles
+FROM (
+    SELECT id, tipo, departamento, cantidad_existencia
+    FROM tbc_consumibles
+    WHERE estatus = 1  -- Suponiendo que 1 significa que el consumible está activo
+) AS consumibles_activos
+GROUP BY tipo, departamento;
