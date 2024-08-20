@@ -4,8 +4,24 @@
 -- Programa Educativo: Ingenieria de Desarrollo y Gestion de Software
 -- Fecha de Elaboración: 22 de julio de 2024
 
--- Para llamar el procedimientos 
--- Call sp_insertar_aprobaciones();
+-- 1. Verifica la Constriccion de la Tabla
+desc tbb_aprobaciones;
+
+-- 2. Poblar de manera estatica la tabla
+Call sp_insertar_aprobaciones();
+select * from tbb_aprobaciones;
+
+-- 3. Verifica el registro de los eventos en la bitacora
+SELECT * FROM tbi_bitacora WHERE tabla= "tbb_aprobaciones" ORDER BY ID DESC;
+
+-- 4. Realizamos una consulta Join para visualzar los datos poblados
+SELECT p.id, CONCAT_WS(' ', NULLIF(p.titulo, ""), p.nombre, p.primer_apellido, p.segundo_apellido) 
+as Solicitante, s.Prioridad, s.Descripcion, a.Comentario, a.Estatus, a.Tipo, a.Fecha_Registro, a.fecha_actualizacion
+FROM tbb_personas p
+JOIN tbd_solicitudes s ON p.id = s.id
+JOIN tbb_aprobaciones a ON a.id=s.id;
+
+
 -- --------------------------------------------------------------------------------------------------------------
 CREATE DEFINER=`carlos.crespo`@`%` PROCEDURE `sp_insertar_aprobaciones`()
 BEGIN
