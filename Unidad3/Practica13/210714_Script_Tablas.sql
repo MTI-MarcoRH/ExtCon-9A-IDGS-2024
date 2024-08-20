@@ -7,21 +7,16 @@
 
 
 -- Tabla 1:  Valoraciones Medicas
-DROP TABLE IF EXISTS `tbb_valoraciones_medicas`;
-
 CREATE TABLE `tbb_valoraciones_medicas` (
-  `id` int NOT NULL,
-  `paciente_id` int DEFAULT NULL,
-  `fecha` date DEFAULT NULL,
-  `antecedentes_personales` text,
-  `antecedentes_familiares` text,
-  `antecedentes_medicos` text,
-  `sintomas_signos` text,
-  `examen_fisico` text,
-  `pruebas_diagnosticas` text,
-  `diagnostico` text,
-  `plan_tratamiento` text,
-  `seguimiento` text,
-  `fecha_actualizacion` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `Valor` decimal(10,2) NOT NULL,
+  `Indicador` varchar(100) NOT NULL,
+  `Unidad_medida` varchar(50) NOT NULL,
+  `Paciente_id` int NOT NULL,
+  `Cita_id` int NOT NULL,
+  `Pm_id` int NOT NULL,
+  `Estatus` tinyint(1) NOT NULL,
+  `Fecha_registro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `Fecha_actualizacion` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
