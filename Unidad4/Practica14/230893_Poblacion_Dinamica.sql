@@ -3,7 +3,40 @@
 -- Elaborado por: Brayan Gutiérrez Ramírez
 -- Grado y Grupo:  9° A 
 -- Programa Educativo: Ingeniería de Desarrollo y Gestión de Software 
--- Fecha elaboración:  18 de Agosto de 2024
+-- Fecha elaboración:  20 de Agosto de 2024
+
+-- Se necesita llevar acabo este proceso para poder poblar de manera dinamica las tablas asignadas
+-- limpiar bd
+call sp_limpiar_bd('xYz$123');
+
+--  1 poblar pacientes 
+call sp_poblar_pacientes_dinamico('1234', 200); -- como el compañero no tiene una poblacion dinamica se realiza una con datos aleatorios
+select * from tbb_pacientes;
+
+-- 2 poblar espacios medicos
+call sp_poblar_espacios('xYz$123');
+select*from tbc_espacios;
+
+-- 3 poblar las cirugias
+call sp_poblar_cirugias_dinamico('100');
+select * from tbb_cirugias;
+
+-- 4 poblar personal medico
+call sp_poblar_personal_medico_dinamico('100','Médico');
+select * from tbb_personal_medico;
+
+-- 4 poblar cirugias personal medico
+call sp_poblar_cirugias_personal_medico_dinamico(100);
+select * from tbd_cirugias_personal_medico;
+
+-- 3. Verificamos el registro de los eventos en bitacora
+SELECT * FROM tbi_bitacora WHERE tabla= "tbb_cirugias"  ORDER BY ID DESC; -- ver cosulta general
+SELECT * FROM tbi_bitacora WHERE tabla = "tbb_cirugias" AND Operacion IN ('DELETE')  ORDER BY ID DESC; -- solo ver el delete
+-- 4. Verificamos el registro de los eventos en bitacora de cirugias personal medico 
+SELECT * FROM tbi_bitacora WHERE tabla = "tbd_cirugias_personal_medico" ORDER BY ID DESC;
+SELECT * FROM tbi_bitacora WHERE tabla = "tbd_cirugias_personal_medico" AND Operacion IN ('DELETE')  ORDER BY ID DESC; -- ver solo el delete
+
+
 
 -- Poblar de manera dinamica la tabla de cirugias
 DELIMITER $$
