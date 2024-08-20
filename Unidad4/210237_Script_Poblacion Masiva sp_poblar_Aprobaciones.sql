@@ -24,10 +24,13 @@ desc tbb_aprobaciones;
     e)-- Pacientes - tbb_pacientes
     call sp_poblar_pacientes("1234");
 
-    f)-- Solicitudes - tbd_solicitudes
+    f)-- Roles - tbc_roles
+    call sp_poblar_roles("xYz$123" );
+
+    g)-- Solicitudes - tbd_solicitudes
     call sp_poblar_solicitudes('xYz$123');
 
-    g)-- Aprobaciones
+    h)-- Aprobaciones
     Call sp_insertar_aprobaciones();
     select * from tbb_aprobaciones;
 
