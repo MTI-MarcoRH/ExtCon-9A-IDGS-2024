@@ -1,5 +1,51 @@
-TABLA CATALOGO CONSUMIBLES LLENADO ESTATICO 
+TABLA CATALOGO CONSUMIBLES 
 La tabla `tbc_consumibles` utiliza datos estáticos para asegurar la estabilidad y consistencia de la información 
 sobre los consumibles en nuestro sistema hospitalario. Esto nos ayuda a gestionar el inventario de manera más eficiente, 
 manteniendo una base de datos uniforme y fácil de auditar. Además, al evitar cambios frecuentes, mejoramos el rendimiento
 del sistema y garantizamos que siempre tengamos los recursos necesarios disponibles.
+
+
+
+TABLA DERIVADA CIRUGIA CONSUMIBLES
+
+CREATE DEFINER=`daniela.aguilar`@`%` PROCEDURE `sp_poblar_cirugia_consumibles_dinamico`(
+    IN v_password VARCHAR(20), 
+    IN v_num_inserciones INT
+)
+BEGIN
+    DECLARE max_cirugia_id INT;
+    DECLARE max_consumible_id INT;
+    DECLARE i INT DEFAULT 0;
+
+    -- Verificación de la contraseña
+    IF v_password = "xYz$123" THEN
+
+        -- Obtener los valores máximos de Cirugia_ID y Consumible_ID
+        SELECT MAX(ID) INTO max_cirugia_id FROM tbb_cirugias;
+        SELECT MAX(ID) INTO max_consumible_id FROM tbc_consumibles;
+
+        -- Bucle para insertar registros dinámicamente
+        WHILE i < v_num_inserciones DO
+            INSERT INTO tbd_cirugia_consumibles (
+                Cirugia_ID, 
+                Consumible_ID, 
+                Cantidad_Utilizada, 
+                Fecha_Registro
+            ) 
+            VALUES (
+                FLOOR(1 + RAND() * max_cirugia_id),    -- ID de Cirugía aleatorio
+                FLOOR(1 + RAND() * max_consumible_id), -- ID de Consumible aleatorio
+                FLOOR(1 + RAND() * 100),               -- Cantidad utilizada aleatoria
+                fn_fecha_aleatoria()                   -- Fecha de registro aleatoria
+            );
+            SET i = i + 1;
+        END WHILE;
+
+        -- Mensaje de confirmación
+        SELECT CONCAT(v_num_inserciones, ' registros insertados correctamente en tbd_cirugia_consumibles.') AS Mensaje;
+
+    ELSE
+        -- Mensaje de error si la contraseña es incorrecta
+        SELECT 'Contraseña incorrecta. No se realizaron inserciones.' AS ErrorMessage;
+    END IF;
+END;
