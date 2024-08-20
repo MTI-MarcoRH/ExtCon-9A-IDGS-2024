@@ -136,16 +136,16 @@ DELIMITER ;
 
 -------------------------- 4) AFTER DELETE --------------------------------------------
 DELIMITER &&
-
 CREATE DEFINER=`brayan.gutierrez`@`%` TRIGGER `tbb_cirugias_AFTER_DELETE` AFTER DELETE ON `tbb_cirugias` FOR EACH ROW BEGIN
 
 DECLARE v_paciente_nombre_old VARCHAR(155);
 DECLARE v_espacio_nombre_old VARCHAR(100);
  
-	SELECT CONCAT(Titulo, Nombre, ' ', Primer_Apellido, ' ', COALESCE(Segundo_Apellido, ''))
-	INTO v_paciente_nombre_old 
-    FROM tbb_personas 
-    WHERE ID = old.Paciente_ID;
+SELECT CONCAT(COALESCE(Titulo, ''), Nombre, ' ', Primer_Apellido, ' ', COALESCE(Segundo_Apellido, ''))
+INTO v_paciente_nombre_old 
+FROM tbb_personas 
+WHERE ID = old.Paciente_ID;
+
     
 	SELECT CONCAT(Tipo,' ', Nombre) 
     INTO v_espacio_nombre_old 
