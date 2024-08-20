@@ -35,3 +35,23 @@ FROM (
 GROUP BY tipo, departamento;
 
 --Scrip para la creacion de la tabla derivada estudios-consumible
+CREATE TABLE tbd_estudios_consumibles AS
+SELECT
+    tbc_estudios.ID AS estudio_id,
+    tbc_estudios.Tipo AS tipo_estudio,
+    tbc_estudios.Nivel_Urgencia,
+    tbc_estudios.Total_Costo,
+    tbc_consumibles.id AS consumible_id,
+    tbc_consumibles.nombre AS nombre_consumible,
+    tbc_consumibles.tipo AS tipo_consumible,
+    tbc_consumibles.departamento,
+    tbc_consumibles.cantidad_existencia,
+    tbc_estudios.Fecha_Registro AS fecha_estudio,
+    tbc_estudios.Fecha_Actualizacion AS fecha_actualizacion_estudio
+FROM
+    tbc_estudios
+JOIN
+    tbc_consumibles ON tbc_estudios.ConsumiblesID = tbc_consumibles.id
+WHERE
+    tbc_estudios.Estatus = 'Activo';  -- Filtrar por estudios activos
+select * from consumibles_por_estudio;
