@@ -7,9 +7,29 @@
 -- 1. Verifica la Constriccion de la Tabla
 desc tbb_aprobaciones;
 
--- 2. Poblar de manera estatica la tabla
-Call sp_insertar_aprobaciones();
-select * from tbb_aprobaciones;
+-- 2. Poblar de manera dinamica la tabla
+-- 2.1 Para hacer los registro debe poblarse primero:
+    a) --Areas Medicas - tbc_areas_medicas
+    call sp_poblar_areas_medicas("xYz$123");
+
+    b)-- Servicios Medicos - tbc_servicios_medicos
+    call sp_poblar_servicios_medicos("1234");
+
+    c)-- Personas - tbb_personas
+    call sp_poblar_personas("1234");
+
+    d)-- Personal Medico - tbb_personal_medico
+    call sp_poblar_personal_medico('xyz#$%');
+
+    e)-- Pacientes - tbb_pacientes
+    call sp_poblar_pacientes("1234");
+
+    f)-- Solicitudes - tbd_solicitudes
+    call sp_poblar_solicitudes('xYz$123');
+
+    g)-- Aprobaciones
+    Call sp_insertar_aprobaciones();
+    select * from tbb_aprobaciones;
 
 -- 3. Verifica el registro de los eventos en la bitacora
 SELECT * FROM tbi_bitacora WHERE tabla= "tbb_aprobaciones" ORDER BY ID DESC;
