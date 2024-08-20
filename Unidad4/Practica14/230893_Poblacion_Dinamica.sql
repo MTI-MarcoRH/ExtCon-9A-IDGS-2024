@@ -5,8 +5,9 @@
 -- Programa Educativo: Ingeniería de Desarrollo y Gestión de Software 
 -- Fecha elaboración:  18 de Agosto de 2024
 
-
-CREATE DEFINER=`brayan.gutierrez`@`%` PROCEDURE `sp_insertar_cirugias_dinamico`(v_cantidad INT)
+-- Poblar de manera dinamica la tabla de cirugias
+DELIMITER $$
+CREATE DEFINER=`brayan.gutierrez`@`%` PROCEDURE `sp_poblar_cirugias_dinamico`(v_cantidad INT)
 BEGIN
     DECLARE i INT DEFAULT 1;
     DECLARE v_tipo_cirugia VARCHAR(250);
@@ -27,7 +28,7 @@ BEGIN
     
     -- Crea una variable para guardar el ID de la persona y espacio médico aleatorios
     DECLARE v_paciente_cursor CURSOR FOR SELECT Persona_ID FROM tbb_pacientes ORDER BY RAND() LIMIT 1;
-    DECLARE v_espacio_cursor CURSOR FOR SELECT ID FROM tbc_espacios ORDER BY RAND() LIMIT 1;
+    DECLARE v_espacio_cursor CURSOR FOR SELECT ID FROM tbc_espacios where Tipo = "Quirófano"  ORDER BY RAND() LIMIT 1;
     
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_paciente_id = NULL, v_espacio_medico_id = NULL;
 
@@ -86,6 +87,69 @@ BEGIN
         INSERT INTO tbb_cirugias (Paciente_ID, Espacio_Medico_ID, Tipo, Nombre, Descripcion, Nivel_Urgencia, Horario, Observaciones, Valoracion_Medica, Estatus, Consumible, Fecha_Programacion, Fecha_Realizacion, Fecha_Registro, Fecha_Actualizacion) 
         VALUES (v_paciente_id, v_espacio_medico_id, v_tipo_cirugia, v_nombre_cirugia, v_descripcion, v_nivel_urgencia, v_horario, v_observaciones, v_valoracion_medica, v_estatus, v_consumible, v_fecha_programacion, v_fecha_realizacion, v_fecha_registro, NOW());
         
+        -- Actualizar datos
+             UPDATE tbb_cirugias SET Estatus= 'Completada' WHERE ID = '1';
+             UPDATE tbb_cirugias SET Estatus= 'Completada' WHERE ID = '2';
+			-- Eliminanar las cirugias con el nombre que contenga Reemplazo de Rodilla y Resección de Tumor Cerebral
+           DELETE FROM tbb_cirugias 
+		   WHERE Nombre IN ('Reemplazo de Rodilla', 'Resección de Tumor Cerebral');
+
+
+    
         SET i = i + 1;
     END WHILE;
 END
+$$
+DELIMITER ;
+
+
+-- Poblar de manera dinamica la tabla de cirugias personal medico
+DELIMITER $$
+CREATE DEFINER=`brayan.gutierrez`@`%` PROCEDURE `sp_poblar_cirugias_personal_medico_dinamico`(v_cantidad INT)
+BEGIN
+
+DECLARE i INT DEFAULT 1;
+DECLARE v_personal_medico_id INT;
+DECLARE v_cirugia_id INT;
+DECLARE v_rol VARCHAR(150);
+DECLARE v_fecha_realizacion DATE;
+DECLARE v_fecha_registro DATETIME DEFAULT NULL;
+
+-- Crea una variable para guardar el ID de la persona y espacio médico aleatorios
+    DECLARE v_personal_medico_cursor CURSOR FOR SELECT Persona_ID FROM tbb_personal_medico ORDER BY RAND() LIMIT 1;
+    DECLARE v_cirugia_cursor CURSOR FOR SELECT ID FROM tbb_cirugias ORDER BY RAND() LIMIT 1;
+    
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_personal_medico_id = NULL, v_cirugia_id = NULL;
+
+WHILE (i <= v_cantidad) DO
+        -- Obtener paciente y espacio médico aleatorios
+        OPEN v_personal_medico_cursor;
+        FETCH v_personal_medico_cursor INTO v_personal_medico_id;
+        CLOSE v_personal_medico_cursor;
+        
+        OPEN v_cirugia_cursor;
+        FETCH v_cirugia_cursor INTO v_cirugia_id;
+        CLOSE v_cirugia_cursor;
+        
+         SET v_fecha_registro = CURDATE();
+         SET v_rol = ELT(fn_numero_aleatorio_rangos(1,9),"Cirujano Principal", "Anestesiólogo", "Enfermera Instrumentista",
+         "Enfermera Circulante","Técnico en Anestesia", "Técnico Quirúrgico", "Cirujano Residente", "Radiólogo Intervencionista",
+         "Perfusionista");
+         
+          -- Insertar la cirugía en la tabla
+        INSERT INTO tbd_cirugias_personal_medico (ID, Personal_Medico_ID, Cirugia_ID, Rol, Estatus, Fecha_Registro, Fecha_Actualizacion) 
+        VALUES (DEFAULT, v_personal_medico_id, v_cirugia_id, v_rol, DEFAULT, v_fecha_registro, NOW()   );
+		
+        -- Actualizar datos
+             UPDATE tbd_cirugias_personal_medico SET Estatus = 0  WHERE ID = '1';
+        -- Eliminar los datos de cirugias personal medico que contengan 'Técnico Quirúrgico', 'Perfusionista'
+		 DELETE FROM tbd_cirugias_personal_medico 
+		   WHERE Rol IN ('Técnico Quirúrgico', 'Perfusionista');
+        
+        SET i = i + 1;
+    END WHILE;
+
+END
+
+$$
+DELIMITER ;
