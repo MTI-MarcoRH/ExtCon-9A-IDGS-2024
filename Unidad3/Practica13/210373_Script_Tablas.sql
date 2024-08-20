@@ -33,3 +33,5 @@ FROM (
     WHERE estatus = 1  -- Suponiendo que 1 significa que el consumible está activo
 ) AS consumibles_activos
 GROUP BY tipo, departamento;
+
+--Scrip para la creacion de la tabla derivada estudios-consumible
