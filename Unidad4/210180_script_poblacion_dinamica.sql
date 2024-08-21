@@ -7,6 +7,48 @@
 -- Fecha elaboración: 02 de agosto de 2024 
 
 
+-- 1 limpiar bd
+call sp_limpiar_bd("xYz$123");
+
+-- 2 estatus BD
+call sp_estatus_bd("xYz$123");
+
+-- 3 personal medico (Estatica)
+call sp_poblar_personal_medico("xyz#$%");
+
+-- 4 receta medica (Dinamico)
+call sp_poblar_recetas("141002");
+
+-- 5 solicitudes (Dinamico)
+call sp_poblar_solicitudes("xYz$123");
+
+-- 6 Dispensaciones(Dinamico)
+call sp_poblar_dispensacion_dinamica("xYz$123", 10);
+
+
+-- 7 Join de recetas con dispensacion
+SELECT 
+    d.ID AS DispensaID,
+    r.paciente_nombre AS PacienteNombre,
+    r.medicamentos AS Medicamento,
+    CONCAT(p.Titulo, ' ', p.Nombre, ' ', p.Primer_Apellido, ' ', p.Segundo_Apellido) AS MedicoNombre,
+    d.TotalMedicamentosEntregados AS CantidadEntregada,
+    d.Total_costo AS TotalCosto,
+    d.Estatus,
+    d.Tipo
+FROM 
+    tbd_dispensaciones d
+JOIN 
+    tbd_recetas_medicas r ON d.RecetaMedica_id = r.id
+JOIN 
+    tbb_personal_medico pm ON d.PersonalMedico_id = pm.Persona_ID
+JOIN 
+    tbb_personas p ON pm.Persona_ID = p.ID
+WHERE 
+    d.RecetaMedica_id IS NOT NULL;
+
+-- 8 Poblacion dinamica de dispensacion
+
 
 
 CREATE DEFINER=`Cristian.Ojeda`@`%` PROCEDURE `sp_poblar_dispensacion_dinamica`(

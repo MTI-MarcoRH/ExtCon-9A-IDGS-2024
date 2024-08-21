@@ -8,7 +8,7 @@
 
 
 
---  -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Insert tbc_medicamentos -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- 1  -- After Insert tbc_medicamentos -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbc_medicamentos_AFTER_INSERT` AFTER INSERT ON `tbc_medicamentos` FOR EACH ROW BEGIN
     DECLARE v_estatus VARCHAR(20) DEFAULT 'Activo';
 
@@ -38,13 +38,13 @@ CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbc_medicamentos_AFTER_INSERT` AFTE
         DEFAULT  -- Fecha_actualizacion
     );
 END
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Before Update tbc_medicamentos -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- 2 Before Update tbc_medicamentos -- -- -- -- -- -- -- -- -- -- -- -- -- --
 CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbc_medicamentos_BEFORE_UPDATE` BEFORE UPDATE ON `tbc_medicamentos` FOR EACH ROW BEGIN
 	set new.Fecha_Actualizacion = current_time();
 
 END
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Update  tbc_medicamentos -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- 3 After Update  tbc_medicamentos -- -- -- -- -- -- -- -- -- -- -- -- -- --
 CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbc_medicamentos_AFTER_UPDATE` AFTER UPDATE ON `tbc_medicamentos` FOR EACH ROW BEGIN
     DECLARE v_estatus_old VARCHAR(20) DEFAULT 'Activo';
     DECLARE v_estatus_new VARCHAR(20) DEFAULT 'Activo';
@@ -82,7 +82,7 @@ END
 
 
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Delete  tbc_medicamentos -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- 4 After Delete  tbc_medicamentos -- -- -- -- -- -- -- -- -- -- -- -- -- --
 CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbc_medicamentos_AFTER_DELETE` AFTER DELETE ON `tbc_medicamentos` FOR EACH ROW BEGIN
     DECLARE v_estatus_old VARCHAR(20);
 
@@ -114,7 +114,7 @@ END
 
 
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Insert  - tbd_dispensaciones -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- 5 After Insert  - tbd_dispensaciones -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbd_dispensaciones_AFTER_INSERT` AFTER INSERT ON `tbd_dispensaciones` FOR EACH ROW BEGIN
     DECLARE v_estatus_new VARCHAR(50) DEFAULT 'Activo';
     DECLARE v_tipo_new VARCHAR(50) DEFAULT 'Desconocido';
@@ -185,13 +185,13 @@ CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbd_dispensaciones_AFTER_INSERT` AF
     );
 END
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Before Update - tbd_dispensaciones -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- 6 Before Update - tbd_dispensaciones -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 CREATE DEFINER=`root`@`localhost` TRIGGER `tbd_dispensaciones_BEFORE_UPDATE` BEFORE UPDATE ON `tbd_dispensaciones` FOR EACH ROW BEGIN
 	set new.Fecha_Actualizacion = current_time();
 END
 
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Update - tbd_dispensaciones -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- 7 After Update - tbd_dispensaciones -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbd_dispensaciones_AFTER_UPDATE` AFTER UPDATE ON `tbd_dispensaciones` FOR EACH ROW BEGIN
     DECLARE v_estatus_old VARCHAR(50) DEFAULT 'Activo';
@@ -303,7 +303,7 @@ CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbd_dispensaciones_AFTER_UPDATE` AF
     );
 END
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- After Delete - tbd_dispensaciones -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- 8 After Delete - tbd_dispensaciones -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 CREATE DEFINER=`Cristian.Ojeda`@`%` TRIGGER `tbd_dispensaciones_AFTER_DELETE` AFTER DELETE ON `tbd_dispensaciones` FOR EACH ROW BEGIN
     DECLARE v_estatus_old VARCHAR(50) DEFAULT 'Activo';
     DECLARE v_solicitud_id_old VARCHAR(50);
