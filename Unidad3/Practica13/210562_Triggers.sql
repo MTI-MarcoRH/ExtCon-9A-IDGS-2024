@@ -48,7 +48,14 @@ END $$
 
 DELIMITER ;
 
--- 2.- Trigger AFTER UPDATE on tbb_personas
+-- 2) BEFORE UPDATE
+DELIMITER $$
+CREATE DEFINER=`romualdo`@`localhost` TRIGGER `tbb_valoraciones_medicas_BEFORE_UPDATE` BEFORE UPDATE ON `tbb_valoraciones_medicas` FOR EACH ROW BEGIN
+    SET NEW.Fecha_actualizacion = CURRENT_TIMESTAMP();
+END $$ 
+DELIMITER ;
+
+-- 3.- Trigger AFTER UPDATE on tbb_personas
 DELIMITER $$
 
 CREATE DEFINER=`jose.gomez`@`%` TRIGGER `tbb_personas_AFTER_UPDATE` 
@@ -101,7 +108,7 @@ END $$
 
 DELIMITER ;
 
--- 3.- Trigger AFTER DELETE on tbb_personas
+-- 4.- Trigger AFTER DELETE on tbb_personas
 DELIMITER $$
 
 CREATE DEFINER=`jose.gomez`@`%` TRIGGER `tbb_personas_AFTER_DELETE` 
