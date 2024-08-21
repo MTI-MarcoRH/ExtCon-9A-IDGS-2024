@@ -123,9 +123,9 @@ BEGIN
         -- Actualizar datos
              UPDATE tbb_cirugias SET Estatus= 'Completada' WHERE ID = '1';
              UPDATE tbb_cirugias SET Estatus= 'Completada' WHERE ID = '2';
-			-- Eliminanar las cirugias con el nombre que contenga Reemplazo de Rodilla y Resección de Tumor Cerebral
+			-- Eliminanar las cirugias con el nombre que contenga Reemplazo de Rodilla
            DELETE FROM tbb_cirugias 
-		   WHERE Nombre IN ('Reemplazo de Rodilla', 'Resección de Tumor Cerebral');
+		   WHERE Nombre IN ('Reemplazo de Rodilla');
 
 
     
