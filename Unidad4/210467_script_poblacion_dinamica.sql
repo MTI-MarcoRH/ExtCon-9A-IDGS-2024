@@ -1,4 +1,4 @@
--- SCRIPT DEL PROCEDIMIENTO DINÁMICO DE LA TABLA 'tbd_lotes_medicamentos'
+-- SCRIPT DEL POBLACION DINÁMICA DE LA TABLA 'tbd_lotes_medicamentos'
 
 -- ELABORADO POR: MYRIAM VALDERRABANO CORTES
 -- GRADO Y GRUPO: 9°
@@ -6,8 +6,33 @@
 -- FECHA DE ELABORACIÓN: 03 DE AGOSTO DE 2024
 
 
+-- 1 LIMPIAR BD
+call sp_limpiar_bd("xYz$123");
+
+-- 2 ESTATUS BD
+call sp_estatus_bd("xYz$123");
+
+-- 3 PERSONAL MEDICO (ESTATICA)
+call sp_poblar_personal_medico("xyz#$%");
+-- 4 MEDICAMENTOS (ESTATICA)
+call sp_poblar_medicamentos('xYz$123');
+
+-- 5 LOTES MEDICAMENTOS (DINAMICO)
+CALL sp_poblar_lotes_medicamentos_dinamico('xYz$123', 50);
 
 
+-- JOIN tbd_lotes_medicamentos
+SELECT 
+    m.Nombre_generico, m.Nombre_comercial, 
+    CONCAT_WS(' ', NULLIF(p.Titulo, ''), p.Nombre, p.Primer_Apellido, p.Segundo_Apellido) AS NombrePersonal, 
+    l.Clave as ClaveLote, l.Cantidad, l.Costo_Total, l.Estatus
+FROM tbd_lotes_medicamentos l
+JOIN tbc_medicamentos m ON l.Medicamento_ID = m.ID
+JOIN tbb_personal_medico pm ON l.Personal_Medico_ID = pm.Persona_ID
+JOIN tbb_personas p ON pm.Persona_ID = p.ID;
+
+
+-- POBLACION DINAMICA tbd_lotes_medicamentos
 CREATE DEFINER=`myriam.valderrabano`@`%` PROCEDURE `sp_poblar_lotes_medicamentos_dinamico`(v_password VARCHAR(20), v_num_inserciones INT)
 BEGIN
 DECLARE max_medicamento_id INT;
@@ -45,3 +70,6 @@ DECLARE max_medicamento_id INT;
         SELECT "La contraseña es incorrecta, no puedo mostrarte el estatus de llenado de la Base de datos" AS ErrorMessage;
     END IF;
 END
+
+
+

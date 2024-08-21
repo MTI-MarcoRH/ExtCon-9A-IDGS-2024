@@ -7,7 +7,7 @@
 
 
 
--- --------------------------- AFTER INSERT
+-- 1 AFTER INSERT tbd_lotes_medicamentos ----------------------------------------------------------
 
 CREATE DEFINER=`myriam.valderrabano`@`%` TRIGGER `tbd_lotes_medicamentos_AFTER_INSERT` AFTER INSERT ON `tbd_lotes_medicamentos` FOR EACH ROW BEGIN
 
@@ -56,7 +56,7 @@ END
 
 
 
--- --------------------------- BEFORE UPDATE
+-- 2 BEFORE UPDATE tbd_lotes_medicamentos ----------------------------------------------------------
 
 CREATE DEFINER=`myriam.valderrabano`@`%` TRIGGER `tbd_lotes_medicamentos_BEFORE_UPDATE` BEFORE UPDATE ON `tbd_lotes_medicamentos` FOR EACH ROW BEGIN
 	set new.Fecha_Actualizacion = current_timestamp();
@@ -65,7 +65,7 @@ END
 
 
 
--- --------------------------- AFTER UPDATE
+-- 3 AFTER UPDATE tbd_lotes_medicamentos ----------------------------------------------------------
 
 CREATE DEFINER=`myriam.valderrabano`@`%` TRIGGER `tbd_lotes_medicamentos_AFTER_UPDATE` AFTER UPDATE ON `tbd_lotes_medicamentos` FOR EACH ROW BEGIN
 	DECLARE v_estatus_descripcion VARCHAR(20);
@@ -120,7 +120,7 @@ END
 
 
 
--- ------------------------------------------ AFTER DELETE
+-- 4  AFTER DELETE tbd_lotes_medicamentos ----------------------------------------------------------
 
 CREATE DEFINER=`myriam.valderrabano`@`%` TRIGGER `tbd_lotes_medicamentos_AFTER_DELETE` AFTER DELETE ON `tbd_lotes_medicamentos` FOR EACH ROW BEGIN
     DECLARE v_estatus_descripcion VARCHAR(20);

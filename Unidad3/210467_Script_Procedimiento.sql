@@ -5,6 +5,7 @@
 -- PROGRAMA EDUCATIVO: INGENIERÍA EN DESARROLLO Y GESTIÓN DE SOFTWARE
 -- FECHA DE ELABORACIÓN: 21 DE JULIO DE 2024
 
+call sp_poblar_lotes_medicamentos("xYz$123");
 
 CREATE DEFINER=`myriam.valderrabano`@`%` PROCEDURE `sp_poblar_lotes_medicamentos`(v_password VARCHAR(20))
 BEGIN
