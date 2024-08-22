@@ -50,7 +50,7 @@ DELIMITER ;
 
 -- 2) BEFORE UPDATE
 DELIMITER $$
-CREATE DEFINER=`romualdo`@`localhost` TRIGGER `tbb_valoraciones_medicas_BEFORE_UPDATE` BEFORE UPDATE ON `tbb_valoraciones_medicas` FOR EACH ROW BEGIN
+CREATE DEFINER=`jose.gomez`@`%` TRIGGER `tbb_personas_BEFORE_UPDATE` BEFORE UPDATE ON `tbb_personas` FOR EACH ROW BEGIN
     SET NEW.Fecha_actualizacion = CURRENT_TIMESTAMP();
 END $$ 
 DELIMITER ;
