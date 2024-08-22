@@ -1,8 +1,7 @@
 -- TABLA tbd_departamentos_servicios procedimieto
 -- Programa educativo: Ingenieria de Desarrollo  y Gestion de Software
 -- ALEXIS GOMEZ GAONA
---  POBLAR SERVICIOS MEDICOS call sp_poblar_servicios_medicos("1234");
- -- POBLAR DEPARTAMENTOS SERIVCIOS CALL sp_poblar_departamentos_servicios('1234', '5');
+
 
 
 CREATE DEFINER=`alexis.gomez`@`%` PROCEDURE `sp_poblar_departamentos_servicios`(
