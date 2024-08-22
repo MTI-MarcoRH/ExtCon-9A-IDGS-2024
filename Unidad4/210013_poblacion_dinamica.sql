@@ -1,6 +1,18 @@
--- TABLA tbd_departamentos_servicios procedimieto
--- Programa educativo: Ingenieria de Desarrollo  y Gestion de Software
--- ALEXIS GOMEZ GAONA
+
+-- Elaborado por : Alexis Gomez Gaona
+
+-- 1 limpiar bd
+call sp_limpiar_bd("xYz$123");
+
+-- 2 estatus BD
+call sp_estatus_bd("xYz$123");
+
+-- 3 servicios_medicos("1234");
+CALL sp_poblar_servicios_medicos("1234");
+
+-- 4 CALL departamentos_servicios
+CALL sp_poblar_departamentos_servicios("1234","1");
+
 
 
 
