@@ -1,6 +1,15 @@
 TABLA TBD CIRUGIA CONSUMIBLES 
 
+Funcion Numero Aleatorio
 
+CREATE DEFINER=`daniela.aguilar`@`%` FUNCTION `generarNumeroAleatorio`(min INT, max INT) RETURNS int
+    DETERMINISTIC
+BEGIN
+    RETURN FLOOR(min + (RAND() * (max - min + 1)));
+END
+-----------------------------------------------------------------------------------------------------------------------
+
+    
 CREATE FUNCTION fn_fecha_aleatoria() 
 RETURNS DATE
 DETERMINISTIC
