@@ -8,49 +8,44 @@ del sistema y garantizamos que siempre tengamos los recursos necesarios disponib
 
 TABLA DERIVADA CIRUGIA CONSUMIBLES
 
-CREATE DEFINER=`daniela.aguilar`@`%` PROCEDURE `sp_poblar_cirugia_consumibles_dinamico`(
-    IN v_password VARCHAR(20), 
-    IN v_num_inserciones INT
-)
+CREATE DEFINER=`daniela.aguilar`@`%` PROCEDURE `sp_poblar_cirugia_consumibles_dinamico`(v_cantidad INT)
 BEGIN
-    DECLARE max_cirugia_id INT;
-    DECLARE max_consumible_id INT;
-    DECLARE i INT DEFAULT 0;
+DECLARE i INT DEFAULT 1;
+DECLARE v_cirugia_id INT;
+Declare v_consumible_id int;
+Declare v_cantidad_utilizada int;
+DECLARE v_fecha_registro DATETIME DEFAULT NULL;
 
-    -- Verificación de la contraseña
-    IF v_password = "xYz$123" THEN
+-- Crea una variable para guardar el ID de la persona y espacio médico aleatorios
+    
+    DECLARE v_cirugia_cursor CURSOR FOR SELECT ID FROM tbb_cirugias ORDER BY RAND() LIMIT 1;
+	DECLARE v_consumible_cursor CURSOR FOR SELECT ID FROM tbc_consumibles ORDER BY RAND() LIMIT 1;
+    
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_cirugia_id = NULL, v_consumible_id = NULL;
 
-        -- Obtener los valores máximos de Cirugia_ID y Consumible_ID
-        SELECT MAX(ID) INTO max_cirugia_id FROM tbb_cirugias;
-        SELECT MAX(ID) INTO max_consumible_id FROM tbc_consumibles;
+WHILE (i <= v_cantidad) DO
+        -- Obtener paciente y espacio médico aleatorios
 
-        -- Bucle para insertar registros dinámicamente
-        WHILE i < v_num_inserciones DO
-            INSERT INTO tbd_cirugia_consumibles (
-                Cirugia_ID, 
-                Consumible_ID, 
-                Cantidad_Utilizada, 
-                Fecha_Registro
-            ) 
-            VALUES (
-                FLOOR(1 + RAND() * max_cirugia_id),    -- ID de Cirugía aleatorio
-                FLOOR(1 + RAND() * max_consumible_id), -- ID de Consumible aleatorio
-                FLOOR(1 + RAND() * 100),               -- Cantidad utilizada aleatoria
-                fn_fecha_aleatoria()                   -- Fecha de registro aleatoria
-            );
-            SET i = i + 1;
-        END WHILE;
-
-        -- Mensaje de confirmación
-        SELECT CONCAT(v_num_inserciones, ' registros insertados correctamente en tbd_cirugia_consumibles.') AS Mensaje;
-
-    ELSE
-        -- Mensaje de error si la contraseña es incorrecta
-        SELECT 'Contraseña incorrecta. No se realizaron inserciones.' AS ErrorMessage;
-    END IF;
-END;
-
---------------------------------------------------------------------------------------------------------------------------------------
+        OPEN v_cirugia_cursor;
+        FETCH v_cirugia_cursor INTO v_cirugia_id;
+        CLOSE v_cirugia_cursor;
+        
+		OPEN v_consumible_cursor;
+        FETCH v_consumible_cursor INTO v_consumible_id;
+        CLOSE v_consumible_cursor;
+        
+        
+         SET v_fecha_registro = CURDATE();
+         SET v_cantidad_utilizada = generarNumeroAleatorio(1,2000);
+         
+          -- Insertar la cirugia consumible en la tabla
+        INSERT INTO tbd_cirugia_consumibles (ID, cirugia_id, consumible_id, Cantidad_Utilizada, Fecha_Registro) 
+        VALUES (default, v_cirugia_id, v_consumible_id, v_cantidad_utilizada, NOW());
+		
+        
+        SET i = i + 1;
+    END WHILE;
 
 
+END
 
