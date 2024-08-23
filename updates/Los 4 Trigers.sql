@@ -1,10 +1,5 @@
 -- #############################################AFTER INSERT
-DELIMITER $$
-
-CREATE DEFINER=`DiegoOliver`@`%` TRIGGER `tbd_horarios_AFTER_INSERT`
-AFTER INSERT ON `tbd_horarios`
-FOR EACH ROW
-BEGIN
+CREATE DEFINER=`DiegoOliver`@`%` TRIGGER `tbd_horarios_AFTER_INSERT` AFTER INSERT ON `tbd_horarios` FOR EACH ROW BEGIN
     INSERT INTO tbi_bitacora (
         Usuario,
         Operacion,
@@ -26,18 +21,11 @@ BEGIN
         b'1', -- Este valor indica el estado del registro, asegúrate de que sea coherente con tu diseño
         CURRENT_TIMESTAMP()
     );
-END$$
-
-DELIMITER ;
+END
 
 
 -- #############################################BEFORE UPDATE
-DELIMITER $$
-
-CREATE DEFINER=`DiegoOliver`@`%` TRIGGER `tbd_horarios_BEFORE_UPDATE`
-BEFORE UPDATE ON `tbd_horarios`
-FOR EACH ROW
-BEGIN
+CREATE DEFINER=`DiegoOliver`@`%` TRIGGER `tbd_horarios_BEFORE_UPDATE` BEFORE UPDATE ON `tbd_horarios` FOR EACH ROW BEGIN
     INSERT INTO tbi_bitacora (
         Usuario,
         Operacion,
@@ -60,17 +48,10 @@ BEGIN
         b'1',
         CURRENT_TIMESTAMP()
     );
-END$$
-
-DELIMITER ;
+END
 
 -- ############################################# AFTER UPDATE
-DELIMITER $$
-
-CREATE DEFINER=`DiegoOliver`@`%` TRIGGER `tbd_horarios_AFTER_UPDATE`
-AFTER UPDATE ON `tbd_horarios`
-FOR EACH ROW
-BEGIN
+CREATE DEFINER=`DiegoOliver`@`%` TRIGGER `tbd_horarios_AFTER_UPDATE` AFTER UPDATE ON `tbd_horarios` FOR EACH ROW BEGIN
     INSERT INTO tbi_bitacora (
         Usuario,
         Operacion,
@@ -93,19 +74,12 @@ BEGIN
         b'1',
         CURRENT_TIMESTAMP()
     );
-END$$
-
-DELIMITER ;
+END
 
 
 
 -- ############################################# AFTER DELETE
-DELIMITER $$
-
-CREATE DEFINER=`DiegoOliver`@`%` TRIGGER `tbd_horarios_AFTER_DELETE`
-AFTER DELETE ON `tbd_horarios`
-FOR EACH ROW
-BEGIN
+CREATE DEFINER=`DiegoOliver`@`%` TRIGGER `tbd_horarios_AFTER_DELETE` AFTER DELETE ON `tbd_horarios` FOR EACH ROW BEGIN
     INSERT INTO tbi_bitacora (
         Usuario,
         Operacion,
@@ -127,6 +101,4 @@ BEGIN
         b'1', -- Este valor indica el estado del registro, asegúrate de que sea coherente con tu diseño
         CURRENT_TIMESTAMP()
     );
-END$$
-
-DELIMITER ;
+END

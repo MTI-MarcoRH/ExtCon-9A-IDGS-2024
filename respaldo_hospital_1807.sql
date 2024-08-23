@@ -1,10 +1,11 @@
 CREATE DATABASE  IF NOT EXISTS `hospital_general_9a_idgs` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `hospital_general_9a_idgs`;
--- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
+
+-- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
--- Host: localhost    Database: hospital_general_9a_idgs
+-- Host: 127.0.0.1    Database: hospital_general_9a_idgs
 -- ------------------------------------------------------
--- Server version	8.0.36
+-- Server version	8.0.39
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -615,7 +616,7 @@ CREATE TABLE `tbb_citas_medicas` (
   CONSTRAINT `fk_paciente_2` FOREIGN KEY (`Paciente_ID`) REFERENCES `tbb_pacientes` (`Persona_ID`),
   CONSTRAINT `fk_personal_medico_2` FOREIGN KEY (`Personal_Medico_ID`) REFERENCES `tbb_personal_medico` (`Persona_ID`),
   CONSTRAINT `fk_servicio_medico_1` FOREIGN KEY (`Servicio_Medico_ID`) REFERENCES `tbc_servicios_medicos` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -624,7 +625,6 @@ CREATE TABLE `tbb_citas_medicas` (
 
 LOCK TABLES `tbb_citas_medicas` WRITE;
 /*!40000 ALTER TABLE `tbb_citas_medicas` DISABLE KEYS */;
-INSERT INTO `tbb_citas_medicas` VALUES (1,1,5,1,'48f444b9-4529-11ef-b40a-0a0027000012','Revisión',3,'2024-08-30 09:30:00',NULL,NULL,'Sin Observaciones','Reprogramada','2024-07-18 11:15:09','2024-07-18 11:15:09'),(2,2,5,5,'48f44cfd-4529-11ef-b40a-0a0027000012','Diagnóstico',3,'2024-07-18 10:20:00',NULL,NULL,'Sin Observaciones','En proceso','2024-07-18 11:15:09',NULL),(3,3,6,1,'48f450f7-4529-11ef-b40a-0a0027000012','Seguimiento',5,'2024-06-30 11:00:00',NULL,NULL,'El paciente se encuentra estable','Atendida','2024-07-18 11:15:09',NULL),(5,3,8,1,'48f45670-4529-11ef-b40a-0a0027000012','Diagnóstico',6,'2024-07-01 09:00:00',NULL,NULL,'Se diagnosticó en el paciente una gripa estacionaria, se le asigno tratamiento.','Atendida','2024-07-18 11:15:09',NULL);
 /*!40000 ALTER TABLE `tbb_citas_medicas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -844,7 +844,6 @@ CREATE TABLE `tbb_pacientes` (
 
 LOCK TABLES `tbb_pacientes` WRITE;
 /*!40000 ALTER TABLE `tbb_pacientes` DISABLE KEYS */;
-INSERT INTO `tbb_pacientes` VALUES (5,NULL,'Sin Seguro','2009-03-17 17:31:00','Normal','Vivo',_binary '1','2001-02-15 06:23:05',NULL),(6,NULL,'Sin Seguro','2019-05-01 13:15:29','Normal','Vivo',_binary '1','2020-06-28 18:46:37',NULL),(8,'12254185844-3','Particular','2022-08-16 12:05:35','Normal','Vivo',_binary '1','2022-08-16 11:50:00',NULL);
 /*!40000 ALTER TABLE `tbb_pacientes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1011,7 +1010,6 @@ CREATE TABLE `tbb_personal_medico` (
 
 LOCK TABLES `tbb_personal_medico` WRITE;
 /*!40000 ALTER TABLE `tbb_personal_medico` DISABLE KEYS */;
-INSERT INTO `tbb_personal_medico` VALUES (2,11,'11422587','Médico',NULL,'2018-05-10 08:50:25','2018-05-10 09:10:52',NULL,10000.00,'Activo',NULL),(1,13,'25515487','Médico','Pediatría','2012-08-22 08:50:25','2015-09-16 09:10:52',NULL,35000.00,'Activo',NULL),(3,1,'3256884','Administrativo',NULL,'2000-01-01 11:50:25','2000-01-02 09:00:00',NULL,45000.00,'Activo','2024-07-18 11:15:05');
 /*!40000 ALTER TABLE `tbb_personal_medico` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1227,7 +1225,7 @@ CREATE TABLE `tbb_personas` (
   `Fecha_Actualizacion` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `CURP_UNIQUE` (`CURP`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1236,7 +1234,6 @@ CREATE TABLE `tbb_personas` (
 
 LOCK TABLES `tbb_personas` WRITE;
 /*!40000 ALTER TABLE `tbb_personas` DISABLE KEYS */;
-INSERT INTO `tbb_personas` VALUES (1,'Dr.','Alejandro','Barrera','Fernández','BAFA810525HVZLRR05','M','O+','1981-05-25',_binary '','2024-07-18 11:15:05',NULL),(2,'Dra.','María José','Álvarez','Fonseca','ALFM900620MPLLNR2A','F','O-','1990-06-20',_binary '','2024-07-18 11:15:05',NULL),(3,'Dr.','Alfredo','Carrasco','Lechuga','CALA710115HCSRCL25','M','AB-','1971-01-15',_binary '','2024-07-18 11:15:05',NULL),(4,'Lic.','Fernanda','García','Méndez','ABCD','N/B','A+','1995-05-10',_binary '','2024-07-18 11:15:05',NULL),(5,'Sra.','María','López','Martínez','LOMJ850202MDFRPL01','F','A+','1985-02-02',_binary '','2024-07-18 11:15:06',NULL),(6,NULL,'Ana','Hernández','Ruiz','HERA900303HDFRRL01','F','B+','1990-03-03',_binary '','2024-07-18 11:15:06',NULL),(7,'Dr.','Carlos','García','Rodríguez','GARC950404HDFRRL06','M','AB+','1995-04-04',_binary '','2024-07-18 11:15:06',NULL),(8,'Lic.','Laura','Martínez','Gómez','MALG000505MDFRRL07','F','O-','2000-05-05',_binary '','2024-07-18 11:15:06',NULL);
 /*!40000 ALTER TABLE `tbb_personas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -2119,7 +2116,7 @@ CREATE TABLE `tbc_espacios` (
 
 LOCK TABLES `tbc_espacios` WRITE;
 /*!40000 ALTER TABLE `tbc_espacios` DISABLE KEYS */;
-INSERT INTO `tbc_espacios` VALUES (1,'Edificio','Medicina General',1,'Activo','2024-07-18 11:15:08',NULL,0,NULL),(2,'Piso','Planta Baja',56,'Activo','2024-07-18 11:15:08',NULL,0,1),(3,'Consultorio','A-101',11,'Activo','2024-07-18 11:15:08',NULL,0,2),(4,'Consultorio','A-102',11,'Activo','2024-07-18 11:15:08',NULL,0,2),(5,'Consultorio','A-103',11,'Activo','2024-07-18 11:15:08',NULL,0,2),(6,'Consultorio','A-104',17,'Activo','2024-07-18 11:15:08',NULL,0,2),(7,'Consultorio','A-105',17,'En remodelación','2024-07-18 11:15:08','2024-07-18 11:15:08',0,2),(8,'Quirófano','A-106',16,'Activo','2024-07-18 11:15:08',NULL,0,2),(9,'Quirófano','A-107',16,'Activo','2024-07-18 11:15:08',NULL,0,2),(10,'Sala de Espera','A-108',16,'Activo','2024-07-18 11:15:08',NULL,0,2),(11,'Sala de Espera','A-109',16,'Activo','2024-07-18 11:15:08','2024-07-18 11:15:08',80,2),(12,'Piso','Planta Alta',56,'Activo','2024-07-18 11:15:08',NULL,0,1),(13,'Habitación','A-201',11,'Activo','2024-07-18 11:15:08',NULL,0,12),(14,'Habitación','A-202',11,'Activo','2024-07-18 11:15:08',NULL,0,12),(15,'Habitación','A-203',11,'Activo','2024-07-18 11:15:08',NULL,0,12),(16,'Habitación','A-204',11,'Activo','2024-07-18 11:15:08',NULL,0,12),(17,'Habitación','A-205',11,'Activo','2024-07-18 11:15:08',NULL,0,12),(18,'Laboratorio','A206',23,'Activo','2024-07-18 11:15:08',NULL,0,12),(20,'Recepción','A-208',1,'Activo','2024-07-18 11:15:08',NULL,0,12);
+INSERT INTO `tbc_espacios` VALUES (1,'Edificio','Medicina General',1,'Activo','2024-08-22 19:14:47',NULL,0,NULL),(2,'Piso','Planta Baja',56,'Activo','2024-08-22 19:14:47',NULL,0,1),(3,'Consultorio','A-101',11,'Activo','2024-08-22 19:14:47',NULL,0,2),(4,'Consultorio','A-102',11,'Activo','2024-08-22 19:14:47',NULL,0,2),(5,'Consultorio','A-103',11,'Activo','2024-08-22 19:14:47',NULL,0,2),(6,'Consultorio','A-104',17,'Activo','2024-08-22 19:14:47',NULL,0,2),(7,'Consultorio','A-105',17,'En remodelación','2024-08-22 19:14:47','2024-08-22 19:14:47',0,2),(8,'Quirófano','A-106',16,'Activo','2024-08-22 19:14:47',NULL,0,2),(9,'Quirófano','A-107',16,'Activo','2024-08-22 19:14:47',NULL,0,2),(10,'Sala de Espera','A-108',16,'Activo','2024-08-22 19:14:47',NULL,0,2),(11,'Sala de Espera','A-109',16,'Activo','2024-08-22 19:14:47','2024-08-22 19:14:47',80,2),(12,'Piso','Planta Alta',56,'Activo','2024-08-22 19:14:47',NULL,0,1),(13,'Habitación','A-201',11,'Activo','2024-08-22 19:14:47',NULL,0,12),(14,'Habitación','A-202',11,'Activo','2024-08-22 19:14:47',NULL,0,12),(15,'Habitación','A-203',11,'Activo','2024-08-22 19:14:47',NULL,0,12),(16,'Habitación','A-204',11,'Activo','2024-08-22 19:14:47',NULL,0,12),(17,'Habitación','A-205',11,'Activo','2024-08-22 19:14:47',NULL,0,12),(18,'Laboratorio','A206',23,'Activo','2024-08-22 19:14:47',NULL,0,12),(20,'Recepción','A-208',1,'Activo','2024-08-22 19:14:47',NULL,0,12);
 /*!40000 ALTER TABLE `tbc_espacios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -3056,7 +3053,7 @@ CREATE TABLE `tbc_servicios_medicos` (
 
 LOCK TABLES `tbc_servicios_medicos` WRITE;
 /*!40000 ALTER TABLE `tbc_servicios_medicos` DISABLE KEYS */;
-INSERT INTO `tbc_servicios_medicos` VALUES (1,'Consulta Médica General','Revisión general del paciente por parte de un médico autorizado','Horario de Atención de 08:00 a 20:00','2024-07-18 11:15:07',NULL),(2,'Consulta Médica Especializada','Revisión médica de especialidad','Previa cita, asignada despúes de una revisión general','2024-07-18 11:15:07',NULL),(4,'Examen Físico Completo','Examen detallado de salud física del paciente','Asistir con ropa lijera y 6 a 8 de horas\n        de ayuno previo','2024-07-18 11:15:07',NULL),(5,'Estudio de Química Sanguínea','Toma de muestra para análisis de sangre','Ayuno previo, muestras antes de las 10:00 a.m.','2024-07-18 11:15:07','2024-07-18 11:15:07'),(6,'Parto Natural','Asistencia en el proceso de alumbramiento de un bebé','Sin observaciones','2024-07-18 11:15:07',NULL),(7,'Estudio de Desarrollo Infantil','Valoración de Crecimiento del Infante','Mediciones de Talla, Peso y Nutrición','2024-07-18 11:15:07',NULL),(8,'Toma de Signos Vitales','Registro de Talla, Peso, Temperatura, Oxigenación en la Sangre , Frecuencia Cardiaca \n        (Sistólica y  Diastólica, Frecuencia Respiratoria','Necesarias para cualquier servicio médico.','2024-07-18 11:15:07',NULL);
+INSERT INTO `tbc_servicios_medicos` VALUES (1,'Consulta Médica General','Revisión general del paciente por parte de un médico autorizado','Horario de Atención de 08:00 a 20:00','2024-08-22 19:14:48',NULL),(2,'Consulta Médica Especializada','Revisión médica de especialidad','Previa cita, asignada despúes de una revisión general','2024-08-22 19:14:48',NULL),(4,'Examen Físico Completo','Examen detallado de salud física del paciente','Asistir con ropa lijera y 6 a 8 de horas\n        de ayuno previo','2024-08-22 19:14:48',NULL),(5,'Estudio de Química Sanguínea','Toma de muestra para análisis de sangre','Ayuno previo, muestras antes de las 10:00 a.m.','2024-08-22 19:14:48','2024-08-22 19:14:48'),(6,'Parto Natural','Asistencia en el proceso de alumbramiento de un bebé','Sin observaciones','2024-08-22 19:14:48',NULL),(7,'Estudio de Desarrollo Infantil','Valoración de Crecimiento del Infante','Mediciones de Talla, Peso y Nutrición','2024-08-22 19:14:48',NULL),(8,'Toma de Signos Vitales','Registro de Talla, Peso, Temperatura, Oxigenación en la Sangre , Frecuencia Cardiaca \n        (Sistólica y  Diastólica, Frecuencia Respiratoria','Necesarias para cualquier servicio médico.','2024-08-22 19:14:48',NULL);
 /*!40000 ALTER TABLE `tbc_servicios_medicos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -3194,8 +3191,7 @@ CREATE TABLE `tbd_departamentos_servicios` (
   `Fecha_Actualizacion` datetime DEFAULT NULL,
   PRIMARY KEY (`Departamento_ID`,`Servicio_ID`),
   KEY `fk_servicios_medicos_1_idx` (`Servicio_ID`),
-  CONSTRAINT `fk_departamentos_1` FOREIGN KEY (`Departamento_ID`) REFERENCES `tbc_departamentos` (`ID`),
-  CONSTRAINT `fk_servicios_medicos_1` FOREIGN KEY (`Servicio_ID`) REFERENCES `tbc_servicios_medicos` (`ID`)
+  CONSTRAINT `fk_departamentos_1` FOREIGN KEY (`Departamento_ID`) REFERENCES `tbc_departamentos` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -3205,7 +3201,7 @@ CREATE TABLE `tbd_departamentos_servicios` (
 
 LOCK TABLES `tbd_departamentos_servicios` WRITE;
 /*!40000 ALTER TABLE `tbd_departamentos_servicios` DISABLE KEYS */;
-INSERT INTO `tbd_departamentos_servicios` VALUES (10,2,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-07-18 11:15:07',NULL),(11,2,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-07-18 11:15:07',NULL),(12,2,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-07-18 11:15:07',NULL),(12,8,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-07-18 11:15:07',NULL),(13,2,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-07-18 11:15:07',NULL),(13,6,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-07-18 11:15:07',NULL),(13,7,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-07-18 11:15:07',NULL),(13,8,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-07-18 11:15:07',NULL),(14,2,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-07-18 11:15:07',NULL),(14,6,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-07-18 11:15:07',NULL),(14,8,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-07-18 11:15:07',NULL),(15,2,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-07-18 11:15:07',NULL),(17,1,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-07-18 11:15:07',NULL),(23,8,'Ayuno previo de 1 hr.','Sin restricciones',_binary '\0','2024-07-18 11:15:07','2024-07-18 11:15:07'),(40,1,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-07-18 11:15:07',NULL);
+INSERT INTO `tbd_departamentos_servicios` VALUES (10,2,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-08-22 19:14:48',NULL),(11,2,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-08-22 19:14:48',NULL),(12,2,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-08-22 19:14:48',NULL),(12,8,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-08-22 19:14:48',NULL),(13,2,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-08-22 19:14:48',NULL),(13,6,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-08-22 19:14:48',NULL),(13,7,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-08-22 19:14:48',NULL),(13,8,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-08-22 19:14:48',NULL),(14,2,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-08-22 19:14:48',NULL),(14,6,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-08-22 19:14:48',NULL),(14,8,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-08-22 19:14:48',NULL),(15,2,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-08-22 19:14:48',NULL),(17,1,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-08-22 19:14:48',NULL),(23,8,'Ayuno previo de 1 hr.','Sin restricciones',_binary '\0','2024-08-22 19:14:48','2024-08-22 19:14:48'),(40,1,'Ayuno previo de 1 hr.','Sin restricciones',_binary '','2024-08-22 19:14:48',NULL);
 /*!40000 ALTER TABLE `tbd_departamentos_servicios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -3745,20 +3741,27 @@ DROP TABLE IF EXISTS `tbd_horarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbd_horarios` (
-  `horario_id` int NOT NULL AUTO_INCREMENT,
-  `empleado_id` int NOT NULL,
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `espacio_id` int unsigned NOT NULL,
+  `servicio_medico_id` int unsigned NOT NULL,
+  `departamento_id` int unsigned NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `especialidad` varchar(100) NOT NULL,
   `dia_semana` varchar(20) NOT NULL,
   `hora_inicio` time NOT NULL,
   `hora_fin` time NOT NULL,
-  `turno` varchar(20) NOT NULL,
-  `nombre_departamento` varchar(100) NOT NULL,
-  `nombre_sala` varchar(100) NOT NULL,
+  `turno` enum('Matutino','Vespertino','Nocturno') NOT NULL,
+  `tipo_horario` enum('Diario','Semanal','Quincenal','Mensual') NOT NULL,
   `fecha_creacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `fecha_actualizacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`horario_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`ID`),
+  KEY `espacio_id` (`espacio_id`),
+  KEY `servicio_medico_id` (`servicio_medico_id`),
+  KEY `departamento_id` (`departamento_id`),
+  CONSTRAINT `tbd_horarios_ibfk_1` FOREIGN KEY (`espacio_id`) REFERENCES `tbc_espacios` (`ID`),
+  CONSTRAINT `tbd_horarios_ibfk_2` FOREIGN KEY (`servicio_medico_id`) REFERENCES `tbc_servicios_medicos` (`ID`),
+  CONSTRAINT `tbd_horarios_ibfk_3` FOREIGN KEY (`departamento_id`) REFERENCES `tbc_departamentos` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3767,7 +3770,7 @@ CREATE TABLE `tbd_horarios` (
 
 LOCK TABLES `tbd_horarios` WRITE;
 /*!40000 ALTER TABLE `tbd_horarios` DISABLE KEYS */;
-INSERT INTO `tbd_horarios` VALUES (1,1,'Marvin','Traumatologia','Lunes','10:10:00','11:10:00','Matutino','Dep1','Sala1','2024-06-20 16:14:38','2024-06-20 16:14:38'),(2,1,'Doctor 1','Especialidad 1','Lunes','08:00:00','16:00:00','Matutino','Departamento 2','Sala 2','2024-06-20 16:15:57','2024-06-20 16:15:57'),(3,2,'Doctor 2','Especialidad 2','Lunes','08:00:00','16:00:00','Matutino','Departamento 3','Sala 1','2024-06-20 16:15:57','2024-06-20 16:15:57'),(4,3,'Doctor 3','Especialidad 3','Lunes','08:00:00','16:00:00','Matutino','Departamento 1','Sala 2','2024-06-20 16:15:57','2024-06-20 16:15:57'),(5,4,'Doctor 4','Especialidad 4','Lunes','08:00:00','16:00:00','Matutino','Departamento 2','Sala 1','2024-06-20 16:15:57','2024-06-20 16:15:57'),(6,5,'Doctor 5','Especialidad 5','Lunes','08:00:00','16:00:00','Matutino','Departamento 3','Sala 2','2024-06-20 16:15:57','2024-06-20 16:15:57');
+INSERT INTO `tbd_horarios` VALUES (1,1,1,1,'Justin Martin','Cardiología','Martes','09:00:00','17:00:00','Matutino','Diario','2024-08-23 01:14:52','2024-08-23 01:14:52'),(2,2,2,2,'Arturo Aguilar','Neurología','Miércoles','10:00:00','18:00:00','Vespertino','Semanal','2024-08-23 01:14:52','2024-08-23 01:14:52'),(3,1,1,1,'Marvin Yair','Pediatría','Jueves','11:00:00','19:00:00','Nocturno','Quincenal','2024-08-23 01:14:52','2024-08-23 01:14:52'),(4,4,4,4,'Miriam Cortez','Oncología','Viernes','08:00:00','16:00:00','Matutino','Mensual','2024-08-23 01:14:52','2024-08-23 01:14:52'),(5,1,2,4,'Diego Oliver','Ortopedia','Martes','09:40:39','16:11:54','Nocturno','Semanal','2024-08-23 01:15:07','2024-08-23 01:15:07'),(6,1,2,4,'María Lopez','Ortopedia','Domingo','08:34:26','15:41:24','Nocturno','Mensual','2024-08-23 01:15:07','2024-08-23 01:15:07'),(7,1,2,4,'Carlos Hernandez','Dermatología','Miércoles','10:47:14','15:50:16','Matutino','Diario','2024-08-23 01:15:07','2024-08-23 01:15:07');
 /*!40000 ALTER TABLE `tbd_horarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -3792,16 +3795,13 @@ DELIMITER ;;
         'Create',
         'tbd_horarios',
         CONCAT_WS(' ', 'Se ha agregado un nuevo horario con los siguientes datos:',
-            '\n ID Empleado:', NEW.empleado_id,
             '\n Nombre:', NEW.nombre,
             '\n Especialidad:', NEW.especialidad,
             '\n Día de la Semana:', NEW.dia_semana,
             '\n Hora de Inicio:', NEW.hora_inicio,
             '\n Hora de Fin:', NEW.hora_fin,
-            '\n Turno:', NEW.turno,
-            '\n Departamento:', NEW.nombre_departamento,
-            '\n Sala:', NEW.nombre_sala),
-        b'1',
+            '\n Turno:', NEW.turno),
+        b'1', -- Este valor indica el estado del registro, asegúrate de que sea coherente con tu diseño
         CURRENT_TIMESTAMP()
     );
 END */;;
@@ -3820,8 +3820,6 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`DiegoOliver`@`%`*/ /*!50003 TRIGGER `tbd_horarios_BEFORE_UPDATE` BEFORE UPDATE ON `tbd_horarios` FOR EACH ROW BEGIN
-    -- No es necesario establecer NEW.fecha_actualizacion porque se maneja automáticamente por el campo de la tabla
-    
     INSERT INTO tbi_bitacora (
         Usuario,
         Operacion,
@@ -3834,15 +3832,13 @@ DELIMITER ;;
         'Update',
         'tbd_horarios',
         CONCAT_WS(' ', 'Se ha actualizado un horario con los siguientes cambios:',
-            '\n ID Empleado:', OLD.empleado_id, '->', NEW.empleado_id,
-            '\n Nombre:', OLD.nombre, '->', NEW.nombre,
-            '\n Especialidad:', OLD.especialidad, '->', NEW.especialidad,
-            '\n Día de la Semana:', OLD.dia_semana, '->', NEW.dia_semana,
-            '\n Hora de Inicio:', OLD.hora_inicio, '->', NEW.hora_inicio,
-            '\n Hora de Fin:', OLD.hora_fin, '->', NEW.hora_fin,
-            '\n Turno:', OLD.turno, '->', NEW.turno,
-            '\n Departamento:', OLD.nombre_departamento, '->', NEW.nombre_departamento,
-            '\n Sala:', OLD.nombre_sala, '->', NEW.nombre_sala),
+            IF(OLD.nombre != NEW.nombre, CONCAT('\n Nombre:', OLD.nombre, '->', NEW.nombre), ''),
+            IF(OLD.especialidad != NEW.especialidad, CONCAT('\n Especialidad:', OLD.especialidad, '->', NEW.especialidad), ''),
+            IF(OLD.dia_semana != NEW.dia_semana, CONCAT('\n Día de la Semana:', OLD.dia_semana, '->', NEW.dia_semana), ''),
+            IF(OLD.hora_inicio != NEW.hora_inicio, CONCAT('\n Hora de Inicio:', OLD.hora_inicio, '->', NEW.hora_inicio), ''),
+            IF(OLD.hora_fin != NEW.hora_fin, CONCAT('\n Hora de Fin:', OLD.hora_fin, '->', NEW.hora_fin), ''),
+            IF(OLD.turno != NEW.turno, CONCAT('\n Turno:', OLD.turno, '->', NEW.turno), '')
+        ),
         b'1',
         CURRENT_TIMESTAMP()
     );
@@ -3862,26 +3858,6 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`DiegoOliver`@`%`*/ /*!50003 TRIGGER `tbd_horarios_AFTER_UPDATE` AFTER UPDATE ON `tbd_horarios` FOR EACH ROW BEGIN
-    DECLARE v_turno_old VARCHAR(20) DEFAULT 'Activo';
-    DECLARE v_turno_new VARCHAR(20) DEFAULT 'Activo';
-
-    -- Validamos el turno del registro y le asignamos una etiqueta para la descripción
-    IF NEW.turno = 'Inactivo' THEN
-        SET v_turno_new = 'Inactivo';
-    ELSEIF NEW.turno = 'Bloqueado' THEN
-        SET v_turno_new = 'Bloqueado';
-    ELSEIF NEW.turno = 'Suspendido' THEN
-        SET v_turno_new = 'Suspendido';
-    END IF;
-
-    IF OLD.turno = 'Inactivo' THEN
-        SET v_turno_old = 'Inactivo';
-    ELSEIF OLD.turno = 'Bloqueado' THEN
-        SET v_turno_old = 'Bloqueado';
-    ELSEIF OLD.turno = 'Suspendido' THEN
-        SET v_turno_old = 'Suspendido';
-    END IF;
-
     INSERT INTO tbi_bitacora (
         Usuario,
         Operacion,
@@ -3894,15 +3870,13 @@ DELIMITER ;;
         'Update',
         'tbd_horarios',
         CONCAT_WS(' ', 'Se ha modificado el horario existente con los siguientes datos:',
-            '\n ID Empleado:', OLD.empleado_id, '-', NEW.empleado_id,
-            '\n Nombre:', OLD.nombre, '-', NEW.nombre,
-            '\n Especialidad:', OLD.especialidad, '-', NEW.especialidad,
-            '\n Día de la Semana:', OLD.dia_semana, '-', NEW.dia_semana,
-            '\n Hora de Inicio:', OLD.hora_inicio, '-', NEW.hora_inicio,
-            '\n Hora de Fin:', OLD.hora_fin, '-', NEW.hora_fin,
-            '\n Turno:', v_turno_old, '-', v_turno_new,
-            '\n Departamento:', OLD.nombre_departamento, '-', NEW.nombre_departamento,
-            '\n Sala:', OLD.nombre_sala, '-', NEW.nombre_sala),
+            IF(OLD.nombre != NEW.nombre, CONCAT('\n Nombre:', OLD.nombre, '-', NEW.nombre), ''),
+            IF(OLD.especialidad != NEW.especialidad, CONCAT('\n Especialidad:', OLD.especialidad, '-', NEW.especialidad), ''),
+            IF(OLD.dia_semana != NEW.dia_semana, CONCAT('\n Día de la Semana:', OLD.dia_semana, '-', NEW.dia_semana), ''),
+            IF(OLD.hora_inicio != NEW.hora_inicio, CONCAT('\n Hora de Inicio:', OLD.hora_inicio, '-', NEW.hora_inicio), ''),
+            IF(OLD.hora_fin != NEW.hora_fin, CONCAT('\n Hora de Fin:', OLD.hora_fin, '-', NEW.hora_fin), ''),
+            IF(OLD.turno != NEW.turno, CONCAT('\n Turno:', OLD.turno, '-', NEW.turno), '')
+        ),
         b'1',
         CURRENT_TIMESTAMP()
     );
@@ -3922,8 +3896,6 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`DiegoOliver`@`%`*/ /*!50003 TRIGGER `tbd_horarios_AFTER_DELETE` AFTER DELETE ON `tbd_horarios` FOR EACH ROW BEGIN
-    DECLARE v_turno VARCHAR(20) DEFAULT 'Activo';
-
     INSERT INTO tbi_bitacora (
         Usuario,
         Operacion,
@@ -3936,16 +3908,13 @@ DELIMITER ;;
         'Delete',
         'tbd_horarios',
         CONCAT_WS(' ', 'Se ha eliminado un horario con los siguientes datos:',
-            '\n ID Empleado:', OLD.empleado_id,
             '\n Nombre:', OLD.nombre,
             '\n Especialidad:', OLD.especialidad,
             '\n Día de la Semana:', OLD.dia_semana,
             '\n Hora de Inicio:', OLD.hora_inicio,
             '\n Hora de Fin:', OLD.hora_fin,
-            '\n Turno:', v_turno,
-            '\n Departamento:', OLD.nombre_departamento,
-            '\n Sala:', OLD.nombre_sala),
-        b'1',
+            '\n Turno:', OLD.turno),
+        b'1', -- Este valor indica el estado del registro, asegúrate de que sea coherente con tu diseño
         CURRENT_TIMESTAMP()
     );
 END */;;
@@ -4833,7 +4802,7 @@ CREATE TABLE `tbi_bitacora` (
   `Estatus` bit(1) DEFAULT b'1',
   `Fecha_Registro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4842,7 +4811,7 @@ CREATE TABLE `tbi_bitacora` (
 
 LOCK TABLES `tbi_bitacora` WRITE;
 /*!40000 ALTER TABLE `tbi_bitacora` DISABLE KEYS */;
-INSERT INTO `tbi_bitacora` VALUES (1,'jose.gomez@%','Create','tbb_personas','Se ha agregado una nueva PERSONA con el ID:  1 \n Nombre:  Alejandro Barrera Fernández \n Titulo:  Dr. \n Primer Apellido:  Barrera \n Segundo Apellido:  Fernández \n CURP:  BAFA810525HVZLRR05 \n Genero:  M \n Grupo Sanguineo:  O+ \n Fecha de Nacimiento:  1981-05-25 \n Estatus:  Activo',_binary '','2024-07-18 11:15:05'),(2,'jonathan.ibarra@%','Create','tbb_personal_medico','Se ha creado nuevo personal medico con los siguientes datos: \n Nombre de la Persona:  Alejandro   Barrera   Fernández \n Nombre del Departamento:  División de Pediatría \n Especialidad:  Pediatría \n Tipo:  Médico \n Cedula Profesional:  25515487 \n Estatus:  Activo \n Fecha de Contratación:  2015-09-16 09:10:52 \n Salario:  35000.00 \n Fecha de Actualización:  \n',_binary '','2024-07-18 11:15:05'),(3,'jose.gomez@%','Create','tbb_personas','Se ha agregado una nueva PERSONA con el ID:  2 \n Nombre:  María José Álvarez Fonseca \n Titulo:  Dra. \n Primer Apellido:  Álvarez \n Segundo Apellido:  Fonseca \n CURP:  ALFM900620MPLLNR2A \n Genero:  F \n Grupo Sanguineo:  O- \n Fecha de Nacimiento:  1990-06-20 \n Estatus:  Activo',_binary '','2024-07-18 11:15:05'),(4,'jonathan.ibarra@%','Create','tbb_personal_medico','Se ha creado nuevo personal medico con los siguientes datos: \n Nombre de la Persona:  María José   Álvarez   Fonseca \n Nombre del Departamento:  División de Medicina Interna \n Especialidad:  \n Tipo:  Médico \n Cedula Profesional:  11422587 \n Estatus:  Activo \n Fecha de Contratación:  2018-05-10 09:10:52 \n Salario:  10000.00 \n Fecha de Actualización:  \n',_binary '','2024-07-18 11:15:05'),(5,'jose.gomez@%','Create','tbb_personas','Se ha agregado una nueva PERSONA con el ID:  3 \n Nombre:  Alfredo Carrasco Lechuga \n Titulo:  Dr. \n Primer Apellido:  Carrasco \n Segundo Apellido:  Lechuga \n CURP:  CALA710115HCSRCL25 \n Genero:  M \n Grupo Sanguineo:  AB- \n Fecha de Nacimiento:  1971-01-15 \n Estatus:  Activo',_binary '','2024-07-18 11:15:05'),(6,'jonathan.ibarra@%','Create','tbb_personal_medico','Se ha creado nuevo personal medico con los siguientes datos: \n Nombre de la Persona:  Alfredo   Carrasco   Lechuga \n Nombre del Departamento:  Dirección General \n Especialidad:  \n Tipo:  Administrativo \n Cedula Profesional:  3256884 \n Estatus:  Activo \n Fecha de Contratación:  2000-01-02 09:00:00 \n Salario:  40000.00 \n Fecha de Actualización:  \n',_binary '','2024-07-18 11:15:05'),(7,'jose.gomez@%','Create','tbb_personas','Se ha agregado una nueva PERSONA con el ID:  4 \n Nombre:  Fernanda García Méndez \n Titulo:  Lic. \n Primer Apellido:  García \n Segundo Apellido:  Méndez \n CURP:  ABCD \n Genero:  N/B \n Grupo Sanguineo:  A+ \n Fecha de Nacimiento:  1995-05-10 \n Estatus:  Activo',_binary '','2024-07-18 11:15:05'),(8,'jonathan.ibarra@%','Create','tbb_personal_medico','Se ha creado nuevo personal medico con los siguientes datos: \n Nombre de la Persona:  Fernanda   García   Méndez \n Nombre del Departamento:  Seguridad del Paciente \n Especialidad:  \n Tipo:  Apoyo \n Cedula Profesional:  1458817 \n Estatus:  Activo \n Fecha de Contratación:  2008-01-02 19:00:00 \n Salario:  8000.00 \n Fecha de Actualización:  \n',_binary '','2024-07-18 11:15:05'),(9,'jonathan.ibarra@%','Update','tbb_personal_medico','Se ha modificado el personal médico con los siguientes datos: \n Nombre de la Persona:  Alfredo   Carrasco   Lechuga  ->  Alfredo   Carrasco   Lechuga \n Nombre del Departamento:  Dirección General  ->  Dirección General \n Especialidad:   ->  \n Tipo:  Administrativo  ->  Administrativo \n Cédula Profesional:  3256884  ->  3256884 \n Estatus:  Activo  ->  Activo \n Fecha de Contratación:  2000-01-02 09:00:00  ->  2000-01-02 09:00:00 \n Salario:  40000.00  ->  45000.00 \n',_binary '','2024-07-18 11:15:05'),(10,'jonathan.ibarra@%','Delete','tbb_personal_medico','Se ha eliminado personal médico existente con los siguientes datos: \nNombre de la Persona:  Fernanda   García   Méndez \nNombre del Departamento:  Seguridad del Paciente \nEspecialidad:  \nTipo:  Apoyo Cédula Profesional:  1458817 \nEstatus:  Activo \nFecha de Contratación:  2008-01-02 19:00:00 \nSalario:  8000.00',_binary '','2024-07-18 11:15:05'),(11,'jose.gomez@%','Create','tbb_personas','Se ha agregado una nueva PERSONA con el ID:  5 \n Nombre:  María López Martínez \n Titulo:  Sra. \n Primer Apellido:  López \n Segundo Apellido:  Martínez \n CURP:  LOMJ850202MDFRPL01 \n Genero:  F \n Grupo Sanguineo:  A+ \n Fecha de Nacimiento:  1985-02-02 \n Estatus:  Activo',_binary '','2024-07-18 11:15:06'),(12,'justin.muñoz@%','Create','tbb_pacientes','Se ha creado un nuevo paciente con los siguientes datos: \n NSS:  \n TIPO SEGURO:  Sin Seguro \n ESTATUS MEDICO:  Normal \n ESTATUS VIDA:  Vivo \n ESTATUS:  Activo \n',_binary '','2024-07-18 11:15:06'),(13,'jose.gomez@%','Create','tbb_personas','Se ha agregado una nueva PERSONA con el ID:  6 \n Nombre:  Ana Hernández Ruiz \n Titulo:  \n Primer Apellido:  Hernández \n Segundo Apellido:  Ruiz \n CURP:  HERA900303HDFRRL01 \n Genero:  F \n Grupo Sanguineo:  B+ \n Fecha de Nacimiento:  1990-03-03 \n Estatus:  Activo',_binary '','2024-07-18 11:15:06'),(14,'justin.muñoz@%','Create','tbb_pacientes','Se ha creado un nuevo paciente con los siguientes datos: \n NSS:  \n TIPO SEGURO:  Sin Seguro \n ESTATUS MEDICO:  Normal \n ESTATUS VIDA:  Vivo \n ESTATUS:  Activo \n',_binary '','2024-07-18 11:15:06'),(15,'jose.gomez@%','Create','tbb_personas','Se ha agregado una nueva PERSONA con el ID:  7 \n Nombre:  Carlos García Rodríguez \n Titulo:  Dr. \n Primer Apellido:  García \n Segundo Apellido:  Rodríguez \n CURP:  GARC950404HDFRRL06 \n Genero:  M \n Grupo Sanguineo:  AB+ \n Fecha de Nacimiento:  1995-04-04 \n Estatus:  Activo',_binary '','2024-07-18 11:15:06'),(16,'justin.muñoz@%','Create','tbb_pacientes','Se ha creado un nuevo paciente con los siguientes datos: \n NSS:  G9OA6QW29V8DVXS \n TIPO SEGURO:  Seguro Popular \n ESTATUS MEDICO:  Normal \n ESTATUS VIDA:  Vivo \n ESTATUS:  Activo \n',_binary '','2024-07-18 11:15:06'),(17,'jose.gomez@%','Create','tbb_personas','Se ha agregado una nueva PERSONA con el ID:  8 \n Nombre:  Laura Martínez Gómez \n Titulo:  Lic. \n Primer Apellido:  Martínez \n Segundo Apellido:  Gómez \n CURP:  MALG000505MDFRRL07 \n Genero:  F \n Grupo Sanguineo:  O- \n Fecha de Nacimiento:  2000-05-05 \n Estatus:  Activo',_binary '','2024-07-18 11:15:06'),(18,'justin.muñoz@%','Create','tbb_pacientes','Se ha creado un nuevo paciente con los siguientes datos: \n NSS:  12254185844-3 \n TIPO SEGURO:  Particular \n ESTATUS MEDICO:  Normal \n ESTATUS VIDA:  Vivo \n ESTATUS:  Activo \n',_binary '','2024-07-18 11:15:06'),(19,'justin.muñoz@%','Update','tbb_pacientes','Se ha creado un modificado al paciente con NSS:  G9OA6QW29V8DVXS con los siguientes datos: \n NSS:  G9OA6QW29V8DVXS  ->  JL4HVKXPI3PX999 \n TIPO SEGURO:  Seguro Popular  ->  Seguro Popular \n ESTATUS MEDICO:  Normal  ->  Normal \n ESTATUS VIDA:  Vivo  ->  Vivo \n ESTATUS:  Activo -> Activo \n',_binary '','2024-07-18 11:15:06'),(20,'justin.muñoz@%','Delete','tbb_pacientes','Se ha eliminado un paciente existente con NSS:  JL4HVKXPI3PX999 y con los siguientes datos: \n TIPO SEGURO:  Seguro Popular \n ESTATUS MEDICO:  Normal \n ESTATUS VIDA:  Vivo \nESTATUS:  Activo \n',_binary '','2024-07-18 11:15:06'),(21,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Consulta Médica General \n DESCRIPCION: Revisión general del paciente por parte de un médico autorizado \n OBSERVACIONES: Horario de Atención de 08:00 a 20:00 \n FECHA REGISTRO: 2024-07-18 11:15:07 \n FECHA ACTUALIZACION: \n',_binary '','2024-07-18 11:15:07'),(22,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Servicio de Urgencias Adultos \n Servicio Médico: Consulta Médica General \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(23,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Consulta Externa \n Servicio Médico: Consulta Médica General \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(24,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Consulta Médica Especializada \n DESCRIPCION: Revisión médica de especialidad \n OBSERVACIONES: Previa cita, asignada despúes de una revisión general \n FECHA REGISTRO: 2024-07-18 11:15:07 \n FECHA ACTUALIZACION: \n',_binary '','2024-07-18 11:15:07'),(25,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Programación Quirúrgica \n Servicio Médico: Consulta Médica Especializada \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(26,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: División de Medicina Interna \n Servicio Médico: Consulta Médica Especializada \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(27,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Terapia Intermedia \n Servicio Médico: Consulta Médica Especializada \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(28,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: División de Pediatría \n Servicio Médico: Consulta Médica Especializada \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(29,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Servicio de Urgencias Pediátricas \n Servicio Médico: Consulta Médica Especializada \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(30,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Servicio de Traumatología \n Servicio Médico: Consulta Médica Especializada \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(31,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Consulta Médica a Domicilio \n DESCRIPCION: Revision médica en el domicilio del paciente \n OBSERVACIONES: Solo para casos de extrema urgencia \n FECHA REGISTRO: 2024-07-18 11:15:07 \n FECHA ACTUALIZACION: \n',_binary '','2024-07-18 11:15:07'),(32,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Examen Físico Completo \n DESCRIPCION: Examen detallado de salud física del paciente \n OBSERVACIONES: Asistir con ropa lijera y 6 a 8 de horas\n        de ayuno previo \n FECHA REGISTRO: 2024-07-18 11:15:07 \n FECHA ACTUALIZACION: \n',_binary '','2024-07-18 11:15:07'),(33,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Extracción de Sangre \n DESCRIPCION: Toma de muestra para análisis de sangre \n OBSERVACIONES: Ayuno previo, muestras antes de las 10:00 a.m. \n FECHA REGISTRO: 2024-07-18 11:15:07 \n FECHA ACTUALIZACION: \n',_binary '','2024-07-18 11:15:07'),(34,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Parto Natural \n DESCRIPCION: Asistencia en el proceso de alumbramiento de un bebé \n OBSERVACIONES: Sin observaciones \n FECHA REGISTRO: 2024-07-18 11:15:07 \n FECHA ACTUALIZACION: \n',_binary '','2024-07-18 11:15:07'),(35,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: División de Pediatría \n Servicio Médico: Parto Natural \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(36,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Servicio de Urgencias Pediátricas \n Servicio Médico: Parto Natural \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(37,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Estudio de Desarrollo Infantil \n DESCRIPCION: Valoración de Crecimiento del Infante \n OBSERVACIONES: Mediciones de Talla, Peso y Nutrición \n FECHA REGISTRO: 2024-07-18 11:15:07 \n FECHA ACTUALIZACION: \n',_binary '','2024-07-18 11:15:07'),(38,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: División de Pediatría \n Servicio Médico: Estudio de Desarrollo Infantil \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(39,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Toma de Signos Vitales \n DESCRIPCION: Registro de Talla, Peso, Temperatura, Oxigenación en la Sangre , Frecuencia Cardiaca \n        (Sistólica y  Diastólica, Frecuencia Respiratoria \n OBSERVACIONES: Necesarias para cualquier servicio médico. \n FECHA REGISTRO: 2024-07-18 11:15:07 \n FECHA ACTUALIZACION: \n',_binary '','2024-07-18 11:15:07'),(40,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: División de Pediatría \n Servicio Médico: Toma de Signos Vitales \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(41,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Servicio de Urgencias Pediátricas \n Servicio Médico: Toma de Signos Vitales \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(42,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Terapia Intermedia \n Servicio Médico: Toma de Signos Vitales \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(43,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Hemodialisis \n Servicio Médico: Toma de Signos Vitales \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(44,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Laboratorio de Análisis Clínicos \n Servicio Médico: Toma de Signos Vitales \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(45,'alexis.gomez@%','Delete','tbd_departamentos_servicios','Se ha eliminado un departamento-servicio con los siguientes datos: \n Departamento: Hemodialisis \n Servicio Médico: Toma de Signos Vitales \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Inactivo \n Fecha_Registro: 2024-07-18 11:15:07 \n Fecha_Actualizacion: \n',_binary '','2024-07-18 11:15:07'),(46,'alexis.gomez@%','Update','tbd_departamentos_servicios','Se ha modificado un departamento-servicio con los siguientes datos: \n Departamento (antes): Laboratorio de Análisis Clínicos  ->  Laboratorio de Análisis Clínicos \n Servicio Médico (antes): Toma de Signos Vitales  ->  Toma de Signos Vitales \n Requisitos (antes): Ayuno previo de 1 hr.  ->  Ayuno previo de 1 hr. \n Restricciones (antes): Sin restricciones  ->  Sin restricciones \n Estatus (antes): activo  ->  activo \n Fecha_Registro (antes): 2024-07-18 11:15:07  ->  2024-07-18 11:15:07 \n Fecha_Actualizacion:  ->  2024-07-18 11:15:07 \n',_binary '','2024-07-18 11:15:07'),(47,'alexis.gomez@%','Update','tbc_servicios_medicos','Se ha modificado un servicio médico con los siguientes datos: \n NOMBRE: Extracción de Sangre - Estudio de Química Sanguínea \n DESCRIPCION: Toma de muestra para análisis de sangre - Toma de muestra para análisis de sangre \n OBSERVACIONES: Ayuno previo, muestras antes de las 10:00 a.m. - Ayuno previo, muestras antes de las 10:00 a.m. \n FECHA REGISTRO: 2024-07-18 11:15:07 - 2024-07-18 11:15:07 \n FECHA ACTUALIZACION: - 2024-07-18 11:15:07 \n',_binary '','2024-07-18 11:15:07'),(48,'alexis.gomez@%','Delete','tbc_servicios_medicos','Se ha eliminado un servicio médico con los siguientes datos: \n NOMBRE: Consulta Médica a Domicilio \n DESCRIPCION: Revision médica en el domicilio del paciente \n OBSERVACIONES: Solo para casos de extrema urgencia \n FECHA REGISTRO: 2024-07-18 11:15:07 \n FECHA ACTUALIZACION: \n',_binary '','2024-07-18 11:15:07'),(49,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: Medicina General\nTipo: Edificio\nDepartamento: Dirección General\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Ninguno',_binary '','2024-07-18 11:15:08'),(50,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: Planta Baja\nTipo: Piso\nDepartamento: Recursos Materiales\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Medicina General',_binary '','2024-07-18 11:15:08'),(51,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-101\nTipo: Consultorio\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-07-18 11:15:08'),(52,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-102\nTipo: Consultorio\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-07-18 11:15:08'),(53,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-103\nTipo: Consultorio\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-07-18 11:15:08'),(54,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-104\nTipo: Consultorio\nDepartamento: Servicio de Urgencias Adultos\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-07-18 11:15:08'),(55,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-105\nTipo: Consultorio\nDepartamento: Servicio de Urgencias Adultos\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-07-18 11:15:08'),(56,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-106\nTipo: Quirófano\nDepartamento: División de Cirugía\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-07-18 11:15:08'),(57,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-107\nTipo: Quirófano\nDepartamento: División de Cirugía\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-07-18 11:15:08'),(58,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-108\nTipo: Sala de Espera\nDepartamento: División de Cirugía\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-07-18 11:15:08'),(59,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-109\nTipo: Sala de Espera\nDepartamento: División de Cirugía\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-07-18 11:15:08'),(60,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: Planta Alta\nTipo: Piso\nDepartamento: Recursos Materiales\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Medicina General',_binary '','2024-07-18 11:15:08'),(61,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-201\nTipo: Habitación\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-07-18 11:15:08'),(62,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-202\nTipo: Habitación\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-07-18 11:15:08'),(63,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-203\nTipo: Habitación\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-07-18 11:15:08'),(64,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-204\nTipo: Habitación\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-07-18 11:15:08'),(65,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-205\nTipo: Habitación\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-07-18 11:15:08'),(66,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A206\nTipo: Laboratorio\nDepartamento: Laboratorio de Análisis Clínicos\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-07-18 11:15:08'),(67,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-207\nTipo: Capilla\nDepartamento: Recursos Materiales\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-07-18 11:15:08'),(68,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-208\nTipo: Recepción\nDepartamento: Dirección General\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-07-18 11:15:08'),(69,'bruno.lemus@%','Update','tbc_espacios','Se ha actualizado un ESPACIO con el Nombre: A-105\nTipo: Consultorio\nDepartamento: Servicio de Urgencias Adultos\nEstatus: En remodelación\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: 2024-07-18 11:15:08\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-07-18 11:15:08'),(70,'bruno.lemus@%','Update','tbc_espacios','Se ha actualizado un ESPACIO con el Nombre: A-109\nTipo: Sala de Espera\nDepartamento: División de Cirugía\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: 2024-07-18 11:15:08\nCapacidad: 80\nEspacio Superior: Planta Baja',_binary '','2024-07-18 11:15:08'),(71,'bruno.lemus@%','Delete','tbc_espacios','Se ha eliminado un ESPACIO con el Nombre: A-207\nTipo: Capilla\nDepartamento: Recursos Materiales\nEstatus: Activo\nFecha de Registro: 2024-07-18 11:15:08\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-07-18 11:15:08');
+INSERT INTO `tbi_bitacora` VALUES (1,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: Medicina General\nTipo: Edificio\nDepartamento: Dirección General\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Ninguno',_binary '','2024-08-22 19:14:47'),(2,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: Planta Baja\nTipo: Piso\nDepartamento: Recursos Materiales\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Medicina General',_binary '','2024-08-22 19:14:47'),(3,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-101\nTipo: Consultorio\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-08-22 19:14:47'),(4,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-102\nTipo: Consultorio\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-08-22 19:14:47'),(5,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-103\nTipo: Consultorio\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-08-22 19:14:47'),(6,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-104\nTipo: Consultorio\nDepartamento: Servicio de Urgencias Adultos\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-08-22 19:14:47'),(7,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-105\nTipo: Consultorio\nDepartamento: Servicio de Urgencias Adultos\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-08-22 19:14:47'),(8,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-106\nTipo: Quirófano\nDepartamento: División de Cirugía\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-08-22 19:14:47'),(9,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-107\nTipo: Quirófano\nDepartamento: División de Cirugía\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-08-22 19:14:47'),(10,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-108\nTipo: Sala de Espera\nDepartamento: División de Cirugía\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-08-22 19:14:47'),(11,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-109\nTipo: Sala de Espera\nDepartamento: División de Cirugía\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-08-22 19:14:47'),(12,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: Planta Alta\nTipo: Piso\nDepartamento: Recursos Materiales\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Medicina General',_binary '','2024-08-22 19:14:47'),(13,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-201\nTipo: Habitación\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-08-22 19:14:47'),(14,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-202\nTipo: Habitación\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-08-22 19:14:47'),(15,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-203\nTipo: Habitación\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-08-22 19:14:47'),(16,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-204\nTipo: Habitación\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-08-22 19:14:47'),(17,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-205\nTipo: Habitación\nDepartamento: División de Medicina Interna\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-08-22 19:14:47'),(18,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A206\nTipo: Laboratorio\nDepartamento: Laboratorio de Análisis Clínicos\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-08-22 19:14:47'),(19,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-207\nTipo: Capilla\nDepartamento: Recursos Materiales\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-08-22 19:14:47'),(20,'bruno.lemus@%','Create','tbc_espacios','Se ha agregado un nuevo ESPACIO con el Nombre: A-208\nTipo: Recepción\nDepartamento: Dirección General\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-08-22 19:14:47'),(21,'bruno.lemus@%','Update','tbc_espacios','Se ha actualizado un ESPACIO con el Nombre: A-105\nTipo: Consultorio\nDepartamento: Servicio de Urgencias Adultos\nEstatus: En remodelación\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: 2024-08-22 19:14:47\nCapacidad: 0\nEspacio Superior: Planta Baja',_binary '','2024-08-22 19:14:47'),(22,'bruno.lemus@%','Update','tbc_espacios','Se ha actualizado un ESPACIO con el Nombre: A-109\nTipo: Sala de Espera\nDepartamento: División de Cirugía\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: 2024-08-22 19:14:47\nCapacidad: 80\nEspacio Superior: Planta Baja',_binary '','2024-08-22 19:14:47'),(23,'bruno.lemus@%','Delete','tbc_espacios','Se ha eliminado un ESPACIO con el Nombre: A-207\nTipo: Capilla\nDepartamento: Recursos Materiales\nEstatus: Activo\nFecha de Registro: 2024-08-22 19:14:47\nFecha de Actualización: NULL\nCapacidad: 0\nEspacio Superior: Planta Alta',_binary '','2024-08-22 19:14:47'),(24,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Consulta Médica General \n DESCRIPCION: Revisión general del paciente por parte de un médico autorizado \n OBSERVACIONES: Horario de Atención de 08:00 a 20:00 \n FECHA REGISTRO: 2024-08-22 19:14:48 \n FECHA ACTUALIZACION: \n',_binary '','2024-08-22 19:14:48'),(25,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Servicio de Urgencias Adultos \n Servicio Médico: Consulta Médica General \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(26,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Consulta Externa \n Servicio Médico: Consulta Médica General \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(27,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Consulta Médica Especializada \n DESCRIPCION: Revisión médica de especialidad \n OBSERVACIONES: Previa cita, asignada despúes de una revisión general \n FECHA REGISTRO: 2024-08-22 19:14:48 \n FECHA ACTUALIZACION: \n',_binary '','2024-08-22 19:14:48'),(28,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Programación Quirúrgica \n Servicio Médico: Consulta Médica Especializada \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(29,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: División de Medicina Interna \n Servicio Médico: Consulta Médica Especializada \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(30,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Terapia Intermedia \n Servicio Médico: Consulta Médica Especializada \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(31,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: División de Pediatría \n Servicio Médico: Consulta Médica Especializada \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(32,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Servicio de Urgencias Pediátricas \n Servicio Médico: Consulta Médica Especializada \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(33,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Servicio de Traumatología \n Servicio Médico: Consulta Médica Especializada \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(34,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Consulta Médica a Domicilio \n DESCRIPCION: Revision médica en el domicilio del paciente \n OBSERVACIONES: Solo para casos de extrema urgencia \n FECHA REGISTRO: 2024-08-22 19:14:48 \n FECHA ACTUALIZACION: \n',_binary '','2024-08-22 19:14:48'),(35,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Examen Físico Completo \n DESCRIPCION: Examen detallado de salud física del paciente \n OBSERVACIONES: Asistir con ropa lijera y 6 a 8 de horas\n        de ayuno previo \n FECHA REGISTRO: 2024-08-22 19:14:48 \n FECHA ACTUALIZACION: \n',_binary '','2024-08-22 19:14:48'),(36,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Extracción de Sangre \n DESCRIPCION: Toma de muestra para análisis de sangre \n OBSERVACIONES: Ayuno previo, muestras antes de las 10:00 a.m. \n FECHA REGISTRO: 2024-08-22 19:14:48 \n FECHA ACTUALIZACION: \n',_binary '','2024-08-22 19:14:48'),(37,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Parto Natural \n DESCRIPCION: Asistencia en el proceso de alumbramiento de un bebé \n OBSERVACIONES: Sin observaciones \n FECHA REGISTRO: 2024-08-22 19:14:48 \n FECHA ACTUALIZACION: \n',_binary '','2024-08-22 19:14:48'),(38,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: División de Pediatría \n Servicio Médico: Parto Natural \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(39,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Servicio de Urgencias Pediátricas \n Servicio Médico: Parto Natural \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(40,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Estudio de Desarrollo Infantil \n DESCRIPCION: Valoración de Crecimiento del Infante \n OBSERVACIONES: Mediciones de Talla, Peso y Nutrición \n FECHA REGISTRO: 2024-08-22 19:14:48 \n FECHA ACTUALIZACION: \n',_binary '','2024-08-22 19:14:48'),(41,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: División de Pediatría \n Servicio Médico: Estudio de Desarrollo Infantil \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(42,'alexis.gomez@%','Create','tbc_servicios_medicos','Se ha registrado un nuevo servicio médico con los siguientes datos: \n NOMBRE: Toma de Signos Vitales \n DESCRIPCION: Registro de Talla, Peso, Temperatura, Oxigenación en la Sangre , Frecuencia Cardiaca \n        (Sistólica y  Diastólica, Frecuencia Respiratoria \n OBSERVACIONES: Necesarias para cualquier servicio médico. \n FECHA REGISTRO: 2024-08-22 19:14:48 \n FECHA ACTUALIZACION: \n',_binary '','2024-08-22 19:14:48'),(43,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: División de Pediatría \n Servicio Médico: Toma de Signos Vitales \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(44,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Servicio de Urgencias Pediátricas \n Servicio Médico: Toma de Signos Vitales \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(45,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Terapia Intermedia \n Servicio Médico: Toma de Signos Vitales \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(46,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Hemodialisis \n Servicio Médico: Toma de Signos Vitales \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(47,'alexis.gomez@%','Create','tbd_departamentos_servicios','Se ha registrado un nuevo departamento-servicio con los siguientes datos: \n Departamento: Laboratorio de Análisis Clínicos \n Servicio Médico: Toma de Signos Vitales \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Activo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(48,'alexis.gomez@%','Delete','tbd_departamentos_servicios','Se ha eliminado un departamento-servicio con los siguientes datos: \n Departamento: Hemodialisis \n Servicio Médico: Toma de Signos Vitales \n Requisitos: Ayuno previo de 1 hr. \n Restricciones: Sin restricciones \n Estatus: Inactivo \n Fecha_Registro: 2024-08-22 19:14:48 \n Fecha_Actualizacion: \n',_binary '','2024-08-22 19:14:48'),(49,'alexis.gomez@%','Update','tbd_departamentos_servicios','Se ha modificado un departamento-servicio con los siguientes datos: \n Departamento (antes): Laboratorio de Análisis Clínicos  ->  Laboratorio de Análisis Clínicos \n Servicio Médico (antes): Toma de Signos Vitales  ->  Toma de Signos Vitales \n Requisitos (antes): Ayuno previo de 1 hr.  ->  Ayuno previo de 1 hr. \n Restricciones (antes): Sin restricciones  ->  Sin restricciones \n Estatus (antes): activo  ->  activo \n Fecha_Registro (antes): 2024-08-22 19:14:48  ->  2024-08-22 19:14:48 \n Fecha_Actualizacion:  ->  2024-08-22 19:14:48 \n',_binary '','2024-08-22 19:14:48'),(50,'alexis.gomez@%','Update','tbc_servicios_medicos','Se ha modificado un servicio médico con los siguientes datos: \n NOMBRE: Extracción de Sangre - Estudio de Química Sanguínea \n DESCRIPCION: Toma de muestra para análisis de sangre - Toma de muestra para análisis de sangre \n OBSERVACIONES: Ayuno previo, muestras antes de las 10:00 a.m. - Ayuno previo, muestras antes de las 10:00 a.m. \n FECHA REGISTRO: 2024-08-22 19:14:48 - 2024-08-22 19:14:48 \n FECHA ACTUALIZACION: - 2024-08-22 19:14:48 \n',_binary '','2024-08-22 19:14:48'),(51,'alexis.gomez@%','Delete','tbc_servicios_medicos','Se ha eliminado un servicio médico con los siguientes datos: \n NOMBRE: Consulta Médica a Domicilio \n DESCRIPCION: Revision médica en el domicilio del paciente \n OBSERVACIONES: Solo para casos de extrema urgencia \n FECHA REGISTRO: 2024-08-22 19:14:48 \n FECHA ACTUALIZACION: \n',_binary '','2024-08-22 19:14:48'),(52,'DiegoOliver@%','Create','tbd_horarios','Se ha agregado un nuevo horario con los siguientes datos: \n Nombre: Justin Martin \n Especialidad: Cardiología \n Día de la Semana: Martes \n Hora de Inicio: 09:00:00 \n Hora de Fin: 17:00:00 \n Turno: Matutino',_binary '','2024-08-22 19:14:52'),(53,'DiegoOliver@%','Create','tbd_horarios','Se ha agregado un nuevo horario con los siguientes datos: \n Nombre: Arturo Aguilar \n Especialidad: Neurología \n Día de la Semana: Miércoles \n Hora de Inicio: 10:00:00 \n Hora de Fin: 18:00:00 \n Turno: Vespertino',_binary '','2024-08-22 19:14:52'),(54,'DiegoOliver@%','Create','tbd_horarios','Se ha agregado un nuevo horario con los siguientes datos: \n Nombre: Marvin Yair \n Especialidad: Pediatría \n Día de la Semana: Jueves \n Hora de Inicio: 11:00:00 \n Hora de Fin: 19:00:00 \n Turno: Nocturno',_binary '','2024-08-22 19:14:52'),(55,'DiegoOliver@%','Create','tbd_horarios','Se ha agregado un nuevo horario con los siguientes datos: \n Nombre: Miriam Cortez \n Especialidad: Oncología \n Día de la Semana: Viernes \n Hora de Inicio: 08:00:00 \n Hora de Fin: 16:00:00 \n Turno: Matutino',_binary '','2024-08-22 19:14:52'),(56,'DiegoOliver@%','Create','tbd_horarios','Se ha agregado un nuevo horario con los siguientes datos: \n Nombre: Diego Oliver \n Especialidad: Ortopedia \n Día de la Semana: Martes \n Hora de Inicio: 09:40:39 \n Hora de Fin: 16:11:54 \n Turno: Nocturno',_binary '','2024-08-22 19:15:07'),(57,'DiegoOliver@%','Create','tbd_horarios','Se ha agregado un nuevo horario con los siguientes datos: \n Nombre: María Lopez \n Especialidad: Ortopedia \n Día de la Semana: Domingo \n Hora de Inicio: 08:34:26 \n Hora de Fin: 15:41:24 \n Turno: Nocturno',_binary '','2024-08-22 19:15:07'),(58,'DiegoOliver@%','Create','tbd_horarios','Se ha agregado un nuevo horario con los siguientes datos: \n Nombre: Carlos Hernandez \n Especialidad: Dermatología \n Día de la Semana: Miércoles \n Hora de Inicio: 10:47:14 \n Hora de Fin: 15:50:16 \n Turno: Matutino',_binary '','2024-08-22 19:15:07');
 /*!40000 ALTER TABLE `tbi_bitacora` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4892,6 +4861,192 @@ BEGIN
     SET numeroAleatorio = FLOOR(RAND() * maximo) + 1;
 
     RETURN numeroAleatorio;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `generar_dia_semana_horarios` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `generar_dia_semana_horarios`() RETURNS varchar(20) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+    DECLARE dia_semana VARCHAR(20);
+    SET dia_semana = CASE FLOOR(1 + (RAND() * 7))
+        WHEN 1 THEN 'Lunes'
+        WHEN 2 THEN 'Martes'
+        WHEN 3 THEN 'Miércoles'
+        WHEN 4 THEN 'Jueves'
+        WHEN 5 THEN 'Viernes'
+        WHEN 6 THEN 'Sábado'
+        ELSE 'Domingo'
+    END;
+    RETURN dia_semana;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `generar_especialidad_horarios` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `generar_especialidad_horarios`() RETURNS varchar(100) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+    DECLARE especialidad VARCHAR(100);
+    SET especialidad = CASE FLOOR(1 + (RAND() * 5))
+        WHEN 1 THEN 'Cardiología'
+        WHEN 2 THEN 'Dermatología'
+        WHEN 3 THEN 'Neurología'
+        WHEN 4 THEN 'Pediatría'
+        ELSE 'Ortopedia'
+    END;
+    RETURN especialidad;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `generar_hora_fin_horarios` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `generar_hora_fin_horarios`() RETURNS time
+    DETERMINISTIC
+BEGIN
+    RETURN SEC_TO_TIME(FLOOR(RAND() * 28800 + 54000));  -- Genera una hora entre las 15:00:00 y las 23:00:00
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `generar_hora_inicio_horarios` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `generar_hora_inicio_horarios`() RETURNS time
+    DETERMINISTIC
+BEGIN
+    RETURN SEC_TO_TIME(FLOOR(RAND() * 28800 + 25200));  -- Genera una hora entre las 07:00:00 y las 15:00:00
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `generar_nombre_horarios` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `generar_nombre_horarios`() RETURNS varchar(100) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+    DECLARE nombre VARCHAR(50);
+    
+    SET nombre = CASE FLOOR(1 + (RAND() * 10))
+        WHEN 1 THEN 'Juan Perez'
+        WHEN 2 THEN 'María Lopez'
+        WHEN 3 THEN 'Carlos Hernandez'
+        WHEN 4 THEN 'Nely Marquez'
+        WHEN 5 THEN 'David Benavidez'
+        WHEN 6 THEN 'Marco Sosa'
+        WHEN 7 THEN 'Diego Oliver'
+        WHEN 8 THEN 'Jose Gomex'
+        WHEN 9 THEN 'Marta Alvarez'
+        ELSE 'Sofía Vergara'
+    END;
+    
+    RETURN nombre;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `generar_tipo_horarios` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `generar_tipo_horarios`() RETURNS varchar(20) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+    DECLARE tipo_horario VARCHAR(20);
+    SET tipo_horario = CASE FLOOR(1 + (RAND() * 4))
+        WHEN 1 THEN 'Diario'
+        WHEN 2 THEN 'Semanal'
+        WHEN 3 THEN 'Quincenal'
+        ELSE 'Mensual'
+    END;
+    RETURN tipo_horario;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `generar_turno_horarios` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `generar_turno_horarios`() RETURNS varchar(20) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+    DECLARE turno VARCHAR(20);
+    SET turno = CASE FLOOR(1 + (RAND() * 3))
+        WHEN 1 THEN 'Matutino'
+        WHEN 2 THEN 'Vespertino'
+        ELSE 'Nocturno'
+    END;
+    RETURN turno;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -5327,7 +5482,8 @@ BEGIN
     UPDATE tbc_espacios SET espacio_superior_id = NULL;
 	DELETE FROM tbc_espacios;
     ALTER TABLE tbc_espacios AUTO_INCREMENT=1;
-    
+    DELETE FROM tbd_horarios;
+    ALTER TABLE tbd_horarios auto_increment = 1;
     
     DELETE FROM tbd_departamentos_servicios;
     
@@ -6020,23 +6176,121 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`DiegoOliver`@`%` PROCEDURE `sp_poblar_horarios`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_poblar_horarios`()
 BEGIN
-    DECLARE contador INT DEFAULT 1;
+    -- Registro 1
+    INSERT INTO `tbd_horarios` 
+    (espacio_id, servicio_medico_id, departamento_id, nombre, especialidad, dia_semana, hora_inicio, hora_fin, turno, tipo_horario, fecha_creacion, fecha_actualizacion)
+    VALUES 
+        (1, 1, 1, 'Justin Martin', 'Cardiología', 'Martes', '09:00:00', '17:00:00', 'Matutino', 'Diario', NOW(), NOW()),
+        -- Registro 2
+        (2, 2, 2, 'Arturo Aguilar', 'Neurología', 'Miércoles', '10:00:00', '18:00:00', 'Vespertino', 'Semanal', NOW(), NOW()),
+        -- Registro 3
+        (1, 1, 1, 'Marvin Yair', 'Pediatría', 'Jueves', '11:00:00', '19:00:00', 'Nocturno', 'Quincenal', NOW(), NOW()),
+        -- Registro 4
+        (4, 4, 4, 'Miriam Cortez', 'Oncología', 'Viernes', '08:00:00', '16:00:00', 'Matutino', 'Mensual', NOW(), NOW());
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_poblar_horarios_dinamicamente` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_poblar_horarios_dinamicamente`()
+BEGIN
+    DECLARE i INT DEFAULT 1;
+    DECLARE j INT DEFAULT 1;
+    DECLARE k INT DEFAULT 1;
+    DECLARE espacios INT DEFAULT 4;
+    DECLARE servicios INT DEFAULT 4;
+    DECLARE departamentos INT DEFAULT 4;
+
+    WHILE i <= espacios DO
+        WHILE j <= servicios DO
+            WHILE k <= departamentos DO
+                INSERT INTO tbd_horarios 
+                (espacio_id, servicio_medico_id, departamento_id, nombre, especialidad, dia_semana, hora_inicio, hora_fin, turno, tipo_horario, fecha_creacion, fecha_actualizacion)
+                VALUES 
+                    (i, j, k, 
+                     CONCAT('Doctor ', i), 
+                     CONCAT('Especialidad ', j), 
+                     DAYNAME(CURDATE()), 
+                     '09:00:00', '17:00:00', 
+                     'Matutino', 
+                     'Diario', 
+                     NOW(), NOW());
+
+                SET k = k + 1;
+            END WHILE;
+            
+            SET k = 1;  -- Reiniciar k para el siguiente loop de j
+            SET j = j + 1;
+        END WHILE;
+
+        SET j = 1;  -- Reiniciar j para el siguiente loop de i
+        SET i = i + 1;
+    END WHILE;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_poblar_horarios_dinamicos` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_poblar_horarios_dinamicos`(
+    IN Cantidad INT
+)
+BEGIN
+    DECLARE i INT DEFAULT 0;
     
-    WHILE contador <= 5 DO
-        INSERT INTO tbd_horarios (empleado_id, nombre, especialidad, dia_semana, hora_inicio, hora_fin, turno, nombre_departamento, nombre_sala) 
-        VALUES (contador, 
-                CONCAT('Doctor ', contador), 
-                CONCAT('Especialidad ', contador), 
-                'Lunes', 
-                '08:00:00', 
-                '16:00:00', 
-                'Matutino', 
-                CONCAT('Departamento ', contador % 3 + 1), 
-                CONCAT('Sala ', contador % 2 + 1));
-                
-        SET contador = contador + 1;
+    WHILE i < Cantidad DO
+        INSERT INTO tbd_horarios (
+            espacio_id, 
+            servicio_medico_id, 
+            departamento_id, 
+            nombre, 
+            especialidad, 
+            dia_semana, 
+            hora_inicio, 
+            hora_fin, 
+            turno, 
+            tipo_horario, 
+            fecha_creacion, 
+            fecha_actualizacion
+        )
+        VALUES (
+            1,                            -- Valor fijo para espacio_id
+            2,                            -- Valor fijo para servicio_medico_id
+            4,                            -- Valor fijo para departamento_id
+            generar_nombre_horarios(),    -- Nombre dinámico
+            generar_especialidad_horarios(), -- Especialidad dinámica
+            generar_dia_semana_horarios(),   -- Día de la semana dinámico
+            generar_hora_inicio_horarios(),  -- Hora de inicio dinámica
+            generar_hora_fin_horarios(),     -- Hora de fin dinámica
+            generar_turno_horarios(),        -- Turno dinámico
+            generar_tipo_horarios(),         -- Tipo de horario dinámico
+            CURRENT_TIMESTAMP,               -- Fecha de creación
+            CURRENT_TIMESTAMP                -- Fecha de actualización
+        );
+        SET i = i + 1;
     END WHILE;
 END ;;
 DELIMITER ;
@@ -6841,40 +7095,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `sp_poblar_tbd_horarios` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`DiegoOliver`@`%` PROCEDURE `sp_poblar_tbd_horarios`()
-BEGIN
-    DECLARE contador INT DEFAULT 1;
-    
-    WHILE contador <= 5 DO
-        INSERT INTO tbd_horarios (empleado_id, nombre, especialidad, dia_semana, hora_inicio, hora_fin, turno, nombre_departamento, nombre_sala) 
-        VALUES (contador, 
-                CONCAT('Doctor ', contador), 
-                CONCAT('Especialidad ', contador), 
-                'Lunes', 
-                '08:00:00', 
-                '16:00:00', 
-                'Matutino', 
-                CONCAT('Departamento ', contador % 3 + 1), 
-                CONCAT('Sala ', contador % 2 + 1));
-                
-        SET contador = contador + 1;
-    END WHILE;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_poblar_usuarios` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -7029,4 +7249,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-18 12:11:22
+-- Dump completed on 2024-08-22 19:17:02
